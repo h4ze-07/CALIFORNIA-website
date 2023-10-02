@@ -1,0 +1,32 @@
+
+*{
+  padding: 0;
+  margin: 0;
+
+}
+
+.container{
+  max-width: 1294px;
+  margin: auto;
+  @include max-screen(1315px){
+    margin: 0 15px;
+  }
+
+}
+
+.d-flex{
+  display: flex;
+}
+
+.text_centre{
+  text-align: center;
+}
+
+.between{
+  justify-content: space-between;
+}
+
+.aline_centre{
+  align-items: center;
+}
+
