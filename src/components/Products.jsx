@@ -34,11 +34,43 @@ const productsItem = [
   }
 ]
 
+const formattedProductsItem = productsItem.map((product) => {
+  const formattedPrice = product.price.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  return {
+    ...product,
+    formattedPrice,
+  };
+});
 
 const Products = () => {
   return (
-    <div>Products</div>
+    <section className='items'>
+      <div className='container'>
+        <div className='items_text text_centre'>
+        <h3>Save on our most selled items.</h3>
+        <p>Our new Limited Edition Winter Design BESPOKE 4-Door Flex™</p>
+        </div>
+        <div className='items_box d-flex between'>
+          <dir className='box d-flex between'>
+            {formattedProductsItem.map((product, id)=>(
+              <article key={id}>
+                <img src={product.img} alt="" />
+                <a href="#">{product.title}</a>
+                <p>{product.description}</p>
+                <h4>{product.formattedPrice}</h4>
+              </article>
+            ))}
+          </dir>
+        </div>
+      </div>
+    </section>
   )
 }
+
+
 
 export default Products
