@@ -1,0 +1,132 @@
+@import "mixins";
+
+.ideas{
+  padding-top: 47px;
+  padding-bottom: 24px;
+  @include max-screen(1015px){
+    padding-top: 27px;
+  }
+
+  h3{
+    @include readex_font;
+    color:$main_color;
+    font-size: 42px;
+    line-height: 52px;
+    margin-bottom: 9px;
+    @include max-screen(450px){
+      font-size: 32px;
+      line-height: 42px;
+    }
+    @include max-screen(326px){
+      font-size: 27px;
+      line-height: 38px;
+    }
+  }
+
+  p{
+    @include readex_font;
+    color:$main_color;
+    font-size: 13px;
+    line-height: 17px;
+    margin-bottom: 56px;
+  }
+
+  .ideas_box{
+    padding-bottom: 73px;
+
+    @include max-screen(1015px){
+      padding-bottom: 43px
+    }
+    @include max-screen(699px){
+      display: block;
+      margin: auto;
+    }
+
+    .box_img{
+      max-width: 620px;
+      border-radius: 16px;
+      margin-right: 35px;
+      @include max-screen(699px){
+        margin: auto;
+      }
+
+      img{
+        max-width: 100%;
+      }
+    }
+
+    .box_text{
+      padding-top: 14px;
+      max-width: 600px;
+      text-align: left;
+      @include max-screen(1060px){
+        padding-top: 0;
+      }
+      @include max-screen(699px){
+        text-align: center;
+        margin: auto;
+      }
+
+      p{
+        @include inter_font;
+        color:$main_color;
+        font-size: 24px;
+        line-height: 30px;
+        margin-bottom: 28px;
+        &:last-of-type{
+          margin-bottom: 0;
+        }
+        @include max-screen(1015px){
+          font-size: 20px;
+          line-height: 26px;
+        }
+        @include max-screen(870px){
+          font-size: 16px;
+          line-height: 22px;
+        }
+        @include max-screen(700px){
+          font-size: 16px;
+          line-height: 22px;
+        }
+        @include max-screen(699px){
+          margin-top: 15px;
+        }
+        @include max-screen(700px){
+          font-size: 13px;
+          line-height: 18px;
+        }
+        @include max-screen(375px){
+          font-size: 11px;
+          line-height: 15px;
+        }
+      }
+    }
+  }
+
+  a{
+    text-decoration: none;
+    @include inter_font;
+    color:$main_color;
+    font-size: 24px;
+    line-height: 29px;
+    display: inline-block;
+    &:after{
+      content: "";
+      display: inline-block;
+      background-image: url("../image/ideas_arrow.svg");
+      width: 30px;
+      height: 28px;
+      vertical-align: bottom;
+    }
+    &:hover{
+      @include min-screen(767px){
+        font-size: 28px;
+        line-height: 31px;
+      }
+    }
+    @include max-screen(1015px){
+      font-size: 20px;
+      line-height: 26px;
+    }
+  }
+}

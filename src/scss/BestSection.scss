@@ -1,0 +1,175 @@
+@import "mixins";
+
+.best{
+  padding-top: 47px;
+  padding-bottom: 28px;
+
+  .best_text{
+    h3{
+      @include readex_font;
+      color:$main_color;
+      font-size: 42px;
+      line-height: 52px;
+      margin-bottom: 9px;
+      @include max-screen(537px){
+        font-size: 32px;
+        line-height: 42px;
+      }
+      @include max-screen(326px){
+        font-size: 27px;
+        line-height: 38px;
+      }
+    }
+
+    p{
+      @include readex_font;
+      color:$main_color;
+      font-size: 13px;
+      line-height: 17px;
+      margin-bottom: 56px;
+      @include max-screen(767px){
+        margin-bottom: 16px;
+      }
+      @include max-screen(537px){
+        font-size: 10px;
+        line-height: 14px;
+      }
+      @include max-screen(330px){
+        font-size: 8px;
+        line-height: 12px;
+      }
+    }
+  }
+
+  .best_box{
+    @include max-screen(599px){
+      display: block;
+    }
+  }
+
+  .box {
+    background: #F8F9FA;
+    border-radius: 16px;
+    padding-top: 41px;
+
+    @include max-screen(599px) {
+      margin-bottom: 10px;
+    }
+
+    p {
+      @include readex_font;
+      color: $main_color;
+      font-size: 13px;
+      line-height: 17px;
+      @include screen(600px, 775px) {
+        font-size: 10px;
+        line-height: 14px;
+      }
+    }
+
+    h4 {
+      @include readex_font;
+      color: $main_color;
+      font-size: 28px;
+      line-height: 35px;
+      margin-bottom: 44px;
+      @include screen(600px, 775px) {
+        font-size: 20px;
+        line-height: 37px;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      @include inter_font;
+      color: $main_color;
+      font-size: 18px;
+      line-height: 22px;
+      padding: 14px 63px;
+      border: 1px solid #000000;
+      border-radius: 200px;
+      @include screen(600px, 775px) {
+        font-size: 15px;
+        line-height: 19px;
+        padding: 10px 43px;
+      }
+
+      &:hover {
+        @include min-screen(767px) {
+          font-size: 20px;
+          color: white;
+          background-color: #151515;
+        }
+      }
+    }
+
+    &:first-of-type {
+      @include screen(600px, 1209px) {
+        border-radius: 16px 0 0 16px;
+      }
+
+      .box_img {
+        margin: 44px 77px 0 77px;
+        max-width: 259px;
+        @include max-screen(1280px) {
+          margin: 44px 67px 0 67px;
+        }
+
+        @include max-screen(599px) {
+          margin: auto;
+          padding-top: 44px;
+        }
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+    }
+
+    &:nth-child(2) {
+      @include screen(600px, 1209px) {
+        border-radius: unset;
+      }
+
+      .box_img {
+        margin: 44px 60px 0 59px;
+        max-width: 294px;
+        @include max-screen(1280px) {
+          margin: 44px 50px 0 49px;
+        }
+        @include max-screen(599px) {
+          margin: auto;
+          padding-top: 44px;
+        }
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+    }
+
+    &:last-of-type {
+      @include screen(600px, 1209px) {
+        border-radius: 0 16px 16px 0;
+      }
+
+      .box_img {
+        margin: 44px 29px 0 29px;
+        max-width: 355px;
+        @include max-screen(1280px) {
+          margin: 44px 19px 0 19px;
+        }
+        @include max-screen(599px) {
+          margin: auto;
+          padding-top: 44px;
+        }
+
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

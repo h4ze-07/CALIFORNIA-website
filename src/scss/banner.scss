@@ -1,0 +1,231 @@
+@import "mixins";
+
+.banner {
+  margin-top: 108px;
+
+  .container {
+    background-color: #DCE5E2;
+    border-radius: 32px;
+    position: relative;
+
+    .banner_box {
+      @include max-screen(955px) {
+        display: block;
+      }
+    }
+
+    .banner_img {
+      max-width: 647px;
+      @include max-screen(1080px) {
+        max-width: 527px;
+      }
+      @include max-screen(955px) {
+        margin: auto;
+        max-width: 647px;
+      }
+
+      img {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        max-width: 100%;
+        @include max-screen(955px) {
+          position: relative;
+        }
+      }
+    }
+  }
+
+  .banner_text {
+    padding: 145px 0 141px 56px;
+    max-width: 565px;
+    @include max-screen(1170px) {
+      max-width: 500px;
+    }
+    @include max-screen(1080px) {
+      max-width: 380px;
+      padding: 50px 0 100px 56px;
+    }
+    @include max-screen(955px) {
+      max-width: 565px;
+      margin: auto;
+      padding: 50px 0 0 0;
+    }
+    @include max-screen(610px) {
+      padding: 50px 10px 0 10px;
+    }
+    @include max-screen(450px) {
+      padding: 30px 10px 0 10px;
+    }
+
+    h1 {
+      @include readex_font;
+      font-size: 58px;
+      line-height: 70px;
+      color: $main_color;
+      margin-bottom: 19px;
+      @include max-screen(605px) {
+        font-size: 50px;
+        line-height: 60px;
+      }
+      @include max-screen(528px) {
+        font-size: 45px;
+        line-height: 55px;
+      }
+      @include max-screen(480px) {
+        font-size: 40px;
+        line-height: 50px;
+      }
+      @include max-screen(432px) {
+        font-size: 35px;
+      }
+      @include max-screen(385px) {
+        font-size: 30px;
+      }
+      @include max-screen(337px) {
+        font-size: 25px;
+        line-height: 35px;
+      }
+      @include max-screen(289px) {
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 10px;
+      }
+    }
+
+    p {
+      @include inter_font;
+      font-size: 16px;
+      line-height: 19px;
+      color: $main_color;
+      margin-bottom: 44px;
+      @include max-screen(337px) {
+        font-size: 13px;
+        line-height: 16px;
+        margin-bottom: 34px;
+      }
+      @include max-screen(289px) {
+        font-size: 10px;
+        line-height: 13px;
+        margin-bottom: 25px;
+      }
+    }
+
+    a {
+      @include inter_font;
+      font-size: 18px;
+      line-height: 22px;
+      text-transform: capitalize;
+      color: $main_color;
+      padding: 14px 53px;
+      border: 1px solid #000000;
+      border-radius: 200px;
+      text-decoration: none;
+      @include max-screen(480px) {
+        padding: 10px 39px;
+        font-size: 16px;
+        line-height: 20px;
+      }
+      @include max-screen(337px) {
+        padding: 5px 29px;
+        font-size: 13px;
+        line-height: 16px;
+      }
+
+      &:hover {
+        @include min-screen(767px) {
+          font-size: 20px;
+          color: white;
+          background-color: #151515;
+        }
+      }
+    }
+  }
+}
+
+.owl-carousel {
+  .owl-item img {
+    width: auto;
+  }
+
+  .owl-nav {
+    .owl-prev, .owl-next {
+      position: absolute;
+      top: 49%;
+      @include max-screen(767px) {
+        top: 65%;
+      }
+      @include max-screen(380px) {
+        display: none;
+      }
+
+      &:before {
+        font-family: "Font Awesome 6 Free";
+        font-weight: 600;
+        font-size: 30px;
+        color: #08090D;
+      }
+    }
+
+    .owl-prev {
+      left: 19px;
+
+      &:before {
+        content: "\f053";
+      }
+    }
+
+    .owl-next {
+      right: 19px;
+
+      &:before {
+        content: "\f054";
+      }
+    }
+  }
+
+  .owl-dots {
+    position: absolute;
+    bottom: 5%;
+    left: 23%;
+    @include max-screen(1045px) {
+      left: 15%;
+    }
+    @include max-screen(955px) {
+      left: 11%;
+    }
+    @include max-screen(855px) {
+      left: 6%;
+    }
+    @include max-screen(800px) {
+      left: 25%;
+    }
+    @include max-screen(767px) {
+      display: none;
+    }
+
+    .owl-dot {
+      span {
+        width: 194px;
+        height: 2px;
+        background: $main_color;
+        display: inline-block;
+        margin-left: 34px;
+        @include max-screen(800px) {
+          width: 90px;
+          border-radius: 20px;
+          height: 3px;
+        }
+      }
+    }
+  }
+
+  .owl-dot.active {
+    span {
+      height: 4px;
+      @include max-screen(800px) {
+        height: 6px;
+      }
+    }
+  }
+}
