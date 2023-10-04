@@ -1,4 +1,8 @@
+@import "mixins.scss";
 
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro&display=swap');
 *{
   padding: 0;
   margin: 0;
@@ -29,4 +33,5 @@
 .aline_centre{
   align-items: center;
 }
+
 

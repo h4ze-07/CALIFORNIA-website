@@ -1,3 +1,5 @@
+import '../scss/products.scss'
+
 import items1 from '../images/items1.jpg'
 import items2 from '../images/items2.jpg'
 import items3 from '../images/items3.jpg'
