@@ -1,0 +1,225 @@
+@import "mixins";
+.shop {
+  padding-top: 75px;
+  @include max-screen(768px){
+    padding-top: 20px;
+  }
+
+  .shop_text {
+    margin: auto;
+    @include max-screen(555px){
+      padding: 0 10px 0 10px;
+    }
+
+    h3 {
+      @include readex_font;
+      color: $main_color;
+      font-size: 42px;
+      line-height: 52px;
+      margin-bottom: 9px;
+      @include max-screen(450px){
+        font-size: 32px;
+        line-height: 42px;
+      }
+      @include max-screen(326px){
+        font-size: 27px;
+        line-height: 38px;
+      }
+    }
+
+    p {
+      @include readex_font;
+      color: $main_color;
+      font-size: 14px;
+      line-height: 17px;
+      margin-bottom: 55px;
+      display: inline-block;
+      max-width: 628px;
+    }
+  }
+
+  .container {
+    @include max-screen(1307px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  .shop_box {
+    max-width: 639px;
+    filter: drop-shadow(0px 4px 35px rgba(0, 0, 0, 0.25));
+    @include max-screen(1307px) {
+      margin: auto;
+      &:first-of-type {
+        margin-bottom: 16px;
+      }
+    }
+
+    a {
+      @include inter_font;
+      color: $main_color;
+      font-size: 15px;
+      line-height: 19px;
+      text-decoration: none;
+      @include max-screen(370px){
+        font-size: 10px;
+        line-height: 14px;
+      }
+
+      &:hover {
+        @include min-screen(767px){
+          font-size: 20px;
+          line-height: 22px;
+        }
+      }
+    }
+
+    h4 {
+      @include readex_font;
+      color: $main_color;
+      font-size: 32px;
+      line-height: 38px;
+      @include max-screen(526px){
+        font-size: 28px;
+        line-height: 34px;
+      }
+      @include max-screen(466px){
+        font-size: 20px;
+        line-height: 25px;
+      }
+      @include max-screen(370px){
+        font-size: 15px;
+      }
+    }
+
+    .box1, .box2 {
+      background: #FFFFFF;
+    }
+
+    .box1 {
+      max-width: 639px;
+
+      .box_text {
+        text-align: right;
+        margin-right: 42px;
+      }
+
+      .laptop_img {
+        max-width: 500px;
+        padding-left: 42px;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      .watch_img {
+        max-width: 381px;
+        padding-left: 42px;
+
+        img {
+          max-width: 100%;
+          min-height: 100%;
+        }
+      }
+
+      &:first-of-type {
+        min-height: 472px;
+        margin-bottom: 72px;
+        @include max-screen(1307px) {
+          margin-bottom: 16px;
+        }
+        @include max-screen(550px) {
+          min-height: 400px;
+        }
+        @include max-screen(430px) {
+          min-height: 300px;
+        }
+        @include max-screen(320px) {
+          min-height: 200px;
+        }
+      }
+
+      &:last-of-type {
+        min-height: 270px;
+
+        .box_text {
+          padding-top: 87px;
+          @include max-screen(550px) {
+            padding-top: 50px;
+            margin-right: 20px;
+          }
+        }
+
+        @include max-screen(1307px) {
+          .watch_img {
+            order: 2;
+            padding-left: 0;
+            margin-right: 30px;
+          }
+        }
+        @include max-screen(550px) {
+          min-height: 200px;
+          .watch_img{
+            margin-right: 10px;
+          }
+        }
+        @include max-screen(430px) {
+          min-height: 150px;
+        }
+        @include max-screen(320px) {
+          min-height: 100px;
+        }
+      }
+    }
+
+    .box2 {
+      max-width: 312px;
+      margin-bottom: 22px;
+
+      .phones_img {
+        max-width: 405px;
+        margin: 0 0 41px 16px;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      .tablet_img {
+        max-width: 467px;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      &:first-of-type {
+        margin-right: 16px;
+        padding-top: 144px;
+        padding-bottom: 144px;
+        @include max-screen(1000px) {
+          padding-bottom: 39px;
+        }
+        @include max-screen(767px) {
+          padding-top: 40px;
+        }
+      }
+
+      &:last-of-type {
+        padding-top: 114px;
+        padding-bottom: 115px;
+
+        .box_text {
+          margin-bottom: 42px;
+        }
+
+        @include max-screen(1000px) {
+          padding-bottom: 10px;
+        }
+        @include max-screen(767px) {
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+}

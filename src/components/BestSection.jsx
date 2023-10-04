@@ -1,3 +1,4 @@
+import '../scss/BestSection.scss'
 import best1 from '../images/best1.png';
 import best2 from '../images/best2.png';
 import best3 from '../images/best3.png';

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { NavLink } from 'react-router-dom'
+=======
+import '../scss/footer.scss'
+>>>>>>> 00e6f541f384538ac1e575d8fff109cb1787a328
 import footerLogo from '../images/header_logo.svg'
 
 const Footer = () => {

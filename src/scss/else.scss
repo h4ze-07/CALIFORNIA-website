@@ -1,0 +1,197 @@
+@import "mixins";
+.else{
+  padding-top: 51px;
+  padding-bottom: 19px;
+  @include max-screen(767px){
+    padding-top: 21px;
+  }
+
+  h3{
+    @include readex_font;
+    color:$main_color;
+    font-size: 42px;
+    line-height: 52px;
+    margin-bottom: 24px;
+    @include max-screen(569px){
+      font-size: 32px;
+      line-height: 42px;
+    }
+    @include max-screen(437px){
+      font-size: 22px;
+      line-height: 32px;
+    }
+  }
+
+  .form_search {
+    max-width: 650px;
+    margin: auto;
+    position: relative;
+
+    input {
+      width: 100%;
+      height: 60px;
+      background: #F8F9FA;
+      border: 1px solid #C5C5C5;
+      border-radius: 100px;
+      box-sizing: border-box;
+      padding-left: 67px;
+      &::placeholder {
+        @include inter_font;
+        color: $main_color;
+        font-size: 14px;
+        line-height: 17px;
+      }
+      @include max-screen(437px){
+        height: 40px;
+      }
+    }
+    button {
+      position: absolute;
+      cursor: pointer;
+      border: none;
+      background: none;
+      left: 17px;
+      bottom: 12px;
+      &:before {
+        content: "";
+        display: inline-block;
+        background-image: url("../image/form_search.svg");
+        height: 29px;
+        width: 30px;
+      }
+      @include max-screen(437px){
+        bottom: 3px;
+      }
+    }
+  }
+
+  .search_box{
+    margin-top: 30px;
+    ul{
+      justify-content: center;
+      list-style: none;
+      @include max-screen(364px){
+        display: none;
+      }
+      &:first-of-type{
+        margin-bottom: 32px;
+        @include max-screen(569px){
+          margin-bottom: 15px;
+        }
+      }
+      &:last-of-type{
+        margin-bottom: 81px;
+        @include max-screen(569px){
+          margin-bottom: 35px;
+        }
+      }
+      li{
+        margin-right: 7px;
+        @include max-screen(388px){
+          margin-right: 1px;
+        }
+        &:last-of-type {
+          margin-right: 0;
+        }
+        a{
+          text-decoration: none;
+          @include inter_font;
+          color:$main_color;
+          font-size: 14px;
+          line-height: 17px;
+          background: #FFFFFF;
+          border: 1px solid #C5C5C5;
+          border-radius: 200px;
+          padding: 12px 22px;
+          @include max-screen(569px){
+            font-size: 10px;
+            line-height: 13px;
+            padding: 6px 12px;
+          }
+
+          &:hover{
+            @include min-screen(767px){
+              background: #F8F9FA;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .else_box{
+    max-width: 935px;
+    margin: auto;
+    background: #DCE5E2;
+    border-radius: 16px;
+    padding-top: 47px;
+    padding-bottom: 43px;
+    h3{
+      margin-bottom: 9px;
+    }
+    p{
+      @include inter_font;
+      color:$main_color;
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 14px;
+      @include max-screen(579px){
+        font-size: 12px;
+        line-height: 15px;
+      }
+    }
+
+    .box_img{
+      max-width: 233px;
+      margin: auto;
+      img{
+        max-width: 100%;
+      }
+    }
+  }
+
+  .form_email{
+    justify-content: center;
+    margin-top: 30px;
+    .email_box{
+      width: 285px;
+      input{
+        width: 100%;
+        height: 50px;
+        background: #DCE5E2;
+        border: 1px solid #000000;
+        border-radius: 54px 0 0 54px;
+        box-sizing: border-box;
+        padding-left: 32px;
+        &::placeholder{
+          @include inter_font;
+          color:$main_color;
+          font-size: 14px;
+          line-height: 17px;
+        }
+        @include max-screen(437px){
+          height: 30px;
+          margin-left: 15px;
+        }
+      }
+    }
+    button {
+      width: 115px;
+      height: 50px;
+      background: #000000;
+      border-radius: 0 200px 200px 0;
+      @include inter_font;
+      font-size: 14px;
+      line-height: 17px;
+      color: #FFFFFF;
+      &:hover{
+        cursor: pointer;
+      }
+      @include max-screen(437px){
+        height: 30px;
+        margin-right: 15px;
+      }
+    }
+  }
+}

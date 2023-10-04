@@ -1,0 +1,186 @@
+@import "mixins";
+
+footer{
+  background: #F8F9FA;
+  padding-top: 44px;
+
+  .container{
+    padding-bottom: 78px;
+
+    .logo{
+      max-width: 394px;
+      padding-top: 10px;
+      margin-right: 138px;
+      @include max-screen(1198px){
+        margin-right: 50px;
+      }
+
+      p{
+        @include inter_font;
+        color:$main_color;
+        font-size: 16px;
+        line-height: 19px;
+        margin-top: 18px;
+      }
+    }
+
+    .footer_box{
+      max-width: 197px;
+      &:nth-child(2){
+        margin-right: 93px;
+        @include max-screen(1198px){
+          margin-right: 50px;
+        }
+        @include max-screen(768px){
+          margin-right: 0;
+        }
+      }
+      &:nth-child(3){
+        margin-right: 121px;
+        @include max-screen(1198px){
+          margin-right: 50px;
+        }
+        @include max-screen(768px){
+          margin-right: 0;
+        }
+      }
+      &:nth-child(4){
+        margin-right: 134px;
+        @include max-screen(1198px){
+          margin-right: 50px;
+        }
+        @include max-screen(768px){
+          margin-right: 0;
+        }
+      }
+
+      h4{
+        @include readex_font;
+        color:$main_color;
+        font-size: 22px;
+        line-height: 28px;
+        margin-bottom: 19px;
+        @include max-screen(416px){
+          font-size: 17px;
+          line-height: 18px;
+        }
+      }
+
+      li{
+        list-style: none;
+        margin-bottom: 14px;
+        &:last-of-type{
+          margin-bottom: 0;
+        }
+      }
+
+      a{
+        @include inter_font;
+        color:$main_color;
+        font-size: 17px;
+        line-height: 22px;
+        text-decoration: none;
+        @include max-screen(416px){
+          font-size: 12px;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+
+  .visit_cart{
+    max-width: 1350px;
+    margin: auto;
+    border-top: 1px double #DCE5E2;
+
+    .container{
+      height: 78px;
+      align-items: flex-end;
+      padding-bottom: 4px;
+    }
+
+    p{
+      @include readex_font;
+      color:$main_color;
+      font-size: 18px;
+      line-height: 22px;
+      @include max-screen(416px){
+        font-size: 13px;
+        line-height: 17px;
+      }
+    }
+
+    a{
+      @include inter_font;
+      color:$main_color;
+      font-size: 18px;
+      line-height: 22px;
+      text-decoration: none;
+      &:after{
+        content: "";
+        display: inline-block;
+        background-image: url("../images/footer_made.svg");
+        width: 21px;
+        height: 18px;
+        vertical-align: bottom;
+        @include max-screen(319px){
+          display: none;
+        }
+      }
+      @include max-screen(416px){
+        font-size: 13px;
+        line-height: 17px;
+      }
+    }
+  }
+
+  @include max-screen(768px){
+    padding-top: 15px;
+    .container{
+      display: block;
+      padding-bottom: 20px;
+      .logo{
+        margin: auto;
+        text-align: center;
+        padding-bottom: 20px;
+      }
+      .footer_box{
+        max-width: 1294px;
+        margin: auto;
+        ul{
+          display: flex;
+          li{
+            margin-left: 14px;
+
+          }
+        }
+      }
+
+    }
+    .visit_cart{
+      .container{
+        display: flex;
+        justify-content: space-between;
+        height: 48px;
+      }
+    }
+  }
+
+  @include max-screen(319px){
+    .container{
+      .footer_box{
+        ul{
+          li{
+            margin-left: 4px;
+          }
+        }
+      }
+    }
+    .visit_cart{
+      .container{
+        display: block;
+
+      }
+    }
+  }
+}

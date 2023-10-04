@@ -1,3 +1,4 @@
+import '../scss/header.scss'
 import headerLogo from '../images/header_logo.svg';
 import headerSearch from '../images/header_search.svg';
 import headerCart from '../images/header_cart.svg';
@@ -5,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 
 const Header = () => {
+
   return (
     <header>
         <div className="container">
