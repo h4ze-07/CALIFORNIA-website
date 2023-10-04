@@ -2,7 +2,10 @@ import React from 'react'
 
 const Cart = () => {
   return (
-    <div>
+    <div style={{
+      marginTop: '100px',
+      fontSize: '25px'
+    }}>
       Cart page
     </div>
   )
