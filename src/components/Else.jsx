@@ -2,18 +2,18 @@ import elseImg from '../images/else.png'
 
 const Else = () => {
   return (
-    <section id="search_else" class="else">
-        <div class="container text_centre">
+    <section id="search_else" className="else">
+        <div className="container text_centre">
             <h3>Looking for anything else?</h3>
-            <form action="#" method="post" class="form_search">
-                <div class="search">
-                    <label for="search_keyword"></label>
+            <form action="#" method="post" className="form_search">
+                <div className="search">
+                    <label htmlFor="search_keyword"></label>
                     <input id="search_keyword" type="text" name="search_keyword" placeholder="Search keyword" />
                     <button type="submit"></button>
                 </div>
             </form>
-            <div class="search_box">
-                <ul class="d-flex">
+            <div className="search_box">
+                <ul className="d-flex">
                     <li>
                         <a href="#">iPhone</a>
                     </li>
@@ -30,7 +30,7 @@ const Else = () => {
                         <a href="#">Keyboard</a>
                     </li>
                 </ul>
-                <ul class="d-flex">
+                <ul className="d-flex">
                     <li>
                         <a href="#">13 Pro Max</a>
                     </li>
@@ -45,18 +45,18 @@ const Else = () => {
                     </li>
                 </ul>
             </div>
-            <div class="else_box text_centre">
+            <div className="else_box text_centre">
                 <h3>Never miss a thing</h3>
                 <p>Sign up for texts to be notified about our best offers on the perfect gifts.</p>
-                <div class="box_img">
+                <div className="box_img">
                     <img src={elseImg} alt="else" />
                 </div>
-                <form action="#" method="post" class="form_email d-flex">
-                    <div class="email_box">
-                        <label for="email"></label>
+                <form action="#" method="post" className="form_email d-flex">
+                    <div className="email_box">
+                        <label htmlFor="email"></label>
                         <input id="email" type="email" name="email" placeholder="Your email" />
                     </div>
-                    <div class="button_box text_centre">
+                    <div className="button_box text_centre">
                         <button type="submit">Sign up</button>
                     </div>
                 </form>
