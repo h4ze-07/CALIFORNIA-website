@@ -1,6 +1,7 @@
 import headerLogo from '../images/header_logo.svg';
 import headerSearch from '../images/header_search.svg';
 import headerCart from '../images/header_cart.svg';
+import { NavLink } from 'react-router-dom';
 
 
 const Header = () => {
@@ -8,16 +9,16 @@ const Header = () => {
     <header>
         <div className="container">
             <div className="header_body">
-                <a href="#" className="header_logo">
+                <NavLink to="/" className="header_logo">
                     <img src={headerLogo} alt="logo" />
-                </a>
+                </NavLink>
                 <div className="header_burger">
                     <span></span>
                 </div>
                 <nav className="header_menu">
                     <ul className="header_list">
                         <li>
-                            <a href="#" className="header_link">all products</a>
+                            <NavLink to='/catalog' className="header_link">all products</NavLink>
                         </li>
                         <li>
                             <a href="#" className="header_link">Solutions</a>
@@ -38,9 +39,9 @@ const Header = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <NavLink to="/cart">
                                 <img src={headerCart} alt="search" />
-                            </a>
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>

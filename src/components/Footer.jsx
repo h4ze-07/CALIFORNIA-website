@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import footerLogo from '../images/header_logo.svg'
 
 const Footer = () => {
@@ -5,9 +6,9 @@ const Footer = () => {
     <footer>
         <div className="container d-flex">
             <div className="logo">
-                <a href="#">
+                <NavLink to="/">
                     <img src={footerLogo} alt="logo" />
-                </a>
+                </NavLink>
                 <p>Sign up for texts to be notified about<br /> our best offers on the perfect gifts.</p>
             </div>
             <div className="footer_box">
