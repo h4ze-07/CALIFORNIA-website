@@ -1,4 +1,5 @@
 import IdeasImg from '../images/ideas.jpg'
+import '../scss/ideas.scss'
 
 const Ideas = () => {
   return (

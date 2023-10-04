@@ -1,4 +1,5 @@
 import elseImg from '../images/else.png'
+import '../scss/else.scss'
 
 const Else = () => {
   return (
