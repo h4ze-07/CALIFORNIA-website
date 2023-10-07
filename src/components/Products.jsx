@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Link } from 'react-router-dom';
 import { BsSuitHeart } from "react-icons/bs";
 
 import 'swiper/css';
@@ -54,7 +55,11 @@ const Products = ({swiperProducts}) => {
               <h4> ${product.price}</h4> 
               <button>By</button>
               <button> <BsSuitHeart/> </button> 
-              <button>More info</button>
+              <button >
+                 
+              <Link to={`/product/${product.id}`}>More info</Link>
+                
+                </button>
                </article> 
                </SwiperSlide>
              ))} 

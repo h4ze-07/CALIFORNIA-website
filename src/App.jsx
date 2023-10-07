@@ -5,6 +5,7 @@ import Root from "./components/Root";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import Cart from "./pages/Cart";
+import OneProductItem from './pages/OneProductItem'
 
 import {DB_URL} from './firebase';
 
@@ -61,10 +62,21 @@ console.log(products)
         {
           path: '/cart',
           element: <Cart />
-        }
+        },
+        {
+          path: '/product/:productId',
+          element: <OneProductItem />,
+          loader: async ({params}) => {
+            console.log(params)
+            const res = await fetch(`${DB_URL}/${params.productId}`);
+            const data = await res.json();
+            console.log(params.productId)
+            console.log(data)
+            return data
+          }
+          }
       ]
-    }
-  ])
+    }])
 
   return (
     <RouterProvider router={router} />
