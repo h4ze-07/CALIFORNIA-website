@@ -1,76 +1,69 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { BsSuitHeart } from "react-icons/bs";
+
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+
 import '../scss/products.scss'
 
-import items1 from '../images/items1.jpg'
-import items2 from '../images/items2.jpg'
-import items3 from '../images/items3.jpg'
-import items4 from '../images/items4.jpg'
+import { FreeMode, Pagination } from 'swiper/modules';
 
-const productsItem = [
-  {
-    id: 1,
-    title: 'MacBook Pro 13',
-    description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
-    img: items1,
-    price: 1200
-  },
-  {
-    id: 2,
-    title: 'Smart Galaxy Watch 3',
-    description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
-    img: items2,
-    price: 199
-  },
-  {
-    id: 3,
-    title: 'MacBook Air M1',
-    description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
-    img: items3,
-    price: 1009
-  },
-  {
-    id: 4,
-    title: 'iPad',
-    description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
-    img: items4,
-    price: 610
-  }
-]
+const Products = ({swiperProducts}) => {
 
-const formattedProductsItem = productsItem.map((product) => {
-  const formattedPrice = product.price.toLocaleString('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
+// const formattedProductsItem = swiperProducts.map((product) => {
+//   const formattedPrice = product.price.toLocaleString('en-US', {
+//     style: 'currency',
+//     currency: 'USD',
+//   });
 
-  return {
-    ...product,
-    formattedPrice,
-  };
-});
+//   return {
+//     ...product,
+//     formattedPrice,
+//   };
+// });
 
-const Products = () => {
   return (
+    <>
     <section className='items'>
       <div className='container'>
-        <div className='items_text text_centre'>
-        <h3>Save on our most selled items.</h3>
-        <p>Our new Limited Edition Winter Design BESPOKE 4-Door Flex™</p>
-        </div>
-        <div className='items_box d-flex between'>
-          <dir className='box d-flex between'>
-            {formattedProductsItem.map((product, id)=>(
-              <article key={id}>
-                <img src={product.img} alt="" />
-                <a href="#">{product.title}</a>
-                <p>{product.description}</p>
-                <h4>{product.formattedPrice}</h4>
-              </article>
-            ))}
-          </dir>
-        </div>
-      </div>
+  
+         <div className='items_text text_centre'>
+         <h3>Save on our most selled items.</h3>
+         <p>Our new Limited Edition Winter Design BESPOKE 4-Door Flex™</p>
+         </div>
+        <Swiper
+         slidesPerView={4}
+         spaceBetween={30}
+         freeMode={true}
+         pagination={{
+           clickable: true,
+         }}
+         modules={[FreeMode, Pagination]}
+         className="mySwiper"
+         >
+         <div className='items_box d-flex between'>
+           <div className='box d-flex between'>
+            {swiperProducts.length === 0 && <p>No any products</p>} 
+                {swiperProducts.length > 0 && swiperProducts.map((product, id)=>( 
+               <SwiperSlide>
+               <article key={id}> 
+                  <img src={product.img} alt="" /> 
+                <a href="#">{product.name}</a> 
+                 <p>{product.description}</p> 
+              <h4> ${product.price}</h4> 
+              <button>By</button>
+              <button> <BsSuitHeart/> </button> 
+              <button>More info</button>
+               </article> 
+               </SwiperSlide>
+             ))} 
+          </div> 
+        </div> 
+        </Swiper>
+      </div> 
     </section>
-  )
+ </> )
 }
 
 
