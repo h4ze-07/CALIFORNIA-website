@@ -7,7 +7,6 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    
     const fetchProductDetails = async () => {
       try {
         const response = await fetch(`${DB_URL}/products/${productId}.json`); 
@@ -26,7 +25,6 @@ function ProductDetails() {
    
   }, [productId]); 
 
- 
   return (
     <div style={{
       marginTop: '100px',
@@ -34,14 +32,19 @@ function ProductDetails() {
     }}>
       
       {product ? (
-        <div>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>Ціна: ${product.price}</p>
-          
+        <div className="">
+          <div className=''>
+            <img src={product.img} alt="img" />
+          </div>
+          <div className=''>
+            <h3 className="">{product.name}</h3>
+            <p className="">{product.description}</p>
+            <p className="">Ціна: ${product.price}</p>
+            <button>Add to cart</button>
+          </div>
         </div>
       ) : (
-        <p>Завантаження...</p>
+        <p className=''>Завантаження...</p>
       )}
     </div>
   );

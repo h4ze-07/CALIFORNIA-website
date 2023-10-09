@@ -6,9 +6,9 @@ import Footer from './Footer'
 const Root = () => {
   return (
     <>
-        <Header />
-        <Outlet />
-        <Footer />
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   )
 }

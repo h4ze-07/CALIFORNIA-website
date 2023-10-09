@@ -12,6 +12,7 @@ import {DB_URL} from './firebase';
 function App() {
 
   const [products, setProducts] = useState(0);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
