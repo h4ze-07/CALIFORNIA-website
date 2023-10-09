@@ -47,8 +47,8 @@ const Products = ({swiperProducts}) => {
            <div className='box d-flex between'>
             {swiperProducts.length === 0 && <p>No any products</p>} 
                 {swiperProducts.length > 0 && swiperProducts.map((product, id)=>( 
-               <SwiperSlide>
-               <article key={id}> 
+               <SwiperSlide key={id}>
+               <article> 
                   <img src={product.img} alt="" /> 
                 <a href="#">{product.name}</a> 
                  <p>{product.description}</p> 

@@ -5,7 +5,7 @@ import Root from "./components/Root";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import Cart from "./pages/Cart";
-import OneProductItem from './pages/OneProductItem'
+import ProductDetails from './pages/ProductDetails'
 
 import {DB_URL} from './firebase';
 
@@ -57,7 +57,7 @@ console.log(products)
         },
         {
           path: '/catalog',
-          element: <Catalog />
+          element: <Catalog products={products}/>
         },
         {
           path: '/cart',
@@ -65,15 +65,23 @@ console.log(products)
         },
         {
           path: '/product/:productId',
-          element: <OneProductItem />,
-          loader: async ({params}) => {
-            console.log(params)
-            const res = await fetch(`${DB_URL}/${params.productId}`);
-            const data = await res.json();
-            console.log(params.productId)
-            console.log(data)
-            return data
-          }
+          element: <ProductDetails  />,
+          // loader: async ({params}) => {
+          //   const {productId} = params;
+          //   console.log(params)
+          //   try {
+          //     const res = await fetch(`${DB_URL}/products/${productId}`);
+
+          //     if(!res.ok){
+          //       throw new Error ('Failed to fetch product data')
+          //     }
+
+          //     const productData = await res.json();
+          //     return productData;
+          //   } catch (error) {
+          //     console.error('Error fetching product data', error)
+          //   }
+          // }
           }
       ]
     }])

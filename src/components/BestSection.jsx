@@ -1,3 +1,8 @@
+import { Link } from 'react-router-dom';
+
+
+
+
 import '../scss/BestSection.scss'
 import best1 from '../images/best1.png';
 import best2 from '../images/best2.png';
@@ -37,7 +42,7 @@ const BestSection = () => {
                   <div key={id} className='box text_centre'>
                     <p>Smart light bulb pack</p>
                     <h4>{item.title}</h4>
-                    <a href="#">Explore</a>
+                    <Link to={'/catalog'}>Explore</Link>
                     <div className="box_img">
                     <img src={item.img} alt="img" />
                 </div>
