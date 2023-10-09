@@ -53,7 +53,7 @@ const Products = ({swiperProducts, addToCart}) => {
                                     <article>
                                         <img src={product.img} alt=""/>
                                         <h4>{product.name}</h4>
-                                        <p> ${product.price}</p>
+                                        <p> $ {product.price}</p>
                                         <button onClick={() => handleCartButtonClick(product)}>
                                             Edd to Cart
                                         </button>

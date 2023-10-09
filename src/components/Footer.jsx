@@ -76,13 +76,13 @@ const Footer = () => {
                 </ul>
             </div>
         </div>
-        <div className="visit_cart">
+        <div className="visit_card">
             <div className="container d-flex between">
-                <div className="cart d-flex">
+                <div className="card d-flex">
                     <p>Made By:</p>
                     <a href="#">Azwedo</a>
                 </div>
-                <div className="cart d-flex">
+                <div className="card d-flex">
                     <p>Powered by:</p>
                     <a href="#">Webflow</a>
                 </div>

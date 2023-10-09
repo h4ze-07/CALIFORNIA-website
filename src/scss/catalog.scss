@@ -1,0 +1,113 @@
+@import "mixins";
+
+.catalog_page {
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  .catalog_text {
+    text-align: center;
+    margin-bottom: 100px;
+
+    h2 {
+      @include readex_font;
+      font-size: 48px;
+      line-height: 60px;
+      color: $main_color;
+      margin-bottom: 19px;
+      @include max-screen(605px) {
+        font-size: 40px;
+        line-height: 50px;
+      }
+      @include max-screen(528px) {
+        font-size: 35px;
+        line-height: 45px;
+      }
+      @include max-screen(480px) {
+        font-size: 30px;
+        line-height: 40px;
+      }
+      @include max-screen(432px) {
+        font-size: 35px;
+      }
+      @include max-screen(385px) {
+        font-size: 30px;
+      }
+      @include max-screen(337px) {
+        font-size: 25px;
+        line-height: 35px;
+      }
+      @include max-screen(289px) {
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .catalog_box{
+    flex-wrap: wrap;
+    justify-content: center;
+
+  }
+  .catalog_card{
+    margin-bottom: 20px;
+    margin-right: 18px;
+    width: 413px;
+    background: #F8F9FA;
+    border-radius: 16px;
+    text-align: center;
+
+    .catalog_card_img{
+      img{
+        width: 300px;
+        height: 350px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+      }
+    }
+   .catalog_card_text{
+      margin-bottom: 30px;
+    }
+    h3{
+      @include readex_font;
+      color: $main_color;
+      font-size: 22px;
+      line-height: 28px;
+      text-decoration: none;
+      margin-bottom: 15px;
+    }
+    p{
+      @include inter_font;
+      color: $main_color;
+      font-size: 18px;
+      line-height: 22px;
+      margin-bottom: 10px;
+    }
+    button {
+      @include inter_font;
+      font-size: 16px;
+      line-height: 20px;
+      color: $main_color;
+      padding: 7px;
+      border: 1px solid #000000;
+      border-radius: 30px;
+      text-decoration: none;
+      margin: 10px;
+      background-color: #F8F9FA;
+
+      &:hover {
+        color: white;
+        background-color: #151515;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main_color;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}
