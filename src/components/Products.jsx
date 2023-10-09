@@ -1,14 +1,14 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Link } from 'react-router-dom';
-import { BsSuitHeart } from "react-icons/bs";
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Autoplay} from "swiper/modules";
+import {Link} from 'react-router-dom';
+import {BsSuitHeart} from "react-icons/bs";
+import {FreeMode} from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
-
 import '../scss/products.scss'
 
-import { FreeMode, Pagination } from 'swiper/modules';
 
 const Products = ({swiperProducts, addToCart}) => {
 
@@ -76,7 +76,6 @@ const Products = ({swiperProducts, addToCart}) => {
     </section>
  </> )
 }
-
 
 
 export default Products
