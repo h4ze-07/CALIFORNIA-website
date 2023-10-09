@@ -1,108 +1,126 @@
 @import "mixins";
 
-.items{
+.items {
   padding-top: 78px;
   padding-bottom: 27px;
-  @include max-screen(768px){
+
+  @include max-screen(768px) {
     padding-top: 28px;
   }
 
-  .items_text{
-    h3{
+  .items_text {
+    h3 {
       @include readex_font;
-      color:$main_color;
+      color: $main_color;
       font-size: 42px;
       line-height: 52px;
       margin-bottom: 9px;
-      @include max-screen(641px){
+      @include max-screen(641px) {
         font-size: 36px;
         line-height: 46px;
       }
-      @include max-screen(450px){
+      @include max-screen(450px) {
         font-size: 32px;
         line-height: 42px;
       }
-      @include max-screen(326px){
+      @include max-screen(326px) {
         font-size: 27px;
         line-height: 38px;
       }
     }
 
-    p{
+    p {
       @include readex_font;
-      color:$main_color;
+      color: $main_color;
       font-size: 13px;
       line-height: 17px;
       margin-bottom: 31px;
-      @include max-screen(600px){
+      @include max-screen(600px) {
         margin-bottom: 15px;
       }
-      @include max-screen(427px){
+      @include max-screen(427px) {
         font-size: 10px;
         line-height: 14px;
       }
-      @include max-screen(335px){
+      @include max-screen(335px) {
         font-size: 8px;
         line-height: 12px;
       }
     }
   }
 
-  .items_box{
-    @include max-screen(1185px){
+  .items_box {
+    @include max-screen(1185px) {
       flex-wrap: wrap;
     }
-
-    .box{
-      @include max-screen(1185px){
-        margin: auto;
-      }
-      @include max-screen(600px){
-        flex-wrap: wrap;
-      }
+    @include max-screen(600px) {
+      flex-wrap: wrap;
     }
   }
 
-  article{
+  article {
     max-width: 302px;
-    @include max-screen(600px){
+    text-align: center;
+
+    @include max-screen(600px) {
       margin: auto;
       text-align: center;
     }
-    img{
+
+    img {
+      width: 247px;
+      height: 214px;
+
       margin: 28px 28px 37px 28px;
-      @include max-screen(600px){
+      @include max-screen(600px) {
         margin: 18px 28px 7px 28px;
       }
-      @include max-screen(335px){
+      @include max-screen(335px) {
         margin: 18px 8px 7px 8px;
       }
     }
-    a{
+
+    h4 {
       @include readex_font;
-      color:$main_color;
+      color: $main_color;
       font-size: 22px;
       line-height: 28px;
       text-decoration: none;
+      margin-bottom: 9px;
     }
-    p{
+
+    p {
       @include inter_font;
-      color:$main_color;
-      font-size: 14px;
-      line-height: 17px;
-      margin-bottom: 8px;
-      margin-top: 9px;
-    }
-    &:first-of-type{
-      p{
-        margin-bottom: 25px;
-      }
-    }
-    h4{
-      @include inter_font;
-      color:$main_color;
+      color: $main_color;
       font-size: 18px;
       line-height: 22px;
+      margin-bottom: 9px;
+    }
+
+    button {
+      @include inter_font;
+      font-size: 16px;
+      line-height: 20px;
+      color: $main_color;
+      padding: 7px;
+      border: 1px solid #000000;
+      border-radius: 30px;
+      text-decoration: none;
+      margin: 2px;
+      background-color: #F8F9FA;
+
+      &:hover {
+        color: white;
+        background-color: #151515;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main_color;
+        &:hover {
+          color: white;
+        }
+      }
     }
   }
 }
