@@ -1,5 +1,5 @@
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Autoplay} from "swiper/modules";
+import {Autoplay, Pagination} from "swiper/modules";
 import {Link} from 'react-router-dom';
 import {BsSuitHeart} from "react-icons/bs";
 import {FreeMode} from 'swiper/modules';
