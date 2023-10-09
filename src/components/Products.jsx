@@ -10,7 +10,7 @@ import '../scss/products.scss'
 
 import { FreeMode, Pagination } from 'swiper/modules';
 
-const Products = ({swiperProducts}) => {
+const Products = ({swiperProducts, addToCart}) => {
 
 // const formattedProductsItem = swiperProducts.map((product) => {
 //   const formattedPrice = product.price.toLocaleString('en-US', {
@@ -23,6 +23,10 @@ const Products = ({swiperProducts}) => {
 //     formattedPrice,
 //   };
 // });
+
+  const handleCartButtonClick = (product) => {
+    addToCart(product)
+  }
 
   return (
     <>
@@ -53,7 +57,9 @@ const Products = ({swiperProducts}) => {
                 <a href="#">{product.name}</a> 
                  <p>{product.description}</p> 
               <h4> ${product.price}</h4> 
-              <button>By</button>
+              <button onClick={() => handleCartButtonClick(product)}>
+                Buy
+              </button>
               <button> <BsSuitHeart/> </button> 
               <button >
                  

@@ -14,6 +14,12 @@ function App() {
   const [products, setProducts] = useState(0);
   const [cart, setCart] = useState([]);
 
+  const addToCart = (product) => {
+    setCart([...cart, product])
+  }
+
+  
+
   useEffect(() => {
     const fetchProducts = async () => {
         const response = await fetch(`${DB_URL}/products.json`);
@@ -46,7 +52,6 @@ function App() {
 }, []);
 
 
-console.log(products)
   const router = createBrowserRouter([
     {
       path: '/',
@@ -54,19 +59,19 @@ console.log(products)
       children: [
         {
           path: '/',
-          element: <Home allProducts={products} />
+          element: <Home allProducts={products} addToCart={addToCart}/>
         },
         {
           path: '/catalog',
-          element: <Catalog products={products}/>
+          element: <Catalog products={products} addToCart={addToCart}/>
         },
         {
           path: '/cart',
-          element: <Cart />
+          element: <Cart cart={cart} setCart={setCart} />
         },
         {
           path: '/product/:productId',
-          element: <ProductDetails  />,
+          element: <ProductDetails addToCart={addToCart} />,
           // loader: async ({params}) => {
           //   const {productId} = params;
           //   console.log(params)

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { DB_URL } from '../firebase';
 
-function ProductDetails() {
+function ProductDetails({addToCart}) {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -25,6 +25,10 @@ function ProductDetails() {
    
   }, [productId]); 
 
+  const handleAddToCart = (product) => {
+    addToCart(product)
+  }
+
   return (
     <div style={{
       marginTop: '100px',
@@ -40,7 +44,7 @@ function ProductDetails() {
             <h3 className="">{product.name}</h3>
             <p className="">{product.description}</p>
             <p className="">Ціна: ${product.price}</p>
-            <button>Add to cart</button>
+            <button onClick={() => {handleAddToCart(product)}}>Add to cart</button>
           </div>
         </div>
       ) : (

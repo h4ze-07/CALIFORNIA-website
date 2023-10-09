@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom"
 
 
-const Catalog = ({products}) => {
+const Catalog = ({products, addToCart}) => {
+
+
+  const handleCartChange = (product) => {
+    addToCart(product)
+  }
+
   return (
     <section style={{
       marginTop: '100px',
@@ -26,7 +32,9 @@ const Catalog = ({products}) => {
                   <button className="">
                     <Link to={`/product/${product.id}`}>More info</Link>
                   </button>
-                  <button className="">Add to cart</button>
+                  <button className=""
+                    onClick={() => handleCartChange(product)}
+                  >Add to cart</button>
                 </div>
               </a>
             ))}
