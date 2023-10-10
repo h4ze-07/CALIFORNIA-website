@@ -9,13 +9,7 @@ const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handl
         addToCart(product)
     }
 
-    // const changedCategory = () => {
-    //     handleFilterCategoryChange()
-    // };
-    // const changedBrand = () => {
-    //     handleFilterBrandChange()
-    // }
-
+  
     return (
         <section className="catalog_page">
             <div className="container">
