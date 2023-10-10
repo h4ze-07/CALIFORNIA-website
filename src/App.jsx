@@ -12,6 +12,9 @@ import {DB_URL} from './firebase';
 function App() {
 
   const [products, setProducts] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filterCategory, setFilterCategory] = useState('');
+  const [filterBrand, setFilterBrand] = useState('');
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
@@ -22,34 +25,61 @@ function App() {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      try {
         const response = await fetch(`${DB_URL}/products.json`);
 
         if (!response.ok) {
-            throw new Error('Something went wrong!');
+          throw new Error('Something went wrong!');
         }
 
         const responseData = await response.json();
 
         const loadedProducts = [];
         for (const key in responseData) {
-            loadedProducts.push({
-                id: key,
-                name: responseData[key].name,
-                price: responseData[key].price,
-                description: responseData[key].description,
-                img: responseData[key].img,
-                category: responseData[key].category,
-                brand: responseData[key]. brand,
-              
-            });
+          loadedProducts.push({
+            id: key,
+            name: responseData[key].name,
+            price: responseData[key].price,
+            description: responseData[key].description,
+            img: responseData[key].img,
+            category: responseData[key].category,
+            brand: responseData[key].brand,
+          });
         }
-        setProducts(loadedProducts);    
-    }
 
-    fetchProducts().catch((error) => {
-        console.log(error);
-    });
-}, []);
+        // Фільтрація за категорією і/або брендом
+        let filteredProducts = loadedProducts;
+
+        if (filterCategory) {
+          filteredProducts = filteredProducts.filter(
+            (product) => product.category === filterCategory
+          );
+        }
+
+        if (filterBrand) {
+          filteredProducts = filteredProducts.filter(
+            (product) => product.brand === filterBrand
+          );
+        }
+
+        setProducts(filteredProducts);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Помилка завантаження даних:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [filterCategory, filterBrand]);
+
+  const handleFilterCategoryChange = (category) => {
+    setFilterCategory(category);
+  };
+
+  const handleFilterBrandChange = (brand) => {
+    setFilterBrand(brand);
+  };
 
 
   const router = createBrowserRouter([
@@ -63,7 +93,12 @@ function App() {
         },
         {
           path: '/catalog',
-          element: <Catalog products={products} addToCart={addToCart}/>
+          element: <Catalog 
+          isLoading={isLoading} 
+          handleFilterBrandChange={handleFilterBrandChange} 
+          handleFilterCategoryChange={handleFilterCategoryChange} 
+          products={products} 
+          addToCart={addToCart}/>
         },
         {
           path: '/cart',

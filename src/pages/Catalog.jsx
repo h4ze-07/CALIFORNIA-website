@@ -2,22 +2,48 @@ import {Link} from "react-router-dom"
 import "../scss/catalog.scss"
 
 
-const Catalog = ({products, addToCart}) => {
+const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handleFilterCategoryChange}) => {
 
 
     const handleCartChange = (product) => {
         addToCart(product)
     }
 
+    // const changedCategory = () => {
+    //     handleFilterCategoryChange()
+    // };
+    // const changedBrand = () => {
+    //     handleFilterBrandChange()
+    // }
+
     return (
         <section className="catalog_page">
             <div className="container">
                 <div className="catalog_text">
                     <h2 className="">Our Products</h2>
+                    {/* category */}
+                    <div>
+                   <button onClick={() => handleFilterCategoryChange('smartphones')}>Phone</button> 
+                   <button onClick={() => handleFilterCategoryChange('laptop')}>laptop</button> 
+                   <button onClick={() => handleFilterCategoryChange('watch')}>watch</button> 
+                    </div>
+                    {/* brand */}
+                    <div>
+                      <button onClick={() => handleFilterBrandChange('apple')}>Apple</button> 
+                      <button onClick={() => handleFilterBrandChange('samsung')}>Samsung</button> 
+                      <button onClick={ () => handleFilterBrandChange('lenovo')}>Lenovo</button> 
+                      <button>Huawei</button> 
+                      <button></button> 
+                    </div>
+                    
                 </div>
+                {isLoading ? (
+        <p>Loading...</p>
+      ) : (
                 <div className="catalog_box d-flex">
+                    
                     {products.map((product) => (
-                        <a key={product.id} href={product.href} className="catalog_card">
+                        <div key={product.id} href={product.href} className="catalog_card">
                             <div className="catalog_card_img">
                                 <img src={product.img}/>
                             </div>
@@ -32,9 +58,9 @@ const Catalog = ({products, addToCart}) => {
                                 >Add to cart
                                 </button>
                             </div>
-                        </a>
+                        </div>
                     ))}
-                </div>
+                </div>)}
 
 
             </div>
