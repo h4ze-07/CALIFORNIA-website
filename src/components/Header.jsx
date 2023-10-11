@@ -1,14 +1,22 @@
 import '../scss/header.scss'
+import ModalSearch from "./ModalSearch.jsx";
 import headerLogo from '../images/header_logo.svg';
 import headerSearch from '../images/header_search.svg';
 import headerCart from '../images/header_cart.svg';
 import { NavLink } from 'react-router-dom';
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon} from '@heroicons/react/20/solid'
 
 
 const Header = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchResult, setSearchResult] = useState('');
+
+    const handleSearch = (searchText) => {
+        setIsModalOpen(true);
+        setSearchResult(`${searchText}`);
+    };
 
     return (
         <header>
@@ -68,7 +76,7 @@ const Header = () => {
                     <nav>
                         <ul className="header_icons">
                             <li>
-                                <a href="#search_else">
+                                <a href="#search_else" onClick={() => handleSearch()}>
                                     <img src={headerSearch} alt="search" />
                                 </a>
                             </li>
@@ -81,6 +89,11 @@ const Header = () => {
                     </nav>
                 </div>
             </div>
+            <ModalSearch
+                isOpen={isModalOpen}
+                onRequestClose={() => setIsModalOpen(false)}
+                onSearch={handleSearch}
+            />
         </header>
     )
 }
