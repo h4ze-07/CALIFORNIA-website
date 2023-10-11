@@ -76,7 +76,7 @@ const Header = () => {
                     <nav>
                         <ul className="header_icons">
                             <li>
-                                <a href="#search_else" onClick={() => handleSearch()}>
+                                <a href="#" onClick={() => handleSearch()}>
                                     <img src={headerSearch} alt="search" />
                                 </a>
                             </li>
