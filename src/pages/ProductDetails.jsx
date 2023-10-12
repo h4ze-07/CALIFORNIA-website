@@ -1,3 +1,4 @@
+import '../scss/product_details.scss'
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { DB_URL } from '../firebase';
@@ -11,7 +12,7 @@ function ProductDetails({addToCart}) {
       try {
         const response = await fetch(`${DB_URL}/products/${productId}.json`); 
         if (!response.ok) {
-          throw new Error('Не вдалось отримати дані продукту');
+          throw new Error('There is no information about this product');
         }
         const data = await response.json();
         setProduct(data); 
@@ -30,25 +31,22 @@ function ProductDetails({addToCart}) {
   }
 
   return (
-    <div style={{
-      marginTop: '100px',
-      fontSize: '25px'
-    }}>
+    <div className='product_description'>
       
       {product ? (
-        <div className="">
-          <div className=''>
+        <div className='description_card container d-flex'>
+          <div className='description_img'>
             <img src={product.img} alt="img" />
           </div>
-          <div className=''>
-            <h3 className="">{product.name}</h3>
-            <p className="">{product.description}</p>
-            <p className="">Ціна: ${product.price}</p>
+          <div className='description_text'>
+            <h2 className=''>{product.name}</h2>
+            <p className=''>{product.description}</p>
+            <h3 className=''>Price: $ {product.price}</h3>
             <button onClick={() => {handleAddToCart(product)}}>Add to cart</button>
           </div>
         </div>
       ) : (
-        <p className=''>Завантаження...</p>
+        <p className=''>Loading...</p>
       )}
     </div>
   );

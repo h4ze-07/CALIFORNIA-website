@@ -1,6 +1,7 @@
 @import "mixins";
 
 header{
+  background: #F8F9FA;
   position: fixed;
   width: 100%;
   top: 0;
@@ -8,7 +9,6 @@ header{
   z-index: 50;
   &:before{
     content: '';
-    background-color: white;
     position: absolute;
     top: 0;
     left: 0;
