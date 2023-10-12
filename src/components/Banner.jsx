@@ -3,7 +3,7 @@ import bannerLaptop from '../images/banner_laptop.png';
 import bannerTablet from '../images/banner_tablet.png';
 import bannerWatch from '../images/banner_watch.png';
 import '../scss/banner.scss'
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Autoplay} from "swiper/modules";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/scss/autoplay';
@@ -26,9 +26,7 @@ const Banner = () => {
                                     aliquam,
                                     tempor.
                                     Faucibus morbi turpis.</p>
-                                <NavLink className='banner_link' to='/catalog'>
-                                    <a href="#">Explore</a>
-                                </NavLink>
+                                <Link to={'/catalog'}>Explore</Link>
                             </div>
                             <div className="banner_img">
                                 <img src={banner} alt="banner"/>
@@ -43,9 +41,7 @@ const Banner = () => {
                                     aliquam,
                                     tempor.
                                     Faucibus morbi turpis.</p>
-                                <NavLink className='banner_link' to='/catalog'>
-                                    <a href="#">Explore</a>
-                                </NavLink>
+                                <Link to={'/catalog'}>Explore</Link>
                             </div>
                             <div className="banner_img">
                                 <img className='img_laptop' src={bannerLaptop} alt="banner"/>
@@ -60,9 +56,7 @@ const Banner = () => {
                                     aliquam,
                                     tempor.
                                     Faucibus morbi turpis.</p>
-                                <NavLink className='banner_link' to='/catalog'>
-                                    <a href="#">Explore</a>
-                                </NavLink>
+                                <Link to={'/catalog'}>Explore</Link>
                             </div>
                             <div className="banner_img">
                                 <img className='img_tablet' src={bannerTablet} alt="banner"/>
@@ -77,9 +71,7 @@ const Banner = () => {
                                     aliquam,
                                     tempor.
                                     Faucibus morbi turpis.</p>
-                                <NavLink className='banner_link' to='/catalog'>
-                                    <a href="#">Explore</a>
-                                </NavLink>
+                                <Link to={'/catalog'}>Explore</Link>
                             </div>
                             <div className="banner_img">
                                 <img className='img_watch' src={bannerWatch} alt="banner"/>
