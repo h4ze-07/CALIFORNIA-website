@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import ProductDetails from './pages/ProductDetails'
 
 import {DB_URL} from './firebase';
+import NotFound from "./pages/NotFound";
 
 function App() {
 
@@ -17,8 +18,9 @@ function App() {
   const [filterBrand, setFilterBrand] = useState('');
   const [cart, setCart] = useState([]);
 
+
   const addToCart = (product) => {
-    setCart([...cart, product])
+    setCart([...cart, product]);
   }
 
   
@@ -85,7 +87,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Root />,
+      element: <Root cartCounter={cart.length} />,
       children: [
         {
           path: '/',
@@ -123,6 +125,10 @@ function App() {
           //     console.error('Error fetching product data', error)
           //   }
           // }
+          },
+          {
+            path: '*',
+            element: <NotFound />
           }
       ]
     }])

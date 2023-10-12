@@ -3,10 +3,10 @@ import Header from './Header'
 import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
 
-const Root = () => {
+const Root = ({cartCounter}) => {
   return (
     <>
-      <Header />
+      <Header cartCounter={cartCounter} />
       <Outlet />
       <Footer />
     </>

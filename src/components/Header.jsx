@@ -9,7 +9,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon} from '@heroicons/react/20/solid'
 
 
-const Header = () => {
+const Header = ({cartCounter}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchResult, setSearchResult] = useState('');
 
@@ -84,6 +84,7 @@ const Header = () => {
                                 <NavLink to="/cart">
                                     <img src={headerCart} alt="search" />
                                 </NavLink>
+                                {cartCounter >= 1 && <div>{cartCounter}</div>}
                             </li>
                         </ul>
                     </nav>

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/cart.css'
+import { useNavigate } from 'react-router-dom';
 
 const Cart = ({cart, setCart}) => {
 
   const [price, setPrice] = useState(0);
+  const navigate = useNavigate()
 
   const priceCounter = (arr) => {
     let counter = 0;
     arr.map(el => counter += el.price)
-    return counter
+    return counter;
   }
 
   const handleDelete = (id) => {
@@ -19,6 +21,10 @@ const Cart = ({cart, setCart}) => {
   useEffect(() => {
     setPrice(priceCounter(cart, price))
   }, [cart])
+
+  const handleContinueSearch = () => {
+    navigate('/catalog');
+  }
 
   return (
     <section className='cart'>
@@ -38,9 +44,8 @@ const Cart = ({cart, setCart}) => {
                 </div>
               </div>
             ))}
-          </div>
-        }
-
+          </div>}
+        <button onClick={handleContinueSearch}>Продовжити покупки</button>
       </div>
       <div>
           <h2>Checkout</h2>

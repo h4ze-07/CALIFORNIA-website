@@ -1,6 +1,6 @@
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, Pagination} from "swiper/modules";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {BsSuitHeart} from "react-icons/bs";
 import {FreeMode} from 'swiper/modules';
 
@@ -24,8 +24,10 @@ const Products = ({swiperProducts, addToCart}) => {
 //   };
 // });
 
+    const navigate = useNavigate();
     const handleCartButtonClick = (product) => {
-        addToCart(product)
+        addToCart(product);
+        navigate('/cart');
     }
 
     return (
