@@ -1,11 +1,12 @@
 import '../scss/product_details.scss'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { DB_URL } from '../firebase';
 
 function ProductDetails({addToCart}) {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -27,7 +28,8 @@ function ProductDetails({addToCart}) {
   }, [productId]); 
 
   const handleAddToCart = (product) => {
-    addToCart(product)
+    addToCart(product);
+    navigate('/cart');
   }
 
   return (
