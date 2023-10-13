@@ -3,6 +3,7 @@ import ModalSearch from "./ModalSearch.jsx";
 import headerLogo from '../images/header_logo.svg';
 import headerSearch from '../images/header_search.svg';
 import headerCart from '../images/header_cart.svg';
+import headerUser from '../images/header_user.svg';
 import { NavLink, Link } from 'react-router-dom';
 import { Fragment, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
@@ -75,6 +76,11 @@ const Header = ({cartCounter}) => {
                     </nav>
                     <nav>
                         <ul className="header_icons">
+                            <li>
+                                <a href="#">
+                                    <img src={headerUser} alt="user" />
+                                </a>
+                            </li>
                             <li>
                                 <a href="#" onClick={() => handleSearch()}>
                                     <img src={headerSearch} alt="search" />

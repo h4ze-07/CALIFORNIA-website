@@ -141,9 +141,12 @@ header{
         list-style: none;
         &:first-of-type{
           margin-right: 20px;
+          width: 24px;
+          height: 24px;
         }
         &:last-of-type{
           margin-right: 28px;
+          margin-left: 20px;
         }
         @include max-screen(330px){
           &:first-of-type, &:last-of-type{
