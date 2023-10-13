@@ -1,4 +1,6 @@
 import {Link, useNavigate} from "react-router-dom"
+import { useParams } from 'react-router-dom'; 
+
 import "../scss/catalog.scss"
 
 
@@ -9,6 +11,15 @@ const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handl
         addToCart(product)
         navigate('/cart');
     }
+    const { category } = useParams();
+    console.log(category)
+
+    const filteredProducts = products ? (
+        products.filter((product) => {
+          return category ? product.category === category : true;
+        })
+      ) : [];
+      console.log(filteredProducts)
 
 
     return (
@@ -22,6 +33,7 @@ const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handl
                         <button onClick={() => handleFilterCategoryChange('laptop')}>Laptop</button>
                         <button onClick={() => handleFilterCategoryChange('watch')}>Watch</button>
                         <button onClick={() => handleFilterCategoryChange('tablet')}>Tablet</button>
+                        
                     </div>
                     {/* brand */}
                     <div className='filter'>
@@ -33,29 +45,49 @@ const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handl
 
                 </div>
                 {isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <div className="catalog_box d-flex">
-
-                        {products.map((product) => (
-                            <div key={product.id} href={product.href} className="catalog_card">
-                                <div className="catalog_card_img">
-                                    <img src={product.img}/>
-                                </div>
-                                <div className="catalog_card_text">
-                                    <h3>{product.name}</h3>
-                                    <p>$ {product.price}</p>
-                                    <button className="">
-                                        <Link to={`/product/${product.id}`}>More info</Link>
-                                    </button>
-                                    <button className=""
-                                            onClick={() => handleCartChange(product)}
-                                    >Add to cart
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>)}
+            <p>Loading...</p>
+          ) : (
+            <div className="catalog_box d-flex">
+              {category ? ( 
+                filteredProducts.map((product) => (
+                    <div key={product.id} href={product.href} className="catalog_card">
+                    <div className="catalog_card_img">
+                      <img src={product.img}/>
+                    </div>
+                    <div className="catalog_card_text">
+                      <h3>{product.name}</h3>
+                      <p>$ {product.price}</p>
+                      <button className="">
+                        <Link to={`/product/${product.id}`}>More info</Link>
+                      </button>
+                      <button className="" onClick={() => handleCartChange(product)}>
+                        Add to cart
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Виводьте всі товари
+                products.map((product) => (
+                  <div key={product.id} href={product.href} className="catalog_card">
+                    <div className="catalog_card_img">
+                      <img src={product.img}/>
+                    </div>
+                    <div className="catalog_card_text">
+                      <h3>{product.name}</h3>
+                      <p>$ {product.price}</p>
+                      <button className="">
+                        <Link to={`/product/${product.id}`}>More info</Link>
+                      </button>
+                      <button className="" onClick={() => handleCartChange(product)}>
+                        Add to cart
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
 
 
             </div>

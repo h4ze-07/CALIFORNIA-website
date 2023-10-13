@@ -3,7 +3,7 @@ import ModalSearch from "./ModalSearch.jsx";
 import headerLogo from '../images/header_logo.svg';
 import headerSearch from '../images/header_search.svg';
 import headerCart from '../images/header_cart.svg';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Fragment, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon} from '@heroicons/react/20/solid'
@@ -55,16 +55,16 @@ const Header = ({cartCounter}) => {
                                         <div className="child_box">
                                             <ul>
                                                 <li>
-                                                    <a href="#">Phones</a>
+                                                <Link to="catalog/smartphones">Phones</Link>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Watch</a>
+                                                    <Link to="catalog/watch">Watches</Link>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Tablet</a>
+                                                <Link to="catalog/tablet">Tablet</Link>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Laptops</a>
+                                                <Link to="/catalog/laptop">Laptops</Link>
                                                 </li>
                                             </ul>
                                         </div>

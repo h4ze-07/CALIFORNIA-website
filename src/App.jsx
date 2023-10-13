@@ -103,6 +103,16 @@ function App() {
           addToCart={addToCart}/>
         },
         {
+          path: '/catalog/:category',
+          element: <Catalog
+          isLoading={isLoading}
+          handleFilterCategoryChange={handleFilterCategoryChange} 
+          handleFilterBrandChange={handleFilterBrandChange}
+          products={products}
+          addToCart={addToCart}
+          />
+        },
+        {
           path: '/cart',
           element: <Cart cart={cart} setCart={setCart} />
         },
