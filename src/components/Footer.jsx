@@ -14,23 +14,6 @@ const Footer = () => {
                 <p>Sign up for texts to be notified about<br /> our best offers on the perfect gifts.</p>
             </div>
             <div className="footer_box">
-                <h4>All products</h4>
-                <ul>
-                    <li>
-                        <a href="#">Phones</a>
-                    </li>
-                    <li>
-                        <a href="#">Watch</a>
-                    </li>
-                    <li>
-                        <a href="#">Tablet</a>
-                    </li>
-                    <li>
-                        <a href="#">Laptops</a>
-                    </li>
-                </ul>
-            </div>
-            <div className="footer_box">
                 <h4>Company</h4>
                 <ul>
                     <li>
