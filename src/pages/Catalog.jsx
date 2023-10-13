@@ -21,6 +21,13 @@ const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handl
       ) : [];
       console.log(filteredProducts)
 
+      const handleCategoryChange = (selectedCategory) => {
+        // Встановлюємо нову категорію
+        handleFilterCategoryChange(selectedCategory);
+        // Оновлюємо URL шляху
+        navigate(`/catalog/${selectedCategory}`);
+    }
+
 
     return (
         <section className="catalog_page">
@@ -29,10 +36,10 @@ const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handl
                     <h2 className="">Our Products</h2>
                     {/* category */}
                     <div className='filter'>
-                        <button onClick={() => handleFilterCategoryChange('smartphones')}>Phone</button>
-                        <button onClick={() => handleFilterCategoryChange('laptop')}>Laptop</button>
-                        <button onClick={() => handleFilterCategoryChange('watch')}>Watch</button>
-                        <button onClick={() => handleFilterCategoryChange('tablet')}>Tablet</button>
+                        <button onClick={() => handleCategoryChange('smartphones')}>Phone</button>
+                        <button onClick={() => handleCategoryChange('laptop')}>Laptop</button>
+                        <button onClick={() => handleCategoryChange('watch')}>Watch</button>
+                        <button onClick={() => handleCategoryChange('tablet')}>Tablet</button>
                         
                     </div>
                     {/* brand */}
