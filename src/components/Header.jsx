@@ -4,15 +4,21 @@ import headerLogo from '../images/header_logo.svg';
 import headerSearch from '../images/header_search.svg';
 import headerCart from '../images/header_cart.svg';
 import headerUser from '../images/header_user.svg';
-import { NavLink, Link } from 'react-router-dom';
-import { Fragment, useState } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { ChevronDownIcon} from '@heroicons/react/20/solid'
-
+import {NavLink, Link} from 'react-router-dom';
+import {Fragment, useState, useEffect} from 'react'
+import {Popover, Transition} from '@headlessui/react'
+import {ChevronDownIcon} from '@heroicons/react/20/solid'
 
 const Header = ({cartCounter}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchResult, setSearchResult] = useState('');
+
+    const handleClose = () => {
+        const element = document.querySelector('.child_item');
+        if (element) {
+            element.style.display = 'none';
+        }
+    }
 
     const handleSearch = (searchText) => {
         setIsModalOpen(true);
@@ -24,7 +30,7 @@ const Header = ({cartCounter}) => {
             <div className="container">
                 <div className="header_body">
                     <NavLink to="/" className="header_logo">
-                        <img src={headerLogo} alt="logo" />
+                        <img src={headerLogo} alt="logo"/>
                     </NavLink>
                     <div className="header_burger">
                         <span></span>
@@ -38,7 +44,7 @@ const Header = ({cartCounter}) => {
                                 <NavLink to='/catalog' className="header_link">all products</NavLink>
                             </li>
                             <Popover className="dropdown_products">
-                                <Popover.Button className="parents_item">
+                                <Popover.Button className="parents_item" >
                                     <span>Solutions</span>
                                     <ChevronDownIcon className="dropdown_icon" aria-hidden="true"/>
                                 </Popover.Button>
@@ -56,16 +62,16 @@ const Header = ({cartCounter}) => {
                                         <div className="child_box">
                                             <ul>
                                                 <li>
-                                                <Link to="catalog/smartphones">Phones</Link>
+                                                    <Link to="catalog/smartphones" onClick={handleClose}>Phones</Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="catalog/watch">Watches</Link>
+                                                    <Link to="catalog/watch" onClick={handleClose}>Watches</Link>
                                                 </li>
                                                 <li>
-                                                <Link to="catalog/tablet">Tablet</Link>
+                                                    <Link to="catalog/tablet" onClick={handleClose}>Tablet</Link>
                                                 </li>
                                                 <li>
-                                                <Link to="/catalog/laptop">Laptops</Link>
+                                                    <Link to="/catalog/laptop" onClick={handleClose}>Laptops</Link>
                                                 </li>
                                             </ul>
                                         </div>
@@ -78,19 +84,19 @@ const Header = ({cartCounter}) => {
                         <ul className="header_icons">
                             <li>
                                 <a href="#">
-                                    <img src={headerUser} alt="user" />
+                                    <img src={headerUser} alt="user"/>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" onClick={() => handleSearch()}>
-                                    <img src={headerSearch} alt="search" />
+                                    <img src={headerSearch} alt="search"/>
                                 </a>
                             </li>
                             <li>
                                 <NavLink to="/cart">
-                                    <img src={headerCart} alt="search" />
+                                    <img src={headerCart} alt="search"/>
                                 </NavLink>
-                                {cartCounter >= 1 && <div>{cartCounter}</div>}
+                                {cartCounter >= 1 && <div className='header_cart_count'>{cartCounter}</div>}
                             </li>
                         </ul>
                     </nav>

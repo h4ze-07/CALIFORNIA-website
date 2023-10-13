@@ -228,6 +228,15 @@ header{
     }
   }
 
+  .header_cart_count{
+    position: absolute;
+    background-color: #DCE5E2;
+    border-radius: 50px;
+    padding: 3px 7px;
+    bottom: 5px;
+    right: 7px;
+  }
+
   .header_burger.active{
     &:before{
       content:"";
