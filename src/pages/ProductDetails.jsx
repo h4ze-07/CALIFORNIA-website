@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { DB_URL } from '../firebase';
 
-function ProductDetails({addToCart}) {
+function ProductDetails({cart, addToCart, setCart}) {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
@@ -27,8 +27,25 @@ function ProductDetails({addToCart}) {
    
   }, [productId]); 
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
+  const handleAddToCart = (product, productId) => {
+    const testProduct = cart.find((item) => item.productId === productId);
+    if (testProduct) {
+      const updatedItems = cart.map((item) =>
+        item.productId === productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item);
+      setCart(updatedItems);
+    } else {
+      addToCart(
+        {
+            cartId: cart.length === 0 ? 1 : cart[cart.length - 1].cartId + 1,
+            productId: productId,
+            quantity: 1,
+            price: product.price,
+            allInfo: product
+          }
+        )
+    }
     navigate('/cart');
   }
 
@@ -44,7 +61,7 @@ function ProductDetails({addToCart}) {
             <h2 className=''>{product.name}</h2>
             <p className=''>{product.description}</p>
             <h3 className=''>Price: $ {product.price}</h3>
-            <button onClick={() => {handleAddToCart(product)}}>Add to cart</button>
+            <button onClick={() => {handleAddToCart(product, productId)}}>Add to cart</button>
           </div>
         </div>
       ) : (

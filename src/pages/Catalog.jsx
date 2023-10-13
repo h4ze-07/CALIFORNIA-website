@@ -4,12 +4,29 @@ import { useParams } from 'react-router-dom';
 import "../scss/catalog.scss"
 
 
-const Catalog = ({isLoading, products, addToCart, handleFilterBrandChange, handleFilterCategoryChange}) => {
+const Catalog = ({isLoading, products, cart, setCart, addToCart, handleFilterBrandChange, handleFilterCategoryChange}) => {
 
     const navigate = useNavigate();
     const handleCartChange = (product) => {
-        addToCart(product)
-        navigate('/cart');
+      const testProduct = cart.find((item) => item.productId === product.id);
+      if (testProduct) {
+        const updatedItems = cart.map((item) =>
+          item.productId === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item);
+        setCart(updatedItems);
+      } else {
+        addToCart(
+          {
+              cartId: cart.length === 0 ? 1 : cart[cart.length - 1].cartId + 1,
+              productId: product.id,
+              quantity: 1,
+              price: product.price,
+              allInfo: product
+            }
+          )
+      }
+      navigate('/cart');
     }
     const { category } = useParams();
     console.log(category)

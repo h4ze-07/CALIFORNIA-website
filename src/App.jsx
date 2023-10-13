@@ -91,7 +91,7 @@ function App() {
       children: [
         {
           path: '/',
-          element: <Home allProducts={products} addToCart={addToCart}/>
+          element: <Home allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart}/>
         },
         {
           path: '/catalog',
@@ -99,8 +99,10 @@ function App() {
           isLoading={isLoading} 
           handleFilterBrandChange={handleFilterBrandChange} 
           handleFilterCategoryChange={handleFilterCategoryChange} 
-          products={products} 
-          addToCart={addToCart}/>
+          products={products}
+          cart={cart} 
+          addToCart={addToCart}
+          setCart={setCart}/>
         },
         {
           path: '/catalog/:category',
@@ -118,7 +120,7 @@ function App() {
         },
         {
           path: '/product/:productId',
-          element: <ProductDetails addToCart={addToCart} />,
+          element: <ProductDetails cart={cart} addToCart={addToCart} setCart={setCart} />,
           // loader: async ({params}) => {
           //   const {productId} = params;
           //   console.log(params)
