@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import '../styles/cart.css'
-import { useNavigate } from 'react-router-dom';
+import  {useEffect, useState} from 'react'
+import '../scss/cart.scss'
+import {useNavigate} from 'react-router-dom';
 import ModalCart from '../components/ModalCart';
 
 const Cart = ({cart, setCart}) => {
@@ -39,32 +39,40 @@ const Cart = ({cart, setCart}) => {
   }
 
   return (
-    <section className='cart'>
-      {isModalOpen && <ModalCart closeModal={closeModal} handleDelete={handleDelete} product={productToDelete} />}
-      <div>
-        <h2>List:</h2>
-        {cart.length === 0 ? <h3>Cart is empty!</h3> :
-          <div className='list-wrap'>
-            {cart.map(el => (
-              <div key={el.id} className='cart-card'>
-                <div className='cart-img'>
-                  <img src={el.img} alt={el.name} />
+      <section className='cart'>
+        <div className='container'>
+          <div className='cart_text text_centre'>
+            <h2>List:</h2>
+          </div>
+          <ModalCart isOpen={isModalOpen} closeModal={closeModal} handleDelete={handleDelete}
+                     product={productToDelete}/>
+          {cart.length === 0 ? <h3>Cart is empty!</h3> :
+              <div className='list-wrap'>
+                {cart.map(el => (
+                    <div key={el.id} className='cart-card d-flex'>
+                      <div className='cart-img'>
+                        <img src={el.img} alt={el.name}/>
+                      </div>
+                      <div className='cart-right d-flex aline_centre'>
+                        <div className='cart-right-text'>
+                          <h3>{el.name}</h3>
+                          <p>{el.description}</p>
+                        </div>
+                        <div className='cart-right-button'>
+                          <button onClick={() => handleConfirn(el.id, el.name)}>Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                ))}
+                <div className='total'>
+                  <h4>Total price: ${price}</h4>
                 </div>
-                <div className='cart-right'>
-                    <h2>{el.name}</h2>
-                    <p>{el.description}</p>
-                    <button onClick={() => handleConfirn(el.id, el.name)}>Delete from cart!</button>
-                </div>
-              </div>
-            ))}
-          </div>}
-        <button onClick={handleContinueSearch}>Continue purchase</button>
-      </div>
-      <div>
-          <h2>Checkout</h2>
-          <h3>Total price: ${price}</h3>
-      </div>
-    </section>
+              </div>}
+          <div className='back text_centre'>
+            <button onClick={handleContinueSearch}>Continue purchase</button>
+          </div>
+        </div>
+      </section>
   )
 }
 
