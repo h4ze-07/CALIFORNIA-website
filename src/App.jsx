@@ -152,7 +152,9 @@ function App() {
           handleFilterCategoryChange={handleFilterCategoryChange} 
           handleFilterBrandChange={handleFilterBrandChange}
           products={products}
+          cart={cart} 
           addToCart={addToCart}
+          setCart={setCart}
           />
         },
         {
