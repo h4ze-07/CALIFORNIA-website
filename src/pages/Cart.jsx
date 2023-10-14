@@ -3,10 +3,14 @@ import '../scss/cart.scss'
 import {useNavigate} from 'react-router-dom';
 import ModalCart from '../components/ModalCart';
 
-const CheckoutModal = ({setIsCheckoutModal}) => {
+const CheckoutModal = ({setIsCheckoutModal, setCart}) => {
+
+  const navigate = useNavigate()
 
   const handleCloseClick = () => {
     setIsCheckoutModal(false);
+    navigate('/');
+    setCart([]);
   }
 
   return (
@@ -80,7 +84,6 @@ const Cart = ({cart, setCart}) => {
 
   const handleCheckoutClick = () => {
     setIsCheckoutModal(true);
-    setCart([]);
   }
 
   return (
@@ -90,7 +93,7 @@ const Cart = ({cart, setCart}) => {
             <h2>List:</h2>
           </div>
           <ModalCart isOpen={isModalOpen} closeModal={closeModal} handleDelete={handleDelete} product={productToDelete}/>
-          {isCheckoutModal && <CheckoutModal setIsCheckoutModal={setIsCheckoutModal} />}
+          {isCheckoutModal && <CheckoutModal setIsCheckoutModal={setIsCheckoutModal} setCart={setCart} />}
           {cart.length === 0 ? <h3>Cart is empty!</h3> :
               <div className='list-wrap'>
                 {cart.map(el => (
