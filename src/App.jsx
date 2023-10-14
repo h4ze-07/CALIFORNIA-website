@@ -1,5 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useState,useEffect } from "react";
+import { child, push, ref, set } from "firebase/database";
+import { db } from './firebase';
 
 import Root from "./components/Root";
 import Home from "./pages/Home";
@@ -9,6 +11,8 @@ import ProductDetails from './pages/ProductDetails'
 
 import {DB_URL} from './firebase';
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
+import Wishes from "./pages/Wishes";
 
 function App() {
 
@@ -17,12 +21,16 @@ function App() {
   const [filterCategory, setFilterCategory] = useState('');
   const [filterBrand, setFilterBrand] = useState('');
   const [cart, setCart] = useState([]);
+  const [wishes, setWishes] = useState([]);
+  const [user, setUser] = useState(null);
 
 
   const addToCart = (product) => {
     setCart([...cart, product]);
   }
-
+  const addToWishes = (product) => {
+    setWishes([...wishes, product]);
+  }
   
 
   useEffect(() => {
@@ -82,6 +90,38 @@ function App() {
   const handleFilterBrandChange = (brand) => {
     setFilterBrand(brand);
   };
+  const handleWishes = (e) => {
+    const wish = {
+        date: new Date().toLocaleString(),
+        satus: 'New',
+        uid: user.userId,
+       items: wishes
+    };
+      console.log(wish)
+    // 1. create order in DB
+    const newWishKey = push(child(ref(db), 'wishes')).key;
+
+    set(ref(db, 'wishes/' + newWishKey), wish)
+    .then(() => {
+       
+
+        // 3. clear Cart
+        // dispatch(cartActions.clear());
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+    });
+    
+    // 2. create order in users/:id.json
+    set(ref(db, 'users/' + user.userId + '/wishes/' + newWishKey), wish)
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+    });
+}
 
 
   const router = createBrowserRouter([
@@ -91,7 +131,7 @@ function App() {
       children: [
         {
           path: '/',
-          element: <Home allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart}/>
+          element: <Home handleWishes={handleWishes} addToWishes={addToWishes} allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart}/>
         },
         {
           path: '/catalog',
@@ -102,7 +142,8 @@ function App() {
           products={products}
           cart={cart} 
           addToCart={addToCart}
-          setCart={setCart}/>
+          setCart={setCart}
+          addToWishes={addToWishes}/>
         },
         {
           path: '/catalog/:category',
@@ -117,6 +158,14 @@ function App() {
         {
           path: '/cart',
           element: <Cart cart={cart} setCart={setCart} />
+        },
+        {
+          path: '/wishes',
+          element: <Wishes user={user} wishes={wishes} setWishes={setWishes}/>
+        },
+        {
+          path: '/login',
+          element: <Profile setUser={setUser} user={user} wishes={wishes}/>
         },
         {
           path: '/product/:productId',

@@ -83,9 +83,9 @@ const Header = ({cartCounter}) => {
                     <nav>
                         <ul className="header_icons">
                             <li>
-                                <a href="#">
+                                <Link to='/login'>
                                     <img src={headerUser} alt="user"/>
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <a href="#" onClick={() => handleSearch()}>

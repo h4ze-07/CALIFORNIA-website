@@ -5,12 +5,12 @@ import Ideas from '../components/Ideas'
 import Else from '../components/Else'
 import ShopSection from "../components/ShopSection.jsx";
 
-const Home = ({allProducts, cart, setCart, addToCart}) => {
+const Home = ({allProducts, cart, setCart, addToCart, addToWishes, handleWishes}) => {
   return (
     <>
         <Banner/>
         <ShopSection/>
-        <Products swiperProducts={allProducts} setCart={setCart} cart={cart} addToCart={addToCart}/>
+        <Products handleWishes={handleWishes} addToWishes={addToWishes} swiperProducts={allProducts} setCart={setCart} cart={cart} addToCart={addToCart}/>
         <BestSection />
         <Ideas />
         <Else />

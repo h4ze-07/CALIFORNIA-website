@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 import '../scss/products.scss'
 
 
-const Products = ({swiperProducts, cart, setCart, addToCart}) => {
+const Products = ({swiperProducts, cart, setCart, addToCart, addToWishes, handleWishes}) => {
 
 // const formattedProductsItem = swiperProducts.map((product) => {
 //   const formattedPrice = product.price.toLocaleString('en-US', {
@@ -47,6 +47,12 @@ const Products = ({swiperProducts, cart, setCart, addToCart}) => {
         navigate('/cart');
     }
 
+    const handleWishesChange = (product) => {
+        addToWishes(product)
+        handleWishes(product)
+        // navigate('/wishes');
+    }
+
     return (
         <>
             <section className='items'>
@@ -75,7 +81,7 @@ const Products = ({swiperProducts, cart, setCart, addToCart}) => {
                                         <button onClick={() => handleCartButtonClick(product)}>
                                             Add to Cart
                                         </button>
-                                        <button><BsSuitHeart/></button>
+                                        <button onClick={() => handleWishesChange(product)}><BsSuitHeart/></button>
                                         <button>
                                             <Link to={`/product/${product.id}`}>More info</Link>
                                         </button>

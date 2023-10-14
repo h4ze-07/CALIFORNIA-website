@@ -4,7 +4,16 @@ import { useParams } from 'react-router-dom';
 import "../scss/catalog.scss"
 
 
-const Catalog = ({isLoading, products, cart, setCart, addToCart, handleFilterBrandChange, handleFilterCategoryChange}) => {
+const Catalog = ({
+          isLoading, 
+          products, 
+          cart, 
+          setCart, 
+          addToCart, 
+          handleFilterBrandChange, 
+          handleFilterCategoryChange,
+          addToWishes
+}) => {
 
     const navigate = useNavigate();
     const handleCartChange = (product) => {
@@ -28,6 +37,10 @@ const Catalog = ({isLoading, products, cart, setCart, addToCart, handleFilterBra
       }
       navigate('/cart');
     }
+    const handleWishesChange = (product) => {
+      addToWishes(product)
+      navigate('/wishes');
+  }
     const { category } = useParams();
     console.log(category)
 
