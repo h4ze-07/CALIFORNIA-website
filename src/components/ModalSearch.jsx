@@ -6,8 +6,12 @@ import { FaTimes } from 'react-icons/fa';
 const ModalSearch = ({ isOpen, onRequestClose, onSearch }) => {
     const [searchText, setSearchText] = useState('');
 
+    const clearSearchText = () => {
+        setSearchText('');
+    };
     const handleSearch = () => {
         onSearch(searchText);
+        clearSearchText();
         onRequestClose();
     };
 

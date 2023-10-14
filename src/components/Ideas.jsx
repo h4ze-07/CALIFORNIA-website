@@ -18,8 +18,6 @@ const Ideas = () => {
                     <p>We Make It Easy To Find The Great Design Talent, Easier...</p>
                 </div>
             </div>
-
-            <a href="#">See all</a>
         </div>
     </section>
   )

@@ -25,6 +25,52 @@ const Header = ({cartCounter}) => {
         setSearchResult(`${searchText}`);
     };
 
+    useEffect(() => {
+        const headerBurger = document.querySelector('.header_burger');
+        const headerMenu = document.querySelector('.header_menu');
+        const body = document.querySelector('body');
+
+        const toggleClasses = () => {
+            headerBurger.classList.toggle('active');
+            headerMenu.classList.toggle('active');
+            body.classList.toggle('lock');
+        };
+
+        if (headerBurger) {
+            headerBurger.addEventListener('click', toggleClasses);
+        }
+
+        return () => {
+            if (headerBurger) {
+                headerBurger.removeEventListener('click', toggleClasses);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        const headerLinks = document.querySelectorAll('.header_link');
+
+        const closeMenu = () => {
+            const headerBurger = document.querySelector('.header_burger');
+            const headerMenu = document.querySelector('.header_menu');
+            const body = document.querySelector('body');
+
+            headerBurger.classList.remove('active');
+            headerMenu.classList.remove('active');
+            body.classList.remove('lock');
+        };
+
+        headerLinks.forEach((link) => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        return () => {
+            headerLinks.forEach((link) => {
+                link.removeEventListener('click', closeMenu);
+            });
+        };
+    }, []);
+
     return (
         <header>
             <div className="container">

@@ -102,31 +102,4 @@
       }
     }
   }
-
-  a{
-    text-decoration: none;
-    @include inter_font;
-    color:$main_color;
-    font-size: 24px;
-    line-height: 29px;
-    display: inline-block;
-    &:after{
-      content: "";
-      display: inline-block;
-      background-image: url("../image/ideas_arrow.svg");
-      width: 30px;
-      height: 28px;
-      vertical-align: bottom;
-    }
-    &:hover{
-      @include min-screen(767px){
-        font-size: 28px;
-        line-height: 31px;
-      }
-    }
-    @include max-screen(1015px){
-      font-size: 20px;
-      line-height: 26px;
-    }
-  }
 }

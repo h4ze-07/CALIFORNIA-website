@@ -1,0 +1,54 @@
+@import "mixins";
+
+.not_found{
+  padding-top: 100px;
+  padding-bottom: 50px;
+  .container{
+    background-color: #DCE5E2;
+    border-radius: 32px;
+    height: 300px;
+    display: flex;
+  }
+  .not_found_text{
+    margin: auto;
+    h2{
+      @include readex_font;
+      color:$main_color;
+      font-size: 42px;
+      line-height: 52px;
+      margin-bottom: 30px;
+      @include max-screen(537px){
+        font-size: 32px;
+        line-height: 42px;
+      }
+      @include max-screen(326px){
+        font-size: 27px;
+        line-height: 38px;
+      }
+    }
+    p{
+      @include inter_font;
+      color:$main_color;
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 14px;
+      @include max-screen(579px){
+        font-size: 12px;
+        line-height: 15px;
+      }
+    }
+    a{
+      @include inter_font;
+      color:$main_color;
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 14px;
+      @include max-screen(579px){
+        font-size: 12px;
+        line-height: 15px;
+      }
+    }
+  }
+
+
+}
