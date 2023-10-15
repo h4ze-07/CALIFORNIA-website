@@ -32,6 +32,9 @@ function App() {
     setWishes([...wishes, product]);
   }
   
+  useEffect(() => {
+    console.log(cart);
+  }, [cart])
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -123,6 +126,50 @@ function App() {
     });
 }
 
+  const handleOrders = () => {
+    const orderToDb = {
+        date: new Date().toLocaleString(),
+        satus: 'New',
+        uid: user.userId,
+        items: cart
+    };
+    // 1. create order in DB
+    const newOrderKey = push(child(ref(db), 'orders')).key;
+    set(ref(db, 'orders/' + newOrderKey), orderToDb)
+    .then(() => {
+        // 3. clear Cart
+        // dispatch(cartActions.clear());
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+    });
+    
+    // 2. create order in users/:id.json
+    set(ref(db, 'users/' + user.userId + '/orders/' + newOrderKey), orderToDb)
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+    });
+  }
+
+  const handleCartToDb = () => {
+    const updatingCart = {
+      date: new Date().toLocaleString(),
+      satus: 'Updating',
+      uid: user.userId,
+      items: cart,
+    };
+
+    set(ref(db, 'users/' + user.userId + '/cart/'), updatingCart)
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    });
+  }
 
   const router = createBrowserRouter([
     {
@@ -159,7 +206,7 @@ function App() {
         },
         {
           path: '/cart',
-          element: <Cart cart={cart} setCart={setCart} />
+          element: <Cart cart={cart} setCart={setCart} handleOrders={handleOrders} />
         },
         {
           path: '/wishes',

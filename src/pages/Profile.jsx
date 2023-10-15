@@ -28,8 +28,9 @@ const Profile = ({setUser, user, wishes}) => {
                 name: userFromDB.name,
                 email: userFromDB.email,
                 userId: userFromDB.uid,
-                // cart: userFromDB.cart,
-                wishes: userFromDB.wishes || []
+                wishes: userFromDB.wishes || [],
+                cart: userFromDB.cart || [],
+                orders: userFromDB.orders || []
             });
         } catch (error) {
             console.log(error);

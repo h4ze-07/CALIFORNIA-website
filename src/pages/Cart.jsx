@@ -22,7 +22,7 @@ const CheckoutModal = ({setIsCheckoutModal, setCart}) => {
     )
 }
 
-const Cart = ({cart, setCart}) => {
+const Cart = ({cart, setCart, handleOrders}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isCheckoutModal, setIsCheckoutModal] = useState(false);
@@ -84,6 +84,7 @@ const Cart = ({cart, setCart}) => {
 
     const handleCheckoutClick = () => {
         setIsCheckoutModal(true);
+        handleOrders()
     }
 
     return (
