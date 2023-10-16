@@ -2,25 +2,8 @@ import {useEffect, useState} from 'react'
 import '../scss/cart.scss'
 import {useNavigate} from 'react-router-dom';
 import ModalCart from '../components/ModalCart';
+import CheckoutModal from "../components/CheckoutModal.jsx";
 
-const CheckoutModal = ({setIsCheckoutModal, setCart}) => {
-
-    const navigate = useNavigate()
-
-    const handleCloseClick = () => {
-        setIsCheckoutModal(false);
-        navigate('/');
-        setCart([]);
-    }
-
-    return (
-        <>
-            <h2>Thank you for choosing our store to purchase your device!</h2>
-            <p>We hope to hear feedback from you! Always glad to see you!</p>
-            <button onClick={handleCloseClick}>Close</button>
-        </>
-    )
-}
 
 const Cart = ({cart, setCart, handleOrders}) => {
 
@@ -43,6 +26,7 @@ const Cart = ({cart, setCart, handleOrders}) => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setIsCheckoutModal(false);
     }
 
     const handleDelete = (id) => {
@@ -95,8 +79,8 @@ const Cart = ({cart, setCart, handleOrders}) => {
                 </div>
                 <ModalCart isOpen={isModalOpen} closeModal={closeModal} handleDelete={handleDelete}
                            product={productToDelete}/>
-                {isCheckoutModal && <CheckoutModal setIsCheckoutModal={setIsCheckoutModal} setCart={setCart}/>}
-                {cart.length === 0 ? <h3>Cart is empty!</h3> :
+                {isCheckoutModal && <CheckoutModal isOpen={setIsCheckoutModal} closeModal={closeModal} setIsCheckoutModal={setIsCheckoutModal} setCart={setCart}/>}
+                {cart.length === 0 ? <h3 className='empty text_centre'>Cart is empty!</h3> :
                     <div className='list-wrap'>
                         {cart.map(el => (
                             <div key={el.cartId} className='cart-card d-flex'>
@@ -104,14 +88,18 @@ const Cart = ({cart, setCart, handleOrders}) => {
                                     <img src={el.allInfo.img} alt={el.allInfo.name}/>
                                 </div>
                                 <div className='cart-right d-flex aline_centre'>
-                                    <div className='cart-right-text'>
-                                        <h3>{el.allInfo.name}</h3>
-                                        <p>
+                                    <div className='cart-right-text d-flex'>
+                                        <div className='cart-right-text_name'>
+                                            <h3>{el.allInfo.name}</h3>
+                                        </div>
+                                        <div className='cart-right-text_button'>
                                             <button onClick={() => handleQuantityDecrease(el)}>-</button>
                                             <span>{el.quantity}</span>
                                             <button onClick={() => handleQuantityIncrease(el)}>+</button>
-                                        </p>
-                                        <p>Price: {el.price * el.quantity}$</p>
+                                        </div>
+                                        <div className='cart-right-text_price' >
+                                            <p>Price: {el.price * el.quantity}$</p>
+                                        </div>
                                     </div>
                                     <div className='cart-right-button'>
                                         <button onClick={() => handleConfirn(el.cartId, el.allInfo.name)}>Delete
