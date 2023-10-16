@@ -39,7 +39,7 @@ const LogIn = ({updateUser, userLogIn}) => {
   
     return (
       <div onSubmit={handleLogin}>
-          <div className="modal-content">
+          <div>
               <form>
                 <div>
                   <label>Email address</label>

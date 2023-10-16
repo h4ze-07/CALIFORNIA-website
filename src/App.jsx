@@ -13,8 +13,8 @@ import ProductDetails from './pages/ProductDetails'
 import {DB_URL} from './firebase';
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
-import Wishes from "./pages/Wishes";
-import Orders from "./pages/Orders";
+import Wishes from "./components/Wishes.jsx";
+import Orders from "./components/Orders.jsx";
 
 function App() {
 
