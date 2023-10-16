@@ -71,7 +71,7 @@ const Profile = ({setUser, user, wishes}) => {
         }>
             <div>
                 <h2>Personal account</h2>
-                <button>my orders</button>
+                <Link to='/orders'>my orders</Link>
                 <Link to='/wishes'>my wishes</Link>
 
             </div>

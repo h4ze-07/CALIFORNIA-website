@@ -13,6 +13,7 @@ import {DB_URL} from './firebase';
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Wishes from "./pages/Wishes";
+import Orders from "./pages/Orders";
 
 function App() {
 
@@ -20,10 +21,13 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterBrand, setFilterBrand] = useState('');
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
   const [wishes, setWishes] = useState([]);
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
 
   const addToCart = (product) => {
     setCart([...cart, product]);
@@ -31,10 +35,6 @@ function App() {
   const addToWishes = (product) => {
     setWishes([...wishes, product]);
   }
-  
-  useEffect(() => {
-    console.log(cart);
-  }, [cart])
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -93,12 +93,15 @@ function App() {
   const handleFilterBrandChange = (brand) => {
     setFilterBrand(brand);
   };
-  const handleWishes = (e) => {
+
+
+
+  const handleWishes = () => {
     const wish = {
         date: new Date().toLocaleString(),
         satus: 'New',
-        uid: user.userId,
-       items: wishes
+        uid: user ? user.userId : 'unsigned',
+        items: wishes
     };
       console.log(wish)
     // 1. create order in DB
@@ -118,58 +121,67 @@ function App() {
     });
     
     // 2. create order in users/:id.json
-    set(ref(db, 'users/' + user.userId + '/wishes/' + newWishKey), wish)
-    .catch((error) => {
+    if (user) { 
+      set(ref(db, 'users/' + user.userId + '/wishes/' + newWishKey), wish)
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
-    });
-}
+      });
+    }
+  }
+
+
 
   const handleOrders = () => {
     const orderToDb = {
         date: new Date().toLocaleString(),
         satus: 'New',
-        uid: user.userId,
+        uid: user ? user.userId : 'unsigned',
         items: cart
     };
     // 1. create order in DB
     const newOrderKey = push(child(ref(db), 'orders')).key;
     set(ref(db, 'orders/' + newOrderKey), orderToDb)
-    .then(() => {
-        // 3. clear Cart
-        // dispatch(cartActions.clear());
-    })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
     });
     
-    // 2. create order in users/:id.json
-    set(ref(db, 'users/' + user.userId + '/orders/' + newOrderKey), orderToDb)
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-    });
+    if (user) {
+      set(ref(db, 'users/' + user.userId + '/orders/' + newOrderKey), orderToDb)
+      .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage);
+      });
+    }
   }
 
-  const handleCartToDb = () => {
-    const updatingCart = {
-      date: new Date().toLocaleString(),
-      satus: 'Updating',
-      uid: user.userId,
-      items: cart,
-    };
+  useEffect(() => {
+    scrollToTop()
+  }, [])
 
-    set(ref(db, 'users/' + user.userId + '/cart/'), updatingCart)
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage);
-    });
+  const scrollToTop = () => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
   }
+
+  // const handleCartToDb = () => {
+  //   const updatingCart = {
+  //     date: new Date().toLocaleString(),
+  //     satus: 'Updating',
+  //     uid: user.userId,
+  //     items: cart,
+  //   };
+
+  //   set(ref(db, 'users/' + user.userId + '/cart/'), updatingCart)
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     console.log(errorMessage);
+  //   });
+  // }
 
   const router = createBrowserRouter([
     {
@@ -178,7 +190,7 @@ function App() {
       children: [
         {
           path: '/',
-          element: <Home handleWishes={handleWishes} addToWishes={addToWishes} allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart}/>
+          element: <Home handleWishes={handleWishes} addToWishes={addToWishes} allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart} scrollToTop={scrollToTop}/>
         },
         {
           path: '/catalog',
@@ -190,7 +202,9 @@ function App() {
           cart={cart} 
           addToCart={addToCart}
           setCart={setCart}
-          addToWishes={addToWishes}/>
+          addToWishes={addToWishes}
+          scrollToTop={scrollToTop}
+          />
         },
         {
           path: '/catalog/:category',
@@ -202,11 +216,12 @@ function App() {
           cart={cart} 
           addToCart={addToCart}
           setCart={setCart}
+          scrollToTop={scrollToTop}
           />
         },
         {
           path: '/cart',
-          element: <Cart cart={cart} setCart={setCart} handleOrders={handleOrders} />
+          element: <Cart cart={cart} setCart={setCart} handleOrders={handleOrders} scrollToTop={scrollToTop}/>
         },
         {
           path: '/wishes',
@@ -218,7 +233,7 @@ function App() {
         },
         {
           path: '/product/:productId',
-          element: <ProductDetails cart={cart} addToCart={addToCart} setCart={setCart} />,
+          element: <ProductDetails cart={cart} addToCart={addToCart} setCart={setCart} scrollToTop={scrollToTop}/>,
           // loader: async ({params}) => {
           //   const {productId} = params;
           //   console.log(params)
@@ -235,6 +250,10 @@ function App() {
           //     console.error('Error fetching product data', error)
           //   }
           // }
+          },
+          {
+            path: '/orders',
+            element: <Orders DB_URL={DB_URL} user={user} />
           },
           {
             path: '*',

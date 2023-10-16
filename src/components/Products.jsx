@@ -49,7 +49,7 @@ const Products = ({swiperProducts, cart, setCart, addToCart, addToWishes, handle
 
     const handleWishesChange = (product) => {
         addToWishes(product)
-        handleWishes(product)
+        handleWishes()
         // navigate('/wishes');
     }
 

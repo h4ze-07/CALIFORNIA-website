@@ -5,7 +5,7 @@ import ModalCart from '../components/ModalCart';
 import CheckoutModal from "../components/CheckoutModal.jsx";
 
 
-const Cart = ({cart, setCart, handleOrders}) => {
+const Cart = ({cart, setCart, handleOrders, scrollToTop}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isCheckoutModal, setIsCheckoutModal] = useState(false);
@@ -70,6 +70,10 @@ const Cart = ({cart, setCart, handleOrders}) => {
         setIsCheckoutModal(true);
         handleOrders()
     }
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     return (
         <section className='cart'>

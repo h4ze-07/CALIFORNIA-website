@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router-dom";
 
@@ -12,7 +12,8 @@ const Catalog = ({
                      addToCart,
                      handleFilterBrandChange,
                      handleFilterCategoryChange,
-                     addToWishes
+                     addToWishes,
+                     scrollToTop
                  }) => {
     const navigate = useNavigate();
     const {category} = useParams();
@@ -49,6 +50,7 @@ const Catalog = ({
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
+        scrollToTop()
     };
 
     const goToNextPage = () => {
@@ -56,6 +58,7 @@ const Catalog = ({
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
+        scrollToTop()
     };
 
     const handleCartChange = (product) => {
@@ -79,6 +82,9 @@ const Catalog = ({
         navigate('/cart');
     };
 
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     return (
         <section className="catalog_page">
@@ -130,7 +136,7 @@ const Catalog = ({
                         (_, index) => (
                             <button
                                 key={index + 1}
-                                onClick={() => handlePageChange(index + 1)}
+                                onClick={() => {handlePageChange(index + 1); scrollToTop()}}
                                 className={currentPage === index + 1 ? "active" : ""}
                             >
                                 {index + 1}

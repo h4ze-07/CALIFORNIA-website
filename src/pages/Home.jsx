@@ -4,8 +4,14 @@ import BestSection from '../components/BestSection'
 import Ideas from '../components/Ideas'
 import Else from '../components/Else'
 import ShopSection from "../components/ShopSection.jsx";
+import { useEffect } from "react";
 
-const Home = ({allProducts, cart, setCart, addToCart, addToWishes, handleWishes}) => {
+const Home = ({allProducts, cart, setCart, addToCart, addToWishes, handleWishes, scrollToTop}) => {
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
+
     return (
         <>
             <Banner/>
