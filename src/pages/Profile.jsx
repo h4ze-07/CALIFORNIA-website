@@ -4,8 +4,6 @@ import SignUp from '../components/Auth/SignUp'
 import Orders from "../components/Orders.jsx";
 import Wishes from "../components/Wishes.jsx";
 import '../scss/profile.scss';
-import {Link} from 'react-router-dom';
-
 
 const Profile = ({setUser, user, wishes}) => {
     const [isLogIn, setIsLogin] = useState(false);
@@ -43,14 +41,11 @@ const Profile = ({setUser, user, wishes}) => {
         setDisplayWishes(true);
     }
 
-
-
     const userLogIn = () => {
         setIsLogin(true)
     }
     console.log(isLogIn);
     console.log(user);
-
 
     const updateUser = () => {
         setUser()
