@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useState,useEffect } from "react";
 import { child, push, ref, set } from "firebase/database";
 import { db } from './firebase';
+import {auth} from './firebase';
 
 import Root from "./components/Root";
 import Home from "./pages/Home";
@@ -59,23 +60,7 @@ function App() {
             brand: responseData[key].brand,
           });
         }
-
-        // Фільтрація за категорією і/або брендом
-        let filteredProducts = loadedProducts;
-
-        if (filterCategory) {
-          filteredProducts = filteredProducts.filter(
-            (product) => product.category === filterCategory
-          );
-        }
-
-        if (filterBrand) {
-          filteredProducts = filteredProducts.filter(
-            (product) => product.brand === filterBrand
-          );
-        }
-
-        setProducts(filteredProducts);
+        setProducts(loadedProducts);
         setIsLoading(false);
       } catch (error) {
         console.error('Помилка завантаження даних:', error);
@@ -84,17 +69,46 @@ function App() {
     };
 
     fetchProducts();
-  }, [filterCategory, filterBrand]);
+  }, []);
 
-  const handleFilterCategoryChange = (category) => {
-    setFilterCategory(category);
-  };
+  const getUserFromDB = async (userId) => {
+    const sendRequest = async () => {
+        const response = await fetch(DB_URL + '/users/' + userId + '.json');
 
-  const handleFilterBrandChange = (brand) => {
-    setFilterBrand(brand);
-  };
+        if (!response.ok) {
+            throw new Error('Cant get user from DB');
+        }
 
+        const data = await response.json();
+        return data;
+    }
 
+    try {
+        const userFromDB = await sendRequest();
+        console.log(userFromDB);
+        setUser({
+            name: userFromDB.name,
+            email: userFromDB.email,
+            userId: userFromDB.uid,
+            // cart: userFromDB.cart,
+            wishes: userFromDB.wishes || []
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+        if (authUser) {
+            console.log(authUser);
+            getUserFromDB(authUser.uid); // Передача userId
+            console.log(authUser.uid)
+        } else {
+            console.log('no user');
+        }
+    });
+}, []);
 
   const handleWishes = () => {
     const wish = {
@@ -196,9 +210,6 @@ function App() {
           path: '/catalog',
           element: <Catalog 
           isLoading={isLoading} 
-          handleFilterBrandChange={handleFilterBrandChange} 
-          handleFilterCategoryChange={handleFilterCategoryChange} 
-          products={products}
           cart={cart} 
           addToCart={addToCart}
           setCart={setCart}
@@ -210,9 +221,6 @@ function App() {
           path: '/catalog/:category',
           element: <Catalog
           isLoading={isLoading}
-          handleFilterCategoryChange={handleFilterCategoryChange} 
-          handleFilterBrandChange={handleFilterBrandChange}
-          products={products}
           cart={cart} 
           addToCart={addToCart}
           setCart={setCart}
@@ -234,22 +242,6 @@ function App() {
         {
           path: '/product/:productId',
           element: <ProductDetails cart={cart} addToCart={addToCart} setCart={setCart} scrollToTop={scrollToTop}/>,
-          // loader: async ({params}) => {
-          //   const {productId} = params;
-          //   console.log(params)
-          //   try {
-          //     const res = await fetch(`${DB_URL}/products/${productId}`);
-
-          //     if(!res.ok){
-          //       throw new Error ('Failed to fetch product data')
-          //     }
-
-          //     const productData = await res.json();
-          //     return productData;
-          //   } catch (error) {
-          //     console.error('Error fetching product data', error)
-          //   }
-          // }
           },
           {
             path: '/orders',

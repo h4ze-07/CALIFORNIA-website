@@ -9,46 +9,6 @@ const Profile = ({setUser, user, wishes}) => {
     const [isLogIn, setIsLogin] = useState(false);
 
 
-    const getUserFromDB = async (userId) => {
-        const sendRequest = async () => {
-            const response = await fetch(DB_URL + '/users/' + userId + '.json');
-
-            if (!response.ok) {
-                throw new Error('Cant get user from DB');
-            }
-
-            const data = await response.json();
-            return data;
-        }
-
-        try {
-            const userFromDB = await sendRequest();
-            console.log(userFromDB);
-            setUser({
-                name: userFromDB.name,
-                email: userFromDB.email,
-                userId: userFromDB.uid,
-                wishes: userFromDB.wishes || [],
-                cart: userFromDB.cart || [],
-                orders: userFromDB.orders || []
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        auth.onAuthStateChanged((authUser) => {
-            if (authUser) {
-                console.log(authUser);
-                getUserFromDB(authUser.uid); // Передача userId
-                console.log(authUser.uid)
-            } else {
-                console.log('no user');
-            }
-        });
-    }, []);
-
 
     const userLogIn = () => {
         setIsLogin(true)
@@ -69,27 +29,27 @@ const Profile = ({setUser, user, wishes}) => {
         }
 
         }>
+               {user ? (
             <div>
-                <h2>Personal account</h2>
-                <Link to='/orders'>my orders</Link>
-                <Link to='/wishes'>my wishes</Link>
-
+                <p>Welcome, {user.name}</p>
+            <div>
+            <h2>Personal account</h2>
+            <button>my orders</button>
+            <Link to='/wishes'>my wishes</Link>
+            
             </div>
 
-            {user ? (
-                <div>
-                    <p>Welcome, {user.name}</p>
-                </div>
-            ) : (
-                <div>
-                    <div>
-                        <LogIn updateUser={updateUser} userLogIn={userLogIn}/>
-                    </div>
-                    <div>
-                        <SignUp updateUser={updateUser} userLogIn={userLogIn}/>
-                    </div>
-                </div>
-            )}
+            </div>
+        ) : (
+        <div>
+            <div>
+                <LogIn updateUser={updateUser} userLogIn={userLogIn}/>
+            </div>
+            <div>
+                <SignUp updateUser={updateUser} userLogIn={userLogIn}/>
+            </div>
+        </div>
+        )}
         </div>
     )
 }

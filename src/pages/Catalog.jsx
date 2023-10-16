@@ -1,35 +1,108 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router-dom";
+import { child, push, ref, set,  orderByChild, equalTo, query,get } from "firebase/database";
+import {db} from '../firebase'
+
+
 
 import "../scss/catalog.scss";
 
 const Catalog = ({
                      isLoading,
-                     products,
                      cart,
                      setCart,
                      addToCart,
-                     handleFilterBrandChange,
-                     handleFilterCategoryChange,
                      addToWishes,
                      scrollToTop
                  }) => {
     const navigate = useNavigate();
     const {category} = useParams();
     // console.log(category)
+    const [productsInCatalog, setProductsInCatalog] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedBrand, setSelectedBrand] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = currentPage * itemsPerPage;
 
 
-    const filteredProducts = products ? (
-        products.filter((product) => {
+    const dbRef = ref(db, 'products');
+    function mergeProducts(productsByCategory, productsByBrand) {
+      const mergedProducts = {};
+    
+      for (const productId in productsByCategory) {
+        if (productId in productsByBrand) {
+          mergedProducts[productId] = productsByCategory[productId];
+        }
+      }
+      return mergedProducts;
+    }
+  
+    const loadFilteredProducts = async () => {
+      const productsRef = dbRef;
+      const snapshotAll = await get(productsRef);
+      const allProducts = snapshotAll.exists() ? snapshotAll.val() : {};
+    
+      let filteredQuery = productsRef;
+      if (selectedCategory) {
+        filteredQuery = query(productsRef, orderByChild('category'), equalTo(selectedCategory));
+      }
+
+      const snapshotByCategory = await get(filteredQuery);
+
+      filteredQuery = productsRef;
+      if (selectedBrand) {
+        filteredQuery = query(productsRef, orderByChild('brand'), equalTo(selectedBrand));
+      }
+
+      const snapshotByBrand = await get(filteredQuery);
+
+      const productsByCategory = snapshotByCategory.exists() ? snapshotByCategory.val() : {};
+      const productsByBrand = snapshotByBrand.exists() ? snapshotByBrand.val() : {};
+ 
+      const mergedProducts = mergeProducts(productsByCategory, productsByBrand);
+    
+      const finalProducts = mergedProducts || allProducts;
+    
+      const productsArray = Object.values(finalProducts);
+      setProductsInCatalog(productsArray);
+    };
+  
+    useEffect(() => {
+      loadFilteredProducts();
+    }, [selectedCategory, selectedBrand]);
+    
+    const handleCategoryChange = (category) => {
+      setSelectedCategory(category);
+      // setSelectedBrand(null); // Зняти вибір бренду
+      // loadFilteredProducts();
+    };
+    
+    const handleBrandChange = (brand) => {
+      setSelectedBrand(brand);
+      // setSelectedCategory(null); // Зняти вибір категорії
+      // loadFilteredProducts();
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const filteredProducts = productsInCatalog ? (
+        productsInCatalog.filter((product) => {
             return category ? product.category === category : true;
-        })
-    ) : [];
-    console.log(filteredProducts)
+          })
+        ) : [];
 
     const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
     const handleWishesChange = (product) => {
@@ -39,11 +112,6 @@ const Catalog = ({
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
-    };
-
-    const handleCategoryChange = (selectedCategory) => {
-        handleFilterCategoryChange(selectedCategory);
-        navigate(`/catalog/${selectedCategory}`);
     };
 
     const goToPreviousPage = () => {
@@ -100,10 +168,10 @@ const Catalog = ({
                         <button onClick={() => handleCategoryChange("tablet")}>Tablet</button>
                     </div>
                     <div className="filter">
-                        <button onClick={() => handleFilterBrandChange("apple")}>Apple</button>
-                        <button onClick={() => handleFilterBrandChange("samsung")}>Samsung</button>
-                        <button onClick={() => handleFilterBrandChange("lenovo")}>Lenovo</button>
-                        <button onClick={() => handleFilterBrandChange("huawei")}>Huawei</button>
+                        <button onClick={() => handleBrandChange("apple")}>Apple</button>
+                        <button onClick={() => handleBrandChange("samsung")}>Samsung</button>
+                        <button onClick={() => handleBrandChange("lenovo")}>Lenovo</button>
+                        <button onClick={() => handleBrandChange("huawei")}>Huawei</button>
                     </div>
                 </div>
                 {isLoading ? (
