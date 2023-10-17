@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import {DB_URL} from '../firebase';
 
-const Orders = ({DB_URL, user}) => {
+const Orders = ({user}) => {
 
     const [orders, setOrders] = useState([]);
 
@@ -15,7 +16,7 @@ const Orders = ({DB_URL, user}) => {
             setOrders(loadedOrders);
         }
         fetchOrders()  
-    }, [])
+    })
 
   return (
     <div style={{marginTop:'100px'}}>
@@ -23,7 +24,7 @@ const Orders = ({DB_URL, user}) => {
                 <>
                     <h2>Orders:</h2>
                     <div>
-                        {orders.map((el, ind) => (
+                        {orders.map(el => (
                             <div>
                                 <p>{el.date}</p>
                                 <div>

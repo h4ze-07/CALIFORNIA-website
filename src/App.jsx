@@ -190,22 +190,6 @@ const handleSignOut = async () => {
     window.scrollTo({top: 0, behavior: 'smooth'})
   }
 
-  // const handleCartToDb = () => {
-  //   const updatingCart = {
-  //     date: new Date().toLocaleString(),
-  //     satus: 'Updating',
-  //     uid: user.userId,
-  //     items: cart,
-  //   };
-
-  //   set(ref(db, 'users/' + user.userId + '/cart/'), updatingCart)
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     console.log(errorMessage);
-  //   });
-  // }
-
   const router = createBrowserRouter([
     {
       path: '/',
