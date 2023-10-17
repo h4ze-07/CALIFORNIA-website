@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router-dom";
-import { child, push, ref, set,  orderByChild, equalTo, query,get } from "firebase/database";
+import {child, push, ref, set, orderByChild, equalTo, query, get} from "firebase/database";
 import {db} from '../firebase'
-
 
 
 import "../scss/catalog.scss";
@@ -29,87 +28,77 @@ const Catalog = ({
 
 
     const dbRef = ref(db, 'products');
+
     function mergeProducts(productsByCategory, productsByBrand) {
-      const mergedProducts = {};
-    
-      for (const productId in productsByCategory) {
-        if (productId in productsByBrand) {
-          mergedProducts[productId] = productsByCategory[productId];
+        const mergedProducts = {};
+
+        for (const productId in productsByCategory) {
+            if (productId in productsByBrand) {
+                mergedProducts[productId] = productsByCategory[productId];
+            }
         }
-      }
-      return mergedProducts;
+        return mergedProducts;
     }
-  
+
     const loadFilteredProducts = async () => {
-      const productsRef = dbRef;
-      const snapshotAll = await get(productsRef);
-      const allProducts = snapshotAll.exists() ? snapshotAll.val() : {};
-    
-      let filteredQuery = productsRef;
-      if (selectedCategory) {
-        filteredQuery = query(productsRef, orderByChild('category'), equalTo(selectedCategory));
-      }
+        const productsRef = dbRef;
+        const snapshotAll = await get(productsRef);
+        const allProducts = snapshotAll.exists() ? snapshotAll.val() : {};
 
-      const snapshotByCategory = await get(filteredQuery);
+        let filteredQuery = productsRef;
+        if (selectedCategory) {
+            filteredQuery = query(productsRef, orderByChild('category'), equalTo(selectedCategory));
+        }
 
-      filteredQuery = productsRef;
-      if (selectedBrand) {
-        filteredQuery = query(productsRef, orderByChild('brand'), equalTo(selectedBrand));
-      }
+        const snapshotByCategory = await get(filteredQuery);
 
-      const snapshotByBrand = await get(filteredQuery);
+        filteredQuery = productsRef;
+        if (selectedBrand) {
+            filteredQuery = query(productsRef, orderByChild('brand'), equalTo(selectedBrand));
+        }
 
-      const productsByCategory = snapshotByCategory.exists() ? snapshotByCategory.val() : {};
-      const productsByBrand = snapshotByBrand.exists() ? snapshotByBrand.val() : {};
- 
-      const mergedProducts = mergeProducts(productsByCategory, productsByBrand);
-    
-      const finalProducts = mergedProducts || allProducts;
-    
-      const productsArray = [];
-      const productKeys = Object.keys(finalProducts)
-      for(const key of productKeys){
-          const product = finalProducts[key]
-          console.log(product)
-          productsArray.push({...product, id: key})
-      }
+        const snapshotByBrand = await get(filteredQuery);
 
-      setProductsInCatalog(productsArray);
+        const productsByCategory = snapshotByCategory.exists() ? snapshotByCategory.val() : {};
+        const productsByBrand = snapshotByBrand.exists() ? snapshotByBrand.val() : {};
+
+        const mergedProducts = mergeProducts(productsByCategory, productsByBrand);
+
+        const finalProducts = mergedProducts || allProducts;
+
+        const productsArray = [];
+        const productKeys = Object.keys(finalProducts)
+        for (const key of productKeys) {
+            const product = finalProducts[key]
+            console.log(product)
+            productsArray.push({...product, id: key})
+        }
+
+        setProductsInCatalog(productsArray);
     };
-  
+
     useEffect(() => {
-      loadFilteredProducts();
+        loadFilteredProducts();
     }, [selectedCategory, selectedBrand]);
-    
+
     const handleCategoryChange = (category) => {
-      setSelectedCategory(category);
-      // setSelectedBrand(null); // Зняти вибір бренду
-      // loadFilteredProducts();
+        setSelectedCategory(category);
+        // setSelectedBrand(null); // Зняти вибір бренду
+        // loadFilteredProducts();
     };
-    
+
     const handleBrandChange = (brand) => {
-      setSelectedBrand(brand);
-      // setSelectedCategory(null); // Зняти вибір категорії
-      // loadFilteredProducts();
+        setSelectedBrand(brand);
+        // setSelectedCategory(null); // Зняти вибір категорії
+        // loadFilteredProducts();
     };
-
-
-
-
-
-
-
-
-
-
-
 
 
     const filteredProducts = productsInCatalog ? (
         productsInCatalog.filter((product) => {
             return category ? product.category === category : true;
-          })
-        ) : [];
+        })
+    ) : [];
 
     const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
     const handleWishesChange = (product) => {
@@ -180,6 +169,9 @@ const Catalog = ({
                         <button onClick={() => handleBrandChange("lenovo")}>Lenovo</button>
                         <button onClick={() => handleBrandChange("huawei")}>Huawei</button>
                     </div>
+                    <div className="filter">
+                        <button>Clear the filter</button>
+                    </div>
                 </div>
                 {isLoading ? (
                     <p>Loading...</p>
@@ -211,7 +203,10 @@ const Catalog = ({
                         (_, index) => (
                             <button
                                 key={index + 1}
-                                onClick={() => {handlePageChange(index + 1); scrollToTop()}}
+                                onClick={() => {
+                                    handlePageChange(index + 1);
+                                    scrollToTop()
+                                }}
                                 className={currentPage === index + 1 ? "active" : ""}
                             >
                                 {index + 1}
