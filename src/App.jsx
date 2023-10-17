@@ -110,6 +110,15 @@ useEffect(() => {
     });
 }, []);
 
+
+const handleSignOut = async () => {
+  try {
+    await auth.signOut(); 
+  } catch (error) {
+    console.error('Помилка виходу з облікового запису:', error);
+  }
+};
+
   const handleWishes = () => {
     const wish = {
         date: new Date().toLocaleString(),
@@ -237,7 +246,7 @@ useEffect(() => {
         },
         {
           path: '/login',
-          element: <Profile setUser={setUser} user={user} wishes={wishes}/>
+          element: <Profile handleSignOut={handleSignOut} setUser={setUser} user={user} wishes={wishes}/>
         },
         {
           path: '/product/:productId',

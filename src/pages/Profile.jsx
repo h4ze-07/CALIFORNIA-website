@@ -5,7 +5,7 @@ import Orders from "../components/Orders.jsx";
 import Wishes from "../components/Wishes.jsx";
 import '../scss/profile.scss';
 
-const Profile = ({setUser, user, wishes}) => {
+const Profile = ({setUser, user, wishes, handleSignOut}) => {
     const [isLogIn, setIsLogin] = useState(false);
     const [displayLogin, setDisplayLogin] = useState(false);
     const [displaySignup, setDisplaySignup] = useState(false);
@@ -70,7 +70,7 @@ const Profile = ({setUser, user, wishes}) => {
                                 <a href="#" onClick={handleWishes}>My wishes</a>
                             </li>
                             <li>
-                                <a href="#" >Exit</a>
+                                <a href="#" onClick={() => handleSignOut()} >Exit</a>
                             </li>
                         </ul>
                     </div>

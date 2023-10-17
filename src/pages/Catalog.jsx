@@ -66,7 +66,14 @@ const Catalog = ({
     
       const finalProducts = mergedProducts || allProducts;
     
-      const productsArray = Object.values(finalProducts);
+      const productsArray = [];
+      const productKeys = Object.keys(finalProducts)
+      for(const key of productKeys){
+          const product = finalProducts[key]
+          console.log(product)
+          productsArray.push({...product, id: key})
+      }
+
       setProductsInCatalog(productsArray);
     };
   
