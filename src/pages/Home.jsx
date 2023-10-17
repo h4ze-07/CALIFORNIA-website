@@ -6,7 +6,20 @@ import Else from '../components/Else'
 import ShopSection from "../components/ShopSection.jsx";
 import { useEffect } from "react";
 
-const Home = ({allProducts, cart, setCart, addToCart, addToWishes, handleWishes, scrollToTop}) => {
+const Home = ({
+    allProducts, 
+    scrollToTop, 
+    cart, 
+    setCart, 
+    addToCart, 
+    registerForWish, 
+    existedWish, 
+    successWish,
+    handleRegisterForWishClose, 
+    handleExistedWishClose, 
+    handleSuccessWishClose, 
+    handleWishes,
+    currentWishProduct}) => {
 
     useEffect(() => {
         scrollToTop()
@@ -16,8 +29,11 @@ const Home = ({allProducts, cart, setCart, addToCart, addToWishes, handleWishes,
         <>
             <Banner/>
             <ShopSection/>
-            <Products handleWishes={handleWishes} addToWishes={addToWishes} swiperProducts={allProducts}
-                      setCart={setCart} cart={cart} addToCart={addToCart}/>
+            <Products swiperProducts={allProducts}
+                      setCart={setCart} cart={cart} addToCart={addToCart} registerForWish={registerForWish} existedWish={existedWish} successWish={successWish}
+                      handleRegisterForWishClose={handleRegisterForWishClose} handleExistedWishClose={handleExistedWishClose}
+                      handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
+                      currentWishProduct={currentWishProduct}/>
             <BestSection/>
             <Ideas/>
             <Else/>

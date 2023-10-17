@@ -2,8 +2,14 @@ import '../scss/product_details.scss'
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {DB_URL} from '../firebase';
+import { BsSuitHeart } from 'react-icons/bs';
+import SuccessWish from '../components/SuccessWish';
+import ExistedWish from '../components/ExistedWish';
+import SignForWish from '../components/SignForWish';
 
-function ProductDetails({cart, addToCart, setCart}) {
+function ProductDetails({cart, addToCart, setCart, scrollToTop, registerForWish, existedWish, successWish,
+    handleRegisterForWishClose, handleExistedWishClose, handleSuccessWishClose, handleWishes
+    }) {
     const {productId} = useParams();
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
@@ -46,13 +52,20 @@ function ProductDetails({cart, addToCart, setCart}) {
         navigate('/cart');
     }
 
-    const handleBackToCatalogClick = () => {
-        window.scrollTo(0, 0); // Прокрутити сторінку до верху
-    };
+    
+    const handleWishesChange = (product, id) => {
+        handleWishes(product, id)
+    }
 
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     return (
         <section className='product_details'>
+            {successWish && <SuccessWish name={product.name} handleSuccessWishClose={handleSuccessWishClose}/>}
+            {existedWish && <ExistedWish name={product.name} handleExistedWishClose={handleExistedWishClose}/>}
+            {registerForWish && <SignForWish name={product.name} handleRegisterForWishClose={handleRegisterForWishClose}/>}
             <div className='product_description'>
                 {product ? (
                     <div className='description_card container d-flex'>
@@ -67,6 +80,7 @@ function ProductDetails({cart, addToCart, setCart}) {
                                 handleAddToCart(product, productId)
                             }}>Add to cart
                             </button>
+                            <button onClick={() => handleWishesChange(product, productId)}><BsSuitHeart/></button>
                         </div>
                     </div>
                 ) : (
@@ -74,7 +88,7 @@ function ProductDetails({cart, addToCart, setCart}) {
                 )}
             </div>
             <div className='product_back'>
-                <Link to={'/catalog'} onClick={handleBackToCatalogClick}>Back to catalog</Link>
+                <Link to={'/catalog'}>Back to catalog</Link>
             </div>
         </section>
     )

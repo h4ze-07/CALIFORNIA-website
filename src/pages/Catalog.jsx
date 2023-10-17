@@ -6,14 +6,25 @@ import {db} from '../firebase'
 
 
 import "../scss/catalog.scss";
+import { BsSuitHeart } from "react-icons/bs";
+import SuccessWish from "../components/SuccessWish";
+import ExistedWish from "../components/ExistedWish";
+import SignForWish from "../components/SignForWish";
 
 const Catalog = ({
                      isLoading,
                      cart,
                      setCart,
                      addToCart,
-                     addToWishes,
-                     scrollToTop
+                     scrollToTop,
+                     registerForWish, 
+                     existedWish, 
+                     successWish,
+                     handleRegisterForWishClose, 
+                     handleExistedWishClose, 
+                     handleSuccessWishClose, 
+                     handleWishes,
+                     currentWishProduct
                  }) => {
     const navigate = useNavigate();
     const {category} = useParams();
@@ -101,9 +112,9 @@ const Catalog = ({
     ) : [];
 
     const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
+
     const handleWishesChange = (product) => {
-        addToWishes(product)
-        navigate('/wishes');
+        handleWishes(product)
     }
 
     const handlePageChange = (page) => {
@@ -152,6 +163,9 @@ const Catalog = ({
 
     return (
         <section className="catalog_page">
+            {successWish && <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose}/>}
+            {existedWish && <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose}/>}
+            {registerForWish && <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose}/>}
             <div className="container">
                 <div className="catalog_text">
                     <h2 className="">Our Products</h2>
@@ -188,6 +202,7 @@ const Catalog = ({
                                     <button className="">
                                         <Link to={`/product/${product.id}`}>More info</Link>
                                     </button>
+                                    <button onClick={() => handleWishesChange(product)}><BsSuitHeart/></button>
                                     <button className="" onClick={() => handleCartChange(product)}>
                                         Add to cart
                                     </button>

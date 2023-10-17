@@ -23,8 +23,12 @@ function App() {
   const [filterCategory, setFilterCategory] = useState('');
   const [filterBrand, setFilterBrand] = useState('');
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
-  const [wishes, setWishes] = useState([]);
   const [user, setUser] = useState(null);
+
+  const [registerForWish, setRegisterForWish] = useState(false);
+  const [existedWish, setExistedWish] = useState(false);
+  const [successWish, setSuccessWish] = useState(false);
+  const [currentWishProduct, setCurrentWishProduct] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))
@@ -32,9 +36,6 @@ function App() {
 
   const addToCart = (product) => {
     setCart([...cart, product]);
-  }
-  const addToWishes = (product) => {
-    setWishes([...wishes, product]);
   }
 
   useEffect(() => {
@@ -90,7 +91,6 @@ function App() {
             name: userFromDB.name,
             email: userFromDB.email,
             userId: userFromDB.uid,
-            // cart: userFromDB.cart,
             wishes: userFromDB.wishes || []
         });
     } catch (error) {
@@ -120,41 +120,76 @@ const handleSignOut = async () => {
   }
 };
 
-  const handleWishes = () => {
-    const wish = {
-        date: new Date().toLocaleString(),
-        satus: 'New',
-        uid: user ? user.userId : 'unsigned',
-        items: wishes
-    };
-      console.log(wish)
-    // 1. create order in DB
-    const newWishKey = push(child(ref(db), 'wishes')).key;
 
-    set(ref(db, 'wishes/' + newWishKey), wish)
-    .then(() => {
-       
+  ///////////////////////   WISHES    ///////////////////////
 
-        // 3. clear Cart
-        // dispatch(cartActions.clear());
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-    });
-    
-    // 2. create order in users/:id.json
-    if (user) { 
-      set(ref(db, 'users/' + user.userId + '/wishes/' + newWishKey), wish)
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-      });
+  const handleWishes = (product, id) => {
+    if (id) {
+      product = {...product, id: id}
+      console.log(product);
+    } else {
+      product = product;
+      console.log(product);
+    }
+
+    setCurrentWishProduct(product);
+
+    if (user) {
+
+      let testWish = [];
+
+      const fetchWishes =  async () => {
+        const response = await fetch(`${DB_URL}/users/${user.userId}/wishes.json`)
+        const wishesData = await response.json()
+        let loadedWishes = [];
+        for (const key in wishesData) {
+            loadedWishes.push(wishesData[key]);
+        }
+        testWish = loadedWishes;
+        for (let i in testWish) {
+          console.log(testWish[i].product.id);
+          if (testWish[i].product.id === product.id) {
+            setExistedWish(true)
+            return false;
+          }
+        }
+  
+        const wish = {
+          date: new Date().toLocaleString(),
+          uid: user.userId,
+          product: product
+        }
+  
+        set(ref(db, 'users/' + user.userId + '/wishes/' + product.id), wish)
+        .then(() => {
+            setSuccessWish(true)
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorMessage);
+        });
+      }
+      fetchWishes()
+    } else {
+      setRegisterForWish(true);
     }
   }
 
+  const handleSuccessWishClose = () => {
+    setSuccessWish(false);
+  }
+
+  const handleExistedWishClose = () => {
+    setExistedWish(false);
+  }
+
+  const handleRegisterForWishClose = () => {
+    setRegisterForWish(false);
+  }
+
+  
+  ///////////////////////   ORDERS    ///////////////////////
 
 
   const handleOrders = () => {
@@ -183,6 +218,9 @@ const handleSignOut = async () => {
     }
   }
 
+
+  ///////////////////////   SCROLL    ///////////////////////
+
   useEffect(() => {
     scrollToTop()
   }, [])
@@ -198,7 +236,10 @@ const handleSignOut = async () => {
       children: [
         {
           path: '/',
-          element: <Home handleWishes={handleWishes} addToWishes={addToWishes} allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart} scrollToTop={scrollToTop}/>
+          element: <Home allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart} scrollToTop={scrollToTop} registerForWish={registerForWish} existedWish={existedWish} successWish={successWish}
+          handleRegisterForWishClose={handleRegisterForWishClose} handleExistedWishClose={handleExistedWishClose}
+          handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
+          currentWishProduct={currentWishProduct}/>
         },
         {
           path: '/catalog',
@@ -207,8 +248,11 @@ const handleSignOut = async () => {
           cart={cart} 
           addToCart={addToCart}
           setCart={setCart}
-          addToWishes={addToWishes}
           scrollToTop={scrollToTop}
+          registerForWish={registerForWish} existedWish={existedWish} successWish={successWish}
+          handleRegisterForWishClose={handleRegisterForWishClose} handleExistedWishClose={handleExistedWishClose}
+          handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
+          currentWishProduct={currentWishProduct}
           />
         },
         {
@@ -219,6 +263,10 @@ const handleSignOut = async () => {
           addToCart={addToCart}
           setCart={setCart}
           scrollToTop={scrollToTop}
+          registerForWish={registerForWish} existedWish={existedWish} successWish={successWish}
+          handleRegisterForWishClose={handleRegisterForWishClose} handleExistedWishClose={handleExistedWishClose}
+          handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
+          currentWishProduct={currentWishProduct}
           />
         },
         {
@@ -227,19 +275,23 @@ const handleSignOut = async () => {
         },
         {
           path: '/wishes',
-          element: <Wishes user={user} wishes={wishes} setWishes={setWishes}/>
+          element: <Wishes user={user} />
         },
         {
           path: '/login',
-          element: <Profile handleSignOut={handleSignOut} setUser={setUser} user={user} wishes={wishes}/>
+          element: <Profile handleSignOut={handleSignOut} setUser={setUser} user={user} scrollToTop={scrollToTop} />
         },
         {
           path: '/product/:productId',
-          element: <ProductDetails cart={cart} addToCart={addToCart} setCart={setCart} scrollToTop={scrollToTop}/>,
+          element: <ProductDetails cart={cart} addToCart={addToCart} setCart={setCart} scrollToTop={scrollToTop}
+          registerForWish={registerForWish} existedWish={existedWish} successWish={successWish}
+          handleRegisterForWishClose={handleRegisterForWishClose} handleExistedWishClose={handleExistedWishClose}
+          handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
+          />,
           },
           {
             path: '/orders',
-            element: <Orders DB_URL={DB_URL} user={user} />
+            element: <Orders user={user} />
           },
           {
             path: '*',

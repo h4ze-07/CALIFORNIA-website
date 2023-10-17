@@ -8,9 +8,24 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import '../scss/products.scss'
+import SuccessWish from './SuccessWish';
+import ExistedWish from './ExistedWish';
+import SignForWish from './SignForWish';
 
 
-const Products = ({swiperProducts, cart, setCart, addToCart, addToWishes, handleWishes}) => {
+const Products = ({
+    swiperProducts, 
+    cart, 
+    setCart, 
+    addToCart, 
+    registerForWish, 
+    existedWish, 
+    successWish,
+    handleRegisterForWishClose, 
+    handleExistedWishClose, 
+    handleSuccessWishClose, 
+    handleWishes,
+    currentWishProduct}) => {
 
 // const formattedProductsItem = swiperProducts.map((product) => {
 //   const formattedPrice = product.price.toLocaleString('en-US', {
@@ -48,14 +63,15 @@ const Products = ({swiperProducts, cart, setCart, addToCart, addToWishes, handle
     }
 
     const handleWishesChange = (product) => {
-        addToWishes(product)
-        handleWishes()
-        // navigate('/wishes');
+        handleWishes(product)
     }
 
     return (
         <>
             <section className='items'>
+                {successWish && <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose}/>}
+                {existedWish && <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose}/>}
+                {registerForWish && <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose}/>}
                 <div className='container'>
                     <div className='items_text text_centre'>
                         <h3>Save on our most selled items.</h3>

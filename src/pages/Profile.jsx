@@ -6,7 +6,7 @@ import Orders from "../components/Orders.jsx";
 import Wishes from "../components/Wishes.jsx";
 import '../scss/profile.scss';
 
-const Profile = ({setUser, user, wishes, handleSignOut}) => {
+const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
     const [isLogIn, setIsLogin] = useState(false);
     const [displayLogin, setDisplayLogin] = useState(false);
     const [displaySignup, setDisplaySignup] = useState(false);
@@ -51,6 +51,10 @@ const Profile = ({setUser, user, wishes, handleSignOut}) => {
     const updateUser = () => {
         setUser()
     }
+
+    useEffect(() => {
+        scrollToTop()
+    }, [])
 
     return (
         <section className='account'>
@@ -111,7 +115,7 @@ const Profile = ({setUser, user, wishes, handleSignOut}) => {
                         <Orders user={user} />
                     </div>
                     <div className='account_wishes' style={{ display: displayWishes ? 'inline-block' : 'none' }}>
-                        <Wishes user={user} wishes={wishes} />
+                        <Wishes user={user} />
                     </div>
                 </div>
             </div>

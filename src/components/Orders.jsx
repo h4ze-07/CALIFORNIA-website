@@ -16,7 +16,7 @@ const Orders = ({user}) => {
             setOrders(loadedOrders);
         }
         fetchOrders()  
-    })
+    }, [user])
 
   return (
     <div style={{marginTop:'100px'}}>
