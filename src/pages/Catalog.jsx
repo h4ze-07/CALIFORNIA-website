@@ -36,6 +36,7 @@ const Catalog = ({
     const itemsPerPage = 9;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = currentPage * itemsPerPage;
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
     const dbRef = ref(db, 'products');
@@ -119,6 +120,7 @@ const Catalog = ({
 
     const handleWishesChange = (product) => {
         handleWishes(product)
+        setIsModalOpen(true);
     }
 
     const handlePageChange = (page) => {
@@ -167,9 +169,7 @@ const Catalog = ({
 
     return (
         <section className="catalog_page">
-            {successWish && <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose}/>}
-            {existedWish && <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose}/>}
-            {registerForWish && <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose}/>}
+
             <div className="container">
                 <div className="catalog_text">
                     <h2 className="">Our Products</h2>
@@ -235,6 +235,9 @@ const Catalog = ({
                     <button onClick={goToNextPage}>Next</button>
                 </div>
             </div>
+            {successWish && <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose} isOpen={isModalOpen}/>}
+            {existedWish && <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose} isOpen={isModalOpen}/>}
+            {registerForWish && <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose} isOpen={isModalOpen}/>}
         </section>
     );
 };

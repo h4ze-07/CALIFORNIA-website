@@ -82,7 +82,7 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
                 </div>
                 <div className='account_content'>
                     {user ? (
-                        <div>
+                        <div className='welcome'>
                             <p>Welcome, {user.name}</p>
                         </div>
                     ) : (

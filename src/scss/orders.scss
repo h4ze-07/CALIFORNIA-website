@@ -1,0 +1,50 @@
+@import "mixins";
+
+.orders_page{
+  margin-top: 50px;
+  .orders_page_text{
+    h3{
+      @include readex_font;
+      color:$main_color;
+      font-size: 28px;
+      line-height: 38px;
+      margin-bottom: 30px;
+    }
+  }
+  .date_element{
+    @include inter_font;
+    color: $main_color;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 20px;
+  }
+  .orders_element_item{
+    border-bottom: 1px solid #C5C5C5;
+
+    .orders_element_img{
+      padding: 10px;
+      margin-right: 50px;
+      img{
+        max-width: 200px;
+        object-fit: contain;
+      }
+    }
+    .orders_element_description{
+      margin: auto;
+      width: 400px;
+      justify-content: space-between;
+      h4{
+        @include inter_font;
+        color:$main_color;
+        font-size: 18px;
+        line-height: 21px;
+      }
+      p{
+        @include inter_font;
+        color:$main_color;
+        font-size: 16px;
+        line-height: 21px;
+      }
+    }
+  }
+}

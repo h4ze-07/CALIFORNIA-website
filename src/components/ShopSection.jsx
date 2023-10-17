@@ -3,6 +3,7 @@ import watch from '../images/shop_watch.png';
 import phones from '../images/shop_phons.png';
 import tablet from '../images/shop_tablet.png';
 import '../scss/shop_section.scss'
+import {Link} from "react-router-dom";
 
 const ShopSection = () => {
     return (
@@ -22,7 +23,7 @@ const ShopSection = () => {
                             <img src={laptop} alt="laptop"/>
                         </div>
                         <div className="box_text">
-                            <a href="#">Laptops</a>
+                            <Link to="/catalog/laptop">Laptops</Link>
                             <h4>True Laptop<br></br>Solution</h4>
                         </div>
                     </div>
@@ -31,7 +32,7 @@ const ShopSection = () => {
                             <img src={watch} alt="watch"/>
                         </div>
                         <div className="box_text">
-                            <a href="#">Watch</a>
+                            <Link to="catalog/watch">Watch</Link>
                             <h4>Not just stylisht</h4>
                         </div>
                     </div>
@@ -42,13 +43,13 @@ const ShopSection = () => {
                             <img src={phones} alt="phons"/>
                         </div>
                         <div className="box_text text_centre">
-                            <a href="#">Phones</a>
+                            <Link to="catalog/smartphones">Phones</Link>
                             <h4>Your day to day<br></br>life</h4>
                         </div>
                     </div>
                     <div className="box2">
                         <div className="box_text text_centre">
-                            <a href="#">Tablet</a>
+                            <Link to="catalog/tablet">Tablet</Link>
                             <h4>Empower your<br></br>work</h4>
                         </div>
                         <div className="tablet_img">

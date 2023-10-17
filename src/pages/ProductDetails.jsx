@@ -13,6 +13,8 @@ function ProductDetails({cart, addToCart, setCart, scrollToTop, registerForWish,
     const {productId} = useParams();
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     useEffect(() => {
         const fetchProductDetails = async () => {
@@ -52,9 +54,9 @@ function ProductDetails({cart, addToCart, setCart, scrollToTop, registerForWish,
         navigate('/cart');
     }
 
-    
     const handleWishesChange = (product, id) => {
         handleWishes(product, id)
+        setIsModalOpen(true);
     }
 
     useEffect(() => {
@@ -63,9 +65,6 @@ function ProductDetails({cart, addToCart, setCart, scrollToTop, registerForWish,
 
     return (
         <section className='product_details'>
-            {successWish && <SuccessWish name={product.name} handleSuccessWishClose={handleSuccessWishClose}/>}
-            {existedWish && <ExistedWish name={product.name} handleExistedWishClose={handleExistedWishClose}/>}
-            {registerForWish && <SignForWish name={product.name} handleRegisterForWishClose={handleRegisterForWishClose}/>}
             <div className='product_description'>
                 {product ? (
                     <div className='description_card container d-flex'>
@@ -90,6 +89,9 @@ function ProductDetails({cart, addToCart, setCart, scrollToTop, registerForWish,
             <div className='product_back'>
                 <Link to={'/catalog'}>Back to catalog</Link>
             </div>
+            {successWish && <SuccessWish name={product.name} handleSuccessWishClose={handleSuccessWishClose} isOpen={isModalOpen}/>}
+            {existedWish && <ExistedWish name={product.name} handleExistedWishClose={handleExistedWishClose} isOpen={isModalOpen}/>}
+            {registerForWish && <SignForWish name={product.name} handleRegisterForWishClose={handleRegisterForWishClose} isOpen={isModalOpen}/>}
         </section>
     )
 }

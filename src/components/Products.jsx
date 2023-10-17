@@ -11,6 +11,7 @@ import '../scss/products.scss'
 import SuccessWish from './SuccessWish';
 import ExistedWish from './ExistedWish';
 import SignForWish from './SignForWish';
+import {useState} from "react";
 
 
 const Products = ({
@@ -38,7 +39,7 @@ const Products = ({
 //     formattedPrice,
 //   };
 // });
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
     const handleCartButtonClick = (product) => {
         const testProduct = cart.find((item) => item.productId === product.id);
@@ -64,14 +65,12 @@ const Products = ({
 
     const handleWishesChange = (product) => {
         handleWishes(product)
+        setIsModalOpen(true);
     }
 
     return (
         <>
             <section className='items'>
-                {successWish && <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose}/>}
-                {existedWish && <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose}/>}
-                {registerForWish && <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose}/>}
                 <div className='container'>
                     <div className='items_text text_centre'>
                         <h3>Save on our most selled items.</h3>
@@ -108,6 +107,9 @@ const Products = ({
                         </div>
                     </Swiper>
                 </div>
+                {successWish && <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose} isOpen={isModalOpen}/>}
+                {existedWish && <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose} isOpen={isModalOpen}/>}
+                {registerForWish && <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose} isOpen={isModalOpen}/>}
             </section>
         </>)
 }

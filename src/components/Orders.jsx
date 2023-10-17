@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {DB_URL} from '../firebase';
+import '../scss/orders.scss'
 
 const Orders = ({user}) => {
 
@@ -19,20 +20,26 @@ const Orders = ({user}) => {
     }, [user])
 
   return (
-    <div style={{marginTop:'100px'}}>
+    <div className='orders_page'>
             {orders.length > 0 ?
                 <>
-                    <h2>Orders:</h2>
+                    <div className='orders_page_text'>
+                        <h3>Your orders:</h3>
+                    </div>
                     <div>
                         {orders.map(el => (
                             <div>
-                                <p>{el.date}</p>
-                                <div>
+                                <p className='date_element'>{el.date}</p>
+                                <div className='orders_element'>
                                     {el.items.map(i => (
-                                        <div key={el.cartId}>
-                                            <img src={i.allInfo.img} alt={i.allInfo.name} />
-                                            <p>{i.allInfo.name}</p>
-                                            <p>{i.price}</p>
+                                        <div className='orders_element_item d-flex' key={el.cartId}>
+                                            <div className='orders_element_img'>
+                                                <img src={i.allInfo.img} alt={i.allInfo.name} />
+                                            </div>
+                                            <div className='orders_element_description d-flex'>
+                                                <h4>{i.allInfo.name}</h4>
+                                                <p>{i.price}$</p>
+                                            </div>
                                         </div>))}
                                 </div>
                             </div>
