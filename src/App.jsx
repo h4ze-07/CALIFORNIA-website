@@ -310,7 +310,7 @@ const handleSignOut = async () => {
           },
           {
             path: '/search',
-            element: <Search searchProducts={searchProducts}/>
+            element: <Search searchProducts={searchProducts} cart={cart} setCart={setCart} addToCart={addToCart} scrollToTop={scrollToTop}/>
           },
           {
             path: '*',

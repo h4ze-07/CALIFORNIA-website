@@ -1,6 +1,30 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-const Search = ({searchProducts}) => {
+const Search = ({searchProducts, cart, setCart, addToCart, scrollToTop}) => {
+
+  const navigate = useNavigate();
+
+  const handleCartChange = (product) => {
+    const testProduct = cart.find((item) => item.productId === product.id);
+    if (testProduct) {
+        const updatedItems = cart.map((item) =>
+            item.productId === product.id
+                ? {...item, quantity: item.quantity + 1}
+                : item
+        );
+        setCart(updatedItems);
+    } else {
+        addToCart({
+            cartId: cart.length === 0 ? 1 : cart[cart.length - 1].cartId + 1,
+            productId: product.id,
+            quantity: 1,
+            price: product.price,
+            allInfo: product,
+        });
+    }
+    navigate('/cart');
+  };
+
   return (
     <div>
         {
