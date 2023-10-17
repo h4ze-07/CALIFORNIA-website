@@ -94,16 +94,19 @@ const Catalog = ({
 
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
-        // setSelectedBrand(null); // Зняти вибір бренду
+        // setSelectedBrand(null); 
         // loadFilteredProducts();
     };
 
     const handleBrandChange = (brand) => {
         setSelectedBrand(brand);
-        // setSelectedCategory(null); // Зняти вибір категорії
+        // setSelectedCategory(null); 
         // loadFilteredProducts();
     };
-
+    const handleClearFilter = () => {
+        setSelectedCategory(null);
+        setSelectedBrand(null); 
+      }
 
     const filteredProducts = productsInCatalog ? (
         productsInCatalog.filter((product) => {
@@ -184,7 +187,7 @@ const Catalog = ({
                         <button onClick={() => handleBrandChange("huawei")}>Huawei</button>
                     </div>
                     <div className="filter">
-                        <button>Clear the filter</button>
+                        <button onClick={() => handleClearFilter()}>Clear the filter</button>
                     </div>
                 </div>
                 {isLoading ? (

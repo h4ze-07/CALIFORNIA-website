@@ -9,7 +9,7 @@ import {Fragment, useState, useEffect} from 'react'
 import {Popover, Transition} from '@headlessui/react'
 import {ChevronDownIcon} from '@heroicons/react/20/solid'
 
-const Header = ({cartCounter}) => {
+const Header = ({cartCounter, searchProductsByName}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchResult, setSearchResult] = useState('');
 
@@ -149,6 +149,7 @@ const Header = ({cartCounter}) => {
                 </div>
             </div>
             <ModalSearch
+                searchProductsByName={searchProductsByName}
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
                 onSearch={handleSearch}

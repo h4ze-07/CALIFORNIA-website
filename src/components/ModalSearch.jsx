@@ -2,17 +2,22 @@ import '../scss/modal_search.scss';
 import headerSearch from '../images/header_search.svg';
 import  { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-const ModalSearch = ({ isOpen, onRequestClose, onSearch }) => {
+
+const ModalSearch = ({ isOpen, onRequestClose, onSearch, searchProductsByName }) => {
     const [searchText, setSearchText] = useState('');
+    const navigate = useNavigate()
 
     const clearSearchText = () => {
         setSearchText('');
     };
     const handleSearch = () => {
         onSearch(searchText);
+        searchProductsByName(searchText)
         clearSearchText();
         onRequestClose();
+        navigate('/search')
     };
 
 

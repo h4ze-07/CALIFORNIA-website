@@ -8,7 +8,8 @@ import Root from "./components/Root";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import Cart from "./pages/Cart";
-import ProductDetails from './pages/ProductDetails'
+import ProductDetails from './pages/ProductDetails';
+import Search from "./pages/Search";
 
 import {DB_URL} from './firebase';
 import NotFound from "./pages/NotFound";
@@ -29,6 +30,8 @@ function App() {
   const [existedWish, setExistedWish] = useState(false);
   const [successWish, setSuccessWish] = useState(false);
   const [currentWishProduct, setCurrentWishProduct] = useState(null);
+  const [searchProducts, setSearchProducts] = useState([])
+
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))
@@ -229,10 +232,22 @@ const handleSignOut = async () => {
     window.scrollTo({top: 0, behavior: 'smooth'})
   }
 
+///////////////////////   SEARCH    ///////////////////////
+
+  function searchProductsByName(query) {
+    const queryLowerCase = query.toLowerCase(); 
+    const filteredProducts = products.filter(product => product.name.toLowerCase().includes(queryLowerCase));
+    console.log(filteredProducts);
+    setSearchProducts(filteredProducts); 
+  }
+
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Root cartCounter={cart.length} />,
+      element: <Root 
+          cartCounter={cart.length} 
+          searchProductsByName={searchProductsByName}
+      />,
       children: [
         {
           path: '/',
@@ -292,6 +307,10 @@ const handleSignOut = async () => {
           {
             path: '/orders',
             element: <Orders user={user} />
+          },
+          {
+            path: '/search',
+            element: <Search searchProducts={searchProducts}/>
           },
           {
             path: '*',
