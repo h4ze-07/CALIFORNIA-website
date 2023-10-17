@@ -113,7 +113,8 @@ useEffect(() => {
 
 const handleSignOut = async () => {
   try {
-    await auth.signOut(); 
+    await auth.signOut();
+    setUser(null);
   } catch (error) {
     console.error('Помилка виходу з облікового запису:', error);
   }

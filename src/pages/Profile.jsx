@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
+import {Link} from "react-router-dom";
 import LogIn from '../components/Auth/LogIn'
 import SignUp from '../components/Auth/SignUp'
 import Orders from "../components/Orders.jsx";
 import Wishes from "../components/Wishes.jsx";
 import '../scss/profile.scss';
-import {auth} from "../firebase.js";
 
 const Profile = ({setUser, user, wishes, handleSignOut}) => {
     const [isLogIn, setIsLogin] = useState(false);
@@ -62,16 +62,16 @@ const Profile = ({setUser, user, wishes, handleSignOut}) => {
                     <div>
                         <ul>
                             <li>
-                                <a href="#" onClick={handleEnter}>Log In / Sign Up</a>
+                                <Link onClick={handleEnter}>Log In / Sign Up</Link>
                             </li>
                             <li>
-                                <a href="#" onClick={handleOrders}>My orders</a>
+                                <Link onClick={handleOrders}>My orders</Link>
                             </li>
                             <li>
-                                <a href="#" onClick={handleWishes}>My wishes</a>
+                                <Link onClick={handleWishes}>My wishes</Link>
                             </li>
                             <li>
-                                <a href="/login" onClick={() => handleSignOut()} >Exit</a>
+                                <Link onClick={() => handleSignOut()} >Exit</Link>
                             </li>
                         </ul>
                     </div>
@@ -86,16 +86,16 @@ const Profile = ({setUser, user, wishes, handleSignOut}) => {
                             <nav>
                                 <ul className='d-flex'>
                                     <li>
-                                        <a href="#" onClick={() => {
+                                        <Link onClick={() => {
                                             setIsLogin(true);
                                             handleLogin();
-                                        }} className={isLogIn ? 'active' : ''}>Log In</a>
+                                        }} className={isLogIn ? 'active' : ''}>Log In</Link>
                                     </li>
                                     <li>
-                                        <a href="#" onClick={() => {
+                                        <Link onClick={() => {
                                             setIsLogin(false);
                                             handleSign();
-                                        }} className={!isLogIn ? 'active' : ''}>Sign Up</a>
+                                        }} className={!isLogIn ? 'active' : ''}>Sign Up</Link>
                                     </li>
                                 </ul>
                             </nav>
