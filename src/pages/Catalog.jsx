@@ -106,6 +106,7 @@ const Catalog = ({
     const handleClearFilter = () => {
         setSelectedCategory(null);
         setSelectedBrand(null); 
+        navigate('/catalog')
       }
 
     const filteredProducts = productsInCatalog ? (
