@@ -4,6 +4,7 @@ import SignUp from '../components/Auth/SignUp'
 import Orders from "../components/Orders.jsx";
 import Wishes from "../components/Wishes.jsx";
 import '../scss/profile.scss';
+import {auth} from "../firebase.js";
 
 const Profile = ({setUser, user, wishes, handleSignOut}) => {
     const [isLogIn, setIsLogin] = useState(false);
@@ -70,7 +71,7 @@ const Profile = ({setUser, user, wishes, handleSignOut}) => {
                                 <a href="#" onClick={handleWishes}>My wishes</a>
                             </li>
                             <li>
-                                <a href="#" onClick={() => handleSignOut()} >Exit</a>
+                                <a href="/login" onClick={() => handleSignOut()} >Exit</a>
                             </li>
                         </ul>
                     </div>
