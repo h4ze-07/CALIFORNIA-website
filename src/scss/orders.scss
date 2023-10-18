@@ -39,12 +39,12 @@
         font-size: 18px;
         line-height: 21px;
       }
-      p{
-        @include inter_font;
-        color:$main_color;
-        font-size: 16px;
-        line-height: 21px;
-      }
     }
+  }
+  p{
+    @include inter_font;
+    color:$main_color;
+    font-size: 16px;
+    line-height: 21px;
   }
 }

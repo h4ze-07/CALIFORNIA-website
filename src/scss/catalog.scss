@@ -66,9 +66,15 @@
             background-color: #151515;
           }
         }
+      }
+      .button-filter {
         &.active {
-          color: white;
           background-color: #151515;
+          color: white;
+        }
+        &.inactive {
+          background-color: #F8F9FA;
+          color:$main_color;
         }
       }
     }

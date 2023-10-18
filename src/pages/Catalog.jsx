@@ -1,12 +1,11 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router-dom";
-import {child, push, ref, set, orderByChild, equalTo, query, get} from "firebase/database";
+import {ref, orderByChild, equalTo, query, get} from "firebase/database";
 import {db} from '../firebase'
-
+import { BsSuitHeart } from "react-icons/bs";
 
 import "../scss/catalog.scss";
-import { BsSuitHeart } from "react-icons/bs";
 import SuccessWish from "../components/SuccessWish";
 import ExistedWish from "../components/ExistedWish";
 import SignForWish from "../components/SignForWish";
@@ -37,8 +36,6 @@ const Catalog = ({
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = currentPage * itemsPerPage;
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-
     const dbRef = ref(db, 'products');
 
     function mergeProducts(productsByCategory, productsByBrand) {
@@ -82,10 +79,8 @@ const Catalog = ({
         const productKeys = Object.keys(finalProducts)
         for (const key of productKeys) {
             const product = finalProducts[key]
-            console.log(product)
             productsArray.push({...product, id: key})
         }
-
         setProductsInCatalog(productsArray);
     };
 
@@ -169,23 +164,28 @@ const Catalog = ({
 
     return (
         <section className="catalog_page">
-
             <div className="container">
                 <div className="catalog_text">
                     <h2 className="">Our Products</h2>
                     <div className="filter">
-                        <button onClick={() => handleCategoryChange("smartphones")}>
-                            Phone
-                        </button>
-                        <button onClick={() => handleCategoryChange("laptop")}>Laptop</button>
-                        <button onClick={() => handleCategoryChange("watch")}>Watch</button>
-                        <button onClick={() => handleCategoryChange("tablet")}>Tablet</button>
+                        <button onClick={() => handleCategoryChange("smartphones")}
+                                className={`button-filter ${selectedCategory === "smartphones" ? "active" : "inactive"}`}>Phone</button>
+                        <button onClick={() => handleCategoryChange("laptop")}
+                                className={`button-filter ${selectedCategory === "laptop" ? "active" : "inactive"}`}>Laptop</button>
+                        <button onClick={() => handleCategoryChange("watch")}
+                                className={`button-filter ${selectedCategory === "watch" ? "active" : "inactive"}`}>Watch</button>
+                        <button onClick={() => handleCategoryChange("tablet")}
+                                className={`button-filter ${selectedCategory === "tablet" ? "active" : "inactive"}`}>Tablet</button>
                     </div>
                     <div className="filter">
-                        <button onClick={() => handleBrandChange("apple")}>Apple</button>
-                        <button onClick={() => handleBrandChange("samsung")}>Samsung</button>
-                        <button onClick={() => handleBrandChange("lenovo")}>Lenovo</button>
-                        <button onClick={() => handleBrandChange("huawei")}>Huawei</button>
+                        <button onClick={() => handleBrandChange("apple")}
+                                className={`button-filter ${selectedBrand === "apple" ? "active" : "inactive"}`}>Apple</button>
+                        <button onClick={() => handleBrandChange("samsung")}
+                                className={`button-filter ${selectedBrand === "samsung" ? "active" : "inactive"}`}>Samsung</button>
+                        <button onClick={() => handleBrandChange("lenovo")}
+                                className={`button-filter ${selectedBrand === "lenovo" ? "active" : "inactive"}`}>Lenovo</button>
+                        <button onClick={() => handleBrandChange("huawei")}
+                                className={`button-filter ${selectedBrand === "huawei" ? "active" : "inactive"}`}>Huawei</button>
                     </div>
                     <div className="filter">
                         <button onClick={() => handleClearFilter()}>Clear the filter</button>

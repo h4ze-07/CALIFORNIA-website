@@ -112,10 +112,10 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
                         </div>
                     )}
                     <div className='account_orders' style={{ display: displayOrders ? 'inline-block' : 'none' }}>
-                        {user ? <Orders user={user} /> : <h1>You are not registered!</h1>}
+                        {user ? <Orders user={user} /> : <h4>You are not registered!</h4>}
                     </div>
                     <div className='account_wishes' style={{ display: displayWishes ? 'inline-block' : 'none' }}>
-                        {user ? <Wishes user={user} /> : <h1>You are not registered!</h1>}
+                        {user ? <Wishes user={user} /> : <h4>You are not registered!</h4>}
                     </div>
                 </div>
             </div>

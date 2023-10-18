@@ -84,5 +84,12 @@
         }
       }
     }
+    h4{
+      @include inter_font;
+      color:$main_color;
+      font-size: 18px;
+      line-height: 22px;
+      margin-top: 20px;
+    }
   }
 }

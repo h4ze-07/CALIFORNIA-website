@@ -1,14 +1,9 @@
-import { Link } from 'react-router-dom';
-
-
-
+import {Link} from 'react-router-dom';
 
 import '../scss/BestSection.scss'
 import best1 from '../images/best1.png';
 import best2 from '../images/best2.png';
 import best3 from '../images/best3.png';
-
-
 
 
 const bestsectionItems = [
@@ -30,29 +25,28 @@ const bestsectionItems = [
 ]
 
 const BestSection = () => {
-  return (
-    <section className='best'>
-        <div className='container'>
-            <div className='best_text text_centre'>
-            <h3>See the best around here</h3>
-            <p>Our new Limited Edition Winter Design BESPOKE 4-Door Flex™</p>
-            </div>
-            <div className='best_box d-flex between'>
-                {bestsectionItems.map((item, id) => (
-                  <div key={id} className='box text_centre'>
-                    <p>Smart light bulb pack</p>
-                    <h4>{item.title}</h4>
-                    <Link to={'/catalog'}>Explore</Link>
-                    <div className="box_img">
-                    <img src={item.img} alt="img" />
+    return (
+        <section className='best'>
+            <div className='container'>
+                <div className='best_text text_centre'>
+                    <h3>See the best around here</h3>
+                    <p>Our new Limited Edition Winter Design BESPOKE 4-Door Flex™</p>
                 </div>
-                </div>   
-                ))}
-               
+                <div className='best_box d-flex between'>
+                    {bestsectionItems.map((item, id) => (
+                        <div key={id} className='box text_centre'>
+                            <p>Smart light bulb pack</p>
+                            <h4>{item.title}</h4>
+                            <Link to={'/catalog'}>Explore</Link>
+                            <div className="box_img">
+                                <img src={item.img} alt="img"/>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
-    </section>
-  )
+        </section>
+    )
 }
 
 export default BestSection

@@ -3,11 +3,12 @@ import bannerLaptop from '../images/banner_laptop.png';
 import bannerTablet from '../images/banner_tablet.png';
 import bannerWatch from '../images/banner_watch.png';
 import '../scss/banner.scss'
+import 'swiper/scss/autoplay';
+import 'swiper/scss';
 import {Link} from 'react-router-dom';
 import {Autoplay} from "swiper/modules";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import 'swiper/scss/autoplay';
-import 'swiper/scss';
+
 
 const Banner = () => {
 
@@ -81,10 +82,7 @@ const Banner = () => {
                 </Swiper>
             </div>
         </section>
-
     )
-
-
 }
 
 export default Banner;

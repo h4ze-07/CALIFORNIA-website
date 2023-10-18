@@ -89,7 +89,8 @@ function ProductDetails({cart, addToCart, setCart, scrollToTop, registerForWish,
             <div className='product_back'>
                 <Link to={'/catalog'}>Back to catalog</Link>
             </div>
-            {successWish && <SuccessWish name={product.name} handleSuccessWishClose={handleSuccessWishClose} isOpen={isModalOpen}/>}
+            {successWish && <SuccessWish name={product.name} handleSuccessWishClose={handleSuccessWishClose}
+                                         isOpen={isModalOpen}/>}
             {existedWish && <ExistedWish name={product.name} handleExistedWishClose={handleExistedWishClose} isOpen={isModalOpen}/>}
             {registerForWish && <SignForWish name={product.name} handleRegisterForWishClose={handleRegisterForWishClose} isOpen={isModalOpen}/>}
         </section>

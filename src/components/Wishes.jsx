@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import '../scss/wishes.scss'
 import {DB_URL} from '../firebase';
-import { db } from '../firebase';
-import { ref, remove } from 'firebase/database';
+import {db} from '../firebase';
+import {ref, remove} from 'firebase/database';
 
 const Wishes = ({user}) => {
-    const [w, setW] = useState([]);    
+    const [w, setW] = useState([]);
 
     const handleDeleteFromWishes = (id) => {
         const refTr = ref(db, 'users/' + user.userId + '/wishes/' + id)
         remove(refTr)
-        .then(() => {
-            console.log('Deleted');
-            fetchWishes()
-        })
-        .catch((error) => {
-            console.error('Some error:', error);
-        });
+            .then(() => {
+                console.log('Deleted');
+                fetchWishes()
+            })
+            .catch((error) => {
+                console.error('Some error:', error);
+            });
     }
 
     useEffect(() => {
-        fetchWishes()  
+        fetchWishes()
     }, [user])
 
-    const fetchWishes =  async () => {
+    const fetchWishes = async () => {
         const response = await fetch(`${DB_URL}/users/${user.userId}/wishes.json`)
         const wishesData = await response.json()
         let loadedWishes = [];

@@ -15,16 +15,12 @@ const SignUp = ({userLogIn}) => {
         e.preventDefault()
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed up
                 const user = userCredential.user;
-                console.log(user);
                 set(ref(db, 'users/' + user.uid), {
                     name: name,
                     email: email,
                     uid: user.uid,
                 });
-
-                console.log(user)
                 userLogIn()
             })
             .catch((error) => {

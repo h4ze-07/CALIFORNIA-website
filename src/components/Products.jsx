@@ -1,5 +1,5 @@
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Autoplay, Pagination} from "swiper/modules";
+import {Autoplay} from "swiper/modules";
 import {Link, useNavigate} from 'react-router-dom';
 import {BsSuitHeart} from "react-icons/bs";
 import {FreeMode} from 'swiper/modules';
@@ -15,18 +15,19 @@ import {useState} from "react";
 
 
 const Products = ({
-    swiperProducts, 
-    cart, 
-    setCart, 
-    addToCart, 
-    registerForWish, 
-    existedWish, 
-    successWish,
-    handleRegisterForWishClose, 
-    handleExistedWishClose, 
-    handleSuccessWishClose, 
-    handleWishes,
-    currentWishProduct}) => {
+                      swiperProducts,
+                      cart,
+                      setCart,
+                      addToCart,
+                      registerForWish,
+                      existedWish,
+                      successWish,
+                      handleRegisterForWishClose,
+                      handleExistedWishClose,
+                      handleSuccessWishClose,
+                      handleWishes,
+                      currentWishProduct
+                  }) => {
 
 // const formattedProductsItem = swiperProducts.map((product) => {
 //   const formattedPrice = product.price.toLocaleString('en-US', {
@@ -44,20 +45,20 @@ const Products = ({
     const handleCartButtonClick = (product) => {
         const testProduct = cart.find((item) => item.productId === product.id);
         if (testProduct) {
-          const updatedItems = cart.map((item) =>
-            item.productId === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item);
-          setCart(updatedItems);
+            const updatedItems = cart.map((item) =>
+                item.productId === product.id
+                    ? {...item, quantity: item.quantity + 1}
+                    : item);
+            setCart(updatedItems);
         } else {
-          addToCart(
-            {
-                cartId: cart.length === 0 ? 1 : cart[cart.length - 1].cartId + 1,
-                productId: product.id,
-                quantity: 1,
-                price: product.price,
-                allInfo: product
-              }
+            addToCart(
+                {
+                    cartId: cart.length === 0 ? 1 : cart[cart.length - 1].cartId + 1,
+                    productId: product.id,
+                    quantity: 1,
+                    price: product.price,
+                    allInfo: product
+                }
             )
         }
         navigate('/cart');
@@ -107,9 +108,15 @@ const Products = ({
                         </div>
                     </Swiper>
                 </div>
-                {successWish && <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose} isOpen={isModalOpen}/>}
-                {existedWish && <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose} isOpen={isModalOpen}/>}
-                {registerForWish && <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose} isOpen={isModalOpen}/>}
+                {successWish &&
+                    <SuccessWish name={currentWishProduct.name} handleSuccessWishClose={handleSuccessWishClose}
+                                 isOpen={isModalOpen}/>}
+                {existedWish &&
+                    <ExistedWish name={currentWishProduct.name} handleExistedWishClose={handleExistedWishClose}
+                                 isOpen={isModalOpen}/>}
+                {registerForWish &&
+                    <SignForWish name={currentWishProduct.name} handleRegisterForWishClose={handleRegisterForWishClose}
+                                 isOpen={isModalOpen}/>}
             </section>
         </>)
 }
