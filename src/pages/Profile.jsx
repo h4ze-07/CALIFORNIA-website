@@ -6,23 +6,23 @@ import Orders from "../components/Orders.jsx";
 import Wishes from "../components/Wishes.jsx";
 import '../scss/profile.scss';
 
-const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
-    const [isLogIn, setIsLogin] = useState(true);
+const Profile = ({setUser, user, handleSignOut, scrollToTop, isLogIn, userLogIn}) => {
     const [displayLogin, setDisplayLogin] = useState(true);
     const [displaySignup, setDisplaySignup] = useState(false);
     const [displayEnter, setDisplayEnter] = useState(false);
     const [displayOrders, setDisplayOrders] = useState(false);
     const [displayWishes, setDisplayWishes] = useState(false);
+    const [toggleActiv, setTogglesctive] = useState(true)
 
     const handleLogin = () => {
-        setIsLogin(true);
+        // userLogIn(true);
         setDisplayLogin(true);
         setDisplaySignup(false);
         setDisplayOrders(false);
         setDisplayWishes(false);
     }
     const handleSign = () => {
-        setIsLogin(false);
+        // userLogIn(false);
         setDisplayLogin(false);
         setDisplaySignup(true);
         setDisplayOrders(false);
@@ -30,7 +30,7 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
     }
 
     const handleEnter = () => {
-        setIsLogin(true);
+        userLogIn(true);
         setDisplayLogin(true);
         setDisplaySignup(false);
         setDisplayEnter(true);
@@ -39,7 +39,7 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
     }
 
     const handleOrders = () => {
-        setIsLogin(false);
+        userLogIn(false);
         setDisplayLogin(false);
         setDisplaySignup(false);
         setDisplayEnter(false);
@@ -48,7 +48,7 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
     }
 
     const handleWishes = () => {
-        setIsLogin(false);
+        userLogIn(false);
         setDisplayLogin(false);
         setDisplaySignup(false);
         setDisplayEnter(false);
@@ -56,11 +56,8 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
         setDisplayWishes(true);
     }
 
-    const userLogIn = () => {
-        setIsLogin(true)
-    }
-    console.log(isLogIn);
-    console.log(user);
+    
+   
 
     const updateUser = () => {
         setUser()
@@ -105,15 +102,15 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
                                 <ul className='d-flex'>
                                     <li>
                                         <Link onClick={() => {
-                                            setIsLogin(true);
+                                            setTogglesctive(true);
                                             handleLogin();
-                                        }} className={isLogIn ? 'active' : ''}>Log In</Link>
+                                        }} className={toggleActiv ? 'active' : ''}>Log In</Link>
                                     </li>
                                     <li>
                                         <Link onClick={() => {
-                                            setIsLogin(false);
+                                            setTogglesctive(false);
                                             handleSign();
-                                        }} className={!isLogIn ? 'active' : ''}>Sign Up</Link>
+                                        }} className={!toggleActiv ? 'active' : ''}>Sign Up</Link>
                                     </li>
                                 </ul>
                             </nav>

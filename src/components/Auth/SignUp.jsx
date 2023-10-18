@@ -20,8 +20,10 @@ const SignUp = ({userLogIn}) => {
                     name: name,
                     email: email,
                     uid: user.uid,
+                }).then(() => {
+                    userLogIn(true)
                 });
-                userLogIn()
+                
             })
             .catch((error) => {
                 const errorCode = error.code;

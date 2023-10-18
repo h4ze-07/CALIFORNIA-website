@@ -13,11 +13,8 @@ const LogIn = ({updateUser, userLogIn}) => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
                 const user = userCredential.user;
-                // ...
-                console.log(user);
-                userLogIn()
+                userLogIn(true)
             })
 
             .catch((error) => {
@@ -27,8 +24,6 @@ const LogIn = ({updateUser, userLogIn}) => {
             });
     }
 
-    const clearForm = () => {
-    }
 
     return (
         <div onSubmit={handleLogin}>

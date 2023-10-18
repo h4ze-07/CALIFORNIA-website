@@ -30,7 +30,9 @@ function App() {
     const [successWish, setSuccessWish] = useState(false);
     const [currentWishProduct, setCurrentWishProduct] = useState(null);
     const [searchProducts, setSearchProducts] = useState([])
-
+    const [isLogIn, setIsLogin] = useState(false);
+    const [firebaseProfile, setFirebaseProfile] = useState(null);
+  
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart))
@@ -39,6 +41,8 @@ function App() {
     const addToCart = (product) => {
         setCart([...cart, product]);
     }
+
+            ///////////////////////   Fetch Products    ///////////////////////
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -74,19 +78,35 @@ function App() {
         fetchProducts();
     }, []);
 
-    const getUserFromDB = async (userId) => {
-        const sendRequest = async () => {
-            const response = await fetch(DB_URL + '/users/' + userId + '.json');
+   
 
-            if (!response.ok) {
-                throw new Error('Cant get user from DB');
-            }
-            const data = await response.json();
-            return data;
+    ///////////////////////     GET USER FROM DB     ///////////////////////
+    
+    
+    
+    const userLogIn = (state) => {
+        setIsLogin(state)
+    }
+
+
+    const sendRequest = async (userId) => {
+        const response = await fetch(DB_URL + '/users/' + userId + '.json');
+        if (!response.ok) {
+            throw new Error('Cant get user from DB');
         }
-
+    
+        const data = await response.json();
+        return data;
+            }
+    
+      const getUserFromDB = async (userId) => {
+        console.log(userId)
         try {
-            const userFromDB = await sendRequest();
+            const userFromDB = await sendRequest(userId);
+            if(!userFromDB) {
+              return ;
+            }
+            setIsLogin(true)
             setUser({
                 name: userFromDB.name,
                 email: userFromDB.email,
@@ -97,17 +117,28 @@ function App() {
             console.log(error);
         }
     }
-
+    
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
             if (authUser) {
-                getUserFromDB(authUser.uid); // Передача userId
+              setFirebaseProfile(authUser)
+                getUserFromDB(authUser.uid); 
             } else {
                 console.log('no user');
             }
         });
     }, []);
-
+    
+    useEffect(() => {
+      if(!firebaseProfile){
+        return ;
+      }
+      if(isLogIn && user){
+        return ;
+      }
+      getUserFromDB(firebaseProfile.uid)
+    }, [isLogIn, firebaseProfile])
+    
 
     const handleSignOut = async () => {
         try {
@@ -235,6 +266,7 @@ function App() {
         console.log(filteredProducts);
         setSearchProducts(filteredProducts);
     }
+    ///////////////////////   ROUTER    ///////////////////////
 
     const router = createBrowserRouter([
         {
@@ -294,8 +326,13 @@ function App() {
                 },
                 {
                     path: '/login',
-                    element: <Profile handleSignOut={handleSignOut} setUser={setUser} user={user}
-                                      scrollToTop={scrollToTop}/>
+                    element: <Profile 
+                                    handleSignOut={handleSignOut} 
+                                    setUser={setUser} 
+                                    user={user}
+                                    scrollToTop={scrollToTop}
+                                    userLogIn={userLogIn} 
+                                    isLogIn={isLogIn}/>
                 },
                 {
                     path: '/product/:productId',
