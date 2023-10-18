@@ -7,36 +7,50 @@ import Wishes from "../components/Wishes.jsx";
 import '../scss/profile.scss';
 
 const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
-    const [isLogIn, setIsLogin] = useState(false);
-    const [displayLogin, setDisplayLogin] = useState(false);
+    const [isLogIn, setIsLogin] = useState(true);
+    const [displayLogin, setDisplayLogin] = useState(true);
     const [displaySignup, setDisplaySignup] = useState(false);
     const [displayEnter, setDisplayEnter] = useState(false);
     const [displayOrders, setDisplayOrders] = useState(false);
     const [displayWishes, setDisplayWishes] = useState(false);
 
     const handleLogin = () => {
+        setIsLogin(true);
         setDisplayLogin(true);
         setDisplaySignup(false);
+        setDisplayOrders(false);
+        setDisplayWishes(false);
     }
-
     const handleSign = () => {
+        setIsLogin(false);
         setDisplayLogin(false);
         setDisplaySignup(true);
+        setDisplayOrders(false);
+        setDisplayWishes(false);
     }
 
     const handleEnter = () => {
+        setIsLogin(true);
+        setDisplayLogin(true);
+        setDisplaySignup(false);
         setDisplayEnter(true);
         setDisplayOrders(false);
         setDisplayWishes(false);
     }
 
     const handleOrders = () => {
+        setIsLogin(false);
+        setDisplayLogin(false);
+        setDisplaySignup(false);
         setDisplayEnter(false);
         setDisplayOrders(true);
         setDisplayWishes(false);
     }
 
     const handleWishes = () => {
+        setIsLogin(false);
+        setDisplayLogin(false);
+        setDisplaySignup(false);
         setDisplayEnter(false);
         setDisplayOrders(false);
         setDisplayWishes(true);
@@ -112,10 +126,10 @@ const Profile = ({setUser, user, handleSignOut, scrollToTop}) => {
                         </div>
                     )}
                     <div className='account_orders' style={{ display: displayOrders ? 'inline-block' : 'none' }}>
-                        {user ? <Orders user={user} /> : <h4>You are not registered!</h4>}
+                        {user ? <Orders user={user} /> : <h4>You are not logged in or registered!</h4>}
                     </div>
                     <div className='account_wishes' style={{ display: displayWishes ? 'inline-block' : 'none' }}>
-                        {user ? <Wishes user={user} /> : <h4>You are not registered!</h4>}
+                        {user ? <Wishes user={user} /> : <h4>You are not logged in or registered!</h4>}
                     </div>
                 </div>
             </div>
