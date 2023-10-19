@@ -143,6 +143,7 @@ function App() {
         try {
             await auth.signOut();
             setUser(null);
+            location.reload()
         } catch (error) {
             console.error('Помилка виходу з облікового запису:', error);
         }
