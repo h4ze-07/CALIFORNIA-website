@@ -100,7 +100,6 @@ function App() {
             }
     
       const getUserFromDB = async (userId) => {
-        console.log(userId)
         try {
             const userFromDB = await sendRequest(userId);
             if(!userFromDB) {

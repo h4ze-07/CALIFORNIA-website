@@ -34,7 +34,6 @@ const Wishes = ({user}) => {
         setW(loadedWishes);
     }
 
-    console.log(w);
 
     return (
         <div className='wish_box'>
