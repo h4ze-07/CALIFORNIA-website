@@ -1,3 +1,7 @@
+# Link to Live Site: <a href='https://californiaecommerce.netlify.app/'>Click</a>
+
+<br>
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
