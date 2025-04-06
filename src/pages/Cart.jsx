@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react'
-import '../scss/cart.scss'
-import {useNavigate} from 'react-router-dom';
-import ModalCart from '../components/ModalCart';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CheckoutModal from "../components/CheckoutModal.jsx";
+import ModalCart from '../components/ModalCart';
+import '../scss/cart.scss';
 
 
-const Cart = ({cart, setCart, handleOrders, scrollToTop}) => {
+const Cart = ({ cart, setCart, handleOrders, scrollToTop }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isCheckoutModal, setIsCheckoutModal] = useState(false);
@@ -48,7 +48,7 @@ const Cart = ({cart, setCart, handleOrders, scrollToTop}) => {
         } else {
             let newItems = cart.map(item => {
                 if (item.cartId === el.cartId) {
-                    return {...item, quantity: item.quantity - 1};
+                    return { ...item, quantity: item.quantity - 1 };
                 }
                 return item;
             })
@@ -59,7 +59,7 @@ const Cart = ({cart, setCart, handleOrders, scrollToTop}) => {
     const handleQuantityIncrease = (el) => {
         let newItems = cart.map(item => {
             if (item.cartId === el.cartId) {
-                return {...item, quantity: item.quantity + 1};
+                return { ...item, quantity: item.quantity + 1 };
             }
             return item;
         })
@@ -79,19 +79,19 @@ const Cart = ({cart, setCart, handleOrders, scrollToTop}) => {
         <section className='cart'>
             <div className='container'>
                 <div className='cart_text text_centre'>
-                    <h2>List:</h2>
+                    <h2 className="cart-title">List:</h2>
                 </div>
                 <ModalCart isOpen={isModalOpen} closeModal={closeModal} handleDelete={handleDelete}
-                           product={productToDelete}/>
-                {isCheckoutModal && <CheckoutModal isOpen={setIsCheckoutModal} closeModal={closeModal} setIsCheckoutModal={setIsCheckoutModal} setCart={setCart}/>}
+                    product={productToDelete} />
+                {isCheckoutModal && <CheckoutModal isOpen={setIsCheckoutModal} closeModal={closeModal} setIsCheckoutModal={setIsCheckoutModal} setCart={setCart} />}
                 {cart.length === 0 ? <h3 className='empty text_centre'>Cart is empty!</h3> :
-                    <div className='list-wrap'>
-                        {cart.map(el => (
-                            <div key={el.cartId} className='cart-card d-flex'>
-                                <div className='cart-img'>
-                                    <img src={el.allInfo.img} alt={el.allInfo.name}/>
-                                </div>
-                                <div className='cart-right d-flex aline_centre'>
+                    <>
+                        <div className='list-wrap'>
+                            {cart.map(el => (
+                                <div key={el.cartId} className='cart-card d-flex'>
+                                    <div className='cart-img'>
+                                        <img src={el.allInfo.img} alt={el.allInfo.name} />
+                                    </div>
                                     <div className='cart-right-text d-flex'>
                                         <div className='cart-right-text_name'>
                                             <h3>{el.allInfo.name}</h3>
@@ -110,13 +110,14 @@ const Cart = ({cart, setCart, handleOrders, scrollToTop}) => {
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                         <div className='total'>
                             <h4>Total price: ${price}</h4>
                             <button onClick={handleCheckoutClick}>Checkout</button>
                         </div>
-                    </div>}
+                    </>
+                }
                 <div className='back text_centre'>
                     <button onClick={handleContinueSearch}>Continue purchase</button>
                 </div>

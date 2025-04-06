@@ -1,11 +1,10 @@
-import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
-import '../scss/wishes.scss'
-import {DB_URL} from '../firebase';
-import {db} from '../firebase';
-import {ref, remove} from 'firebase/database';
+import { ref, remove } from 'firebase/database';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { DB_URL, db } from '../firebase';
+import '../scss/wishes.scss';
 
-const Wishes = ({user}) => {
+const Wishes = ({ user }) => {
     const [w, setW] = useState([]);
 
     const handleDeleteFromWishes = (id) => {
@@ -45,15 +44,17 @@ const Wishes = ({user}) => {
                     {w.map(el => (
                         <div key={el.product.id} className='d-flex wish_list_elevent'>
                             <div className='wish_list_img'>
-                                <img src={el.product.img} alt={el.product.name}/>
+                                <img src={el.product.img} alt={el.product.name} />
                             </div>
                             <div className='wish_list_description'>
                                 <h2>{el.product.name}</h2>
                                 <p>{el.product.description}</p>
-                                <Link to={`/product/${el.product.id}`}>More info</Link>
-                            </div>
-                            <div className='wish_list_button'>
-                                <button onClick={() => handleDeleteFromWishes(el.product.id)}>Delete</button>
+                                <div className="wishes-btns">
+                                    <Link to={`/product/${el.product.id}`}>More info</Link>
+                                    <div className='wish_list_button'>
+                                        <button onClick={() => handleDeleteFromWishes(el.product.id)}>Remove</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))}

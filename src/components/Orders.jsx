@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import {DB_URL} from '../firebase';
-import '../scss/orders.scss'
+import React, { useEffect, useState } from 'react';
+import { DB_URL } from '../firebase';
+import '../scss/orders.scss';
 
-const Orders = ({user}) => {
+const Orders = ({ user }) => {
 
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        const fetchOrders =  async () => {
+        const fetchOrders = async () => {
             const response = await fetch(`${DB_URL}/users/${user.userId}/orders.json`)
             const ordersData = await response.json()
             let loadedOrders = [];
@@ -16,23 +16,23 @@ const Orders = ({user}) => {
             }
             setOrders(loadedOrders);
         }
-        fetchOrders()  
+        fetchOrders()
     }, [user])
 
-  return (
-    <div className='orders_page'>
+    return (
+        <div className='orders_page'>
             {orders.length > 0 ?
-                <>
+                <div>
                     <div className='orders_page_text'>
                         <h3>Your orders:</h3>
                     </div>
-                    <div>
+                    <div className="orders-wrap">
                         {orders.map(el => (
-                            <div>
+                            <div className="order-block" key={el.uid}>
                                 <p className='date_element'>{el.date}</p>
                                 <div className='orders_element'>
                                     {el.items.map(i => (
-                                        <div className='orders_element_item d-flex' key={el.cartId}>
+                                        <div className='orders_element_item d-flex' key={el.uid}>
                                             <div className='orders_element_img'>
                                                 <img src={i.allInfo.img} alt={i.allInfo.name} />
                                             </div>
@@ -45,14 +45,14 @@ const Orders = ({user}) => {
                             </div>
                         ))}
                     </div>
-                </>  
-            : 
+                </div>
+                :
                 <p>
                     You have no previous orders!
                 </p>
             }
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Orders

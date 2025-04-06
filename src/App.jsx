@@ -1,21 +1,22 @@
-import {RouterProvider, createBrowserRouter} from "react-router-dom";
-import {useState, useEffect} from "react";
-import {child, push, ref, set} from "firebase/database";
-import {db} from './firebase';
-import {auth} from './firebase';
+import { child, push, ref, set } from "firebase/database";
+import { useEffect, useState } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { auth, db } from './firebase';
 
 import Root from "./components/Root";
-import Home from "./pages/Home";
-import Catalog from "./pages/Catalog";
 import Cart from "./pages/Cart";
+import Catalog from "./pages/Catalog";
+import Home from "./pages/Home";
 import ProductDetails from './pages/ProductDetails';
 import Search from "./pages/Search";
 
-import {DB_URL} from './firebase';
+import Orders from "./components/Orders.jsx";
+import Wishes from "./components/Wishes.jsx";
+import { DB_URL } from './firebase';
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
-import Wishes from "./components/Wishes.jsx";
-import Orders from "./components/Orders.jsx";
+
+import './scss/global_styles.scss';
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
     const [searchProducts, setSearchProducts] = useState([])
     const [isLogIn, setIsLogin] = useState(false);
     const [firebaseProfile, setFirebaseProfile] = useState(null);
-  
+
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart))
@@ -42,7 +43,7 @@ function App() {
         setCart([...cart, product]);
     }
 
-            ///////////////////////   Fetch Products    ///////////////////////
+    ///////////////////////   Fetch Products    ///////////////////////
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -78,12 +79,12 @@ function App() {
         fetchProducts();
     }, []);
 
-   
+
 
     ///////////////////////     GET USER FROM DB     ///////////////////////
-    
-    
-    
+
+
+
     const userLogIn = (state) => {
         setIsLogin(state)
     }
@@ -94,16 +95,16 @@ function App() {
         if (!response.ok) {
             throw new Error('Cant get user from DB');
         }
-    
+
         const data = await response.json();
         return data;
-            }
-    
-      const getUserFromDB = async (userId) => {
+    }
+
+    const getUserFromDB = async (userId) => {
         try {
             const userFromDB = await sendRequest(userId);
-            if(!userFromDB) {
-              return ;
+            if (!userFromDB) {
+                return;
             }
             setIsLogin(true)
             setUser({
@@ -116,28 +117,28 @@ function App() {
             console.log(error);
         }
     }
-    
+
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
             if (authUser) {
-              setFirebaseProfile(authUser)
-                getUserFromDB(authUser.uid); 
+                setFirebaseProfile(authUser)
+                getUserFromDB(authUser.uid);
             } else {
                 console.log('no user');
             }
         });
     }, []);
-    
+
     useEffect(() => {
-      if(!firebaseProfile){
-        return ;
-      }
-      if(isLogIn && user){
-        return ;
-      }
-      getUserFromDB(firebaseProfile.uid)
+        if (!firebaseProfile) {
+            return;
+        }
+        if (isLogIn && user) {
+            return;
+        }
+        getUserFromDB(firebaseProfile.uid)
     }, [isLogIn, firebaseProfile])
-    
+
 
     const handleSignOut = async () => {
         try {
@@ -154,7 +155,7 @@ function App() {
 
     const handleWishes = (product, id) => {
         if (id) {
-            product = {...product, id: id}
+            product = { ...product, id: id }
             console.log(product);
         } else {
             product = product;
@@ -255,10 +256,10 @@ function App() {
     }, [])
 
     const scrollToTop = () => {
-        window.scrollTo({top: 0, behavior: 'smooth'})
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-///////////////////////   SEARCH    ///////////////////////
+    ///////////////////////   SEARCH    ///////////////////////
 
     function searchProductsByName(query) {
         const queryLowerCase = query.toLowerCase();
@@ -279,12 +280,12 @@ function App() {
                 {
                     path: '/',
                     element: <Home allProducts={products} cart={cart} setCart={setCart} addToCart={addToCart}
-                                   scrollToTop={scrollToTop} registerForWish={registerForWish} existedWish={existedWish}
-                                   successWish={successWish}
-                                   handleRegisterForWishClose={handleRegisterForWishClose}
-                                   handleExistedWishClose={handleExistedWishClose}
-                                   handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
-                                   currentWishProduct={currentWishProduct}/>
+                        scrollToTop={scrollToTop} registerForWish={registerForWish} existedWish={existedWish}
+                        successWish={successWish}
+                        handleRegisterForWishClose={handleRegisterForWishClose}
+                        handleExistedWishClose={handleExistedWishClose}
+                        handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
+                        currentWishProduct={currentWishProduct} />
                 },
                 {
                     path: '/catalog',
@@ -318,51 +319,51 @@ function App() {
                 },
                 {
                     path: '/cart',
-                    element: <Cart cart={cart} setCart={setCart} handleOrders={handleOrders} scrollToTop={scrollToTop}/>
+                    element: <Cart cart={cart} setCart={setCart} handleOrders={handleOrders} scrollToTop={scrollToTop} />
                 },
                 {
                     path: '/wishes',
-                    element: <Wishes user={user}/>
+                    element: <Wishes user={user} />
                 },
                 {
                     path: '/login',
-                    element: <Profile 
-                                    handleSignOut={handleSignOut} 
-                                    setUser={setUser} 
-                                    user={user}
-                                    scrollToTop={scrollToTop}
-                                    userLogIn={userLogIn} 
-                                    isLogIn={isLogIn}/>
+                    element: <Profile
+                        handleSignOut={handleSignOut}
+                        setUser={setUser}
+                        user={user}
+                        scrollToTop={scrollToTop}
+                        userLogIn={userLogIn}
+                        isLogIn={isLogIn} />
                 },
                 {
                     path: '/product/:productId',
                     element: <ProductDetails cart={cart} addToCart={addToCart} setCart={setCart}
-                                             scrollToTop={scrollToTop}
-                                             registerForWish={registerForWish} existedWish={existedWish}
-                                             successWish={successWish}
-                                             handleRegisterForWishClose={handleRegisterForWishClose}
-                                             handleExistedWishClose={handleExistedWishClose}
-                                             handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
+                        scrollToTop={scrollToTop}
+                        registerForWish={registerForWish} existedWish={existedWish}
+                        successWish={successWish}
+                        handleRegisterForWishClose={handleRegisterForWishClose}
+                        handleExistedWishClose={handleExistedWishClose}
+                        handleSuccessWishClose={handleSuccessWishClose} handleWishes={handleWishes}
                     />,
                 },
                 {
                     path: '/orders',
-                    element: <Orders user={user}/>
+                    element: <Orders user={user} />
                 },
                 {
                     path: '/search',
                     element: <Search searchProducts={searchProducts} cart={cart} setCart={setCart} addToCart={addToCart}
-                                     scrollToTop={scrollToTop}/>
+                        scrollToTop={scrollToTop} />
                 },
                 {
                     path: '*',
-                    element: <NotFound/>
+                    element: <NotFound />
                 }
             ]
         }])
 
     return (
-        <RouterProvider router={router}/>
+        <RouterProvider router={router} />
     )
 }
 

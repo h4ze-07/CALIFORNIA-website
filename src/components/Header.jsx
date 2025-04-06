@@ -1,15 +1,14 @@
-import '../scss/header.scss'
-import ModalSearch from "./ModalSearch.jsx";
-import headerLogo from '../images/header_logo.svg';
-import headerSearch from '../images/header_search.svg';
+import { Popover, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { Fragment, useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import headerCart from '../images/header_cart.svg';
+import headerLogo from '../images/header_logo.svg';
 import headerUser from '../images/header_user.svg';
-import {NavLink, Link} from 'react-router-dom';
-import {Fragment, useState, useEffect} from 'react'
-import {Popover, Transition} from '@headlessui/react'
-import {ChevronDownIcon} from '@heroicons/react/20/solid'
+import '../scss/header.scss';
+import ModalSearch from "./ModalSearch.jsx";
 
-const Header = ({cartCounter, searchProductsByName}) => {
+const Header = ({ cartCounter, searchProductsByName }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchResult, setSearchResult] = useState('');
 
@@ -76,7 +75,7 @@ const Header = ({cartCounter, searchProductsByName}) => {
             <div className="container">
                 <div className="header_body">
                     <NavLink to="/" className="header_logo">
-                        <img src={headerLogo} alt="logo"/>
+                        <img src={headerLogo} alt="logo" />
                     </NavLink>
                     <div className="header_burger">
                         <span></span>
@@ -92,7 +91,7 @@ const Header = ({cartCounter, searchProductsByName}) => {
                             <Popover className="dropdown_products">
                                 <Popover.Button className="parents_item" >
                                     <span>Solutions</span>
-                                    <ChevronDownIcon className="dropdown_icon" aria-hidden="true"/>
+                                    <ChevronDownIcon className="dropdown_icon" aria-hidden="true" />
                                 </Popover.Button>
 
                                 <Transition
@@ -130,17 +129,17 @@ const Header = ({cartCounter, searchProductsByName}) => {
                         <ul className="header_icons">
                             <li>
                                 <Link to='/login'>
-                                    <img src={headerUser} alt="user"/>
+                                    <img src={headerUser} alt="user" />
                                 </Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <a href="#" onClick={() => handleSearch()}>
                                     <img src={headerSearch} alt="search"/>
                                 </a>
-                            </li>
-                            <li>
+                            </li> */}
+                            <li className="header__cart-link">
                                 <NavLink to="/cart">
-                                    <img src={headerCart} alt="search"/>
+                                    <img src={headerCart} alt="search" />
                                 </NavLink>
                                 {cartCounter >= 1 && <div className='header_cart_count'>{cartCounter}</div>}
                             </li>

@@ -1,128 +1,121 @@
 @import "mixins";
 
-.cart{
-  padding-top: 150px;
-  .container{
-    background-color: #DCE5E2;
-    border-radius: 32px;
-  }
-  .cart_text{
-    padding-top: 30px;
-  }
-  .empty{
-    @include inter_font;
-    color:$main_color;
-    font-size: 22px;
-    line-height: 40px;
-    margin-top: 20px;
-    @include max-screen(569px){
-      font-size: 20px;
-      line-height: 40px;
-    }
-    @include max-screen(437px){
-      font-size: 20px;
-      line-height: 30px;
-    }
-  }
-  .list-wrap{
-    margin: 30px;
-    .cart-card{
-      justify-content: space-between;
-      border-bottom: 1px solid #C5C5C5;
-    }
+.cart {
+	padding-top: 150px;
+	.container {
+		background-color: #dce5e2;
+		border-radius: 32px;
+	}
+	.cart_text {
+		padding-top: 30px;
+	}
+	.empty {
+		@include inter_font;
+		color: $main_color;
+		font-size: 22px;
+		line-height: 40px;
+		margin-top: 20px;
+		@include max-screen(569px) {
+			font-size: 20px;
+			line-height: 40px;
+		}
+		@include max-screen(437px) {
+			font-size: 20px;
+			line-height: 30px;
+		}
+	}
+	.list-wrap {
+		margin: 30px;
+		.cart-card {
+			justify-content: space-between;
+			border-bottom: 1px solid #c5c5c5;
+		}
 
-    .cart-img {
-      margin-right: 40px;
-      img {
-        width: 120px;
-        height: 140px;
-        object-fit: contain;
-      }
-    }
-  }
-  .cart-right-text{
-    align-items: center;
-    justify-content: space-between;
-    .cart-right-text_name{
-      margin-left: 50px;
-      margin-right: 80px;
-      h3{
-        @include readex_font;
-        color:$main_color;
-        font-size: 24px;
-        line-height: 48px;
-        @include max-screen(569px){
-          font-size: 30px;
-          line-height: 40px;
-        }
-        @include max-screen(437px){
-          font-size: 20px;
-          line-height: 30px;
-        }
-      }
-    }
-    .cart-right-text_button{
-      margin-left: 50px;
-      margin-right: 50px;
-      span{
-        margin-right: 20px;
-        margin-left: 20px;
-      }
-    }
-    .cart-right-text_price {
-      margin-left: 50px;
-      margin-right: 100px;
-      p {
-        @include inter_font;
-        color: $main_color;
-        font-size: 18px;
-        line-height: 19px;
-        @include max-screen(579px) {
-          font-size: 12px;
-          line-height: 15px;
-        }
-      }
-    }
-  }
-  .total{
-    text-align: right;
-    h4{
-      @include readex_font;
-      color:$main_color;
-      font-size: 20px;
-      line-height: 30px;
-      margin-bottom: 10px;
-    }
-  }
+		.cart-img {
+			margin-right: 40px;
+			img {
+				width: 120px;
+				height: 140px;
+				object-fit: contain;
+			}
+		}
+	}
+	.cart-right-text {
+		align-items: center;
+		justify-content: space-between;
+		.cart-right-text_name {
+			margin-left: 50px;
+			margin-right: 80px;
+			h3 {
+				@include readex_font;
+				color: $main_color;
+				font-size: 24px;
+				line-height: 48px;
+				@include max-screen(569px) {
+					font-size: 30px;
+					line-height: 40px;
+				}
+				@include max-screen(437px) {
+					font-size: 20px;
+					line-height: 30px;
+				}
+			}
+		}
+		.cart-right-text_button {
+			margin-left: 50px;
+			margin-right: 50px;
+			span {
+				margin-right: 20px;
+				margin-left: 20px;
+			}
+		}
+		.cart-right-text_price {
+			margin-left: 50px;
+			margin-right: 100px;
+			p {
+				@include inter_font;
+				color: $main_color;
+				font-size: 18px;
+				line-height: 19px;
+				@include max-screen(579px) {
+					font-size: 12px;
+					line-height: 15px;
+				}
+			}
+		}
+	}
+	.total {
+		text-align: right;
+		h4 {
+			@include readex_font;
+			color: $main_color;
+			font-size: 20px;
+			line-height: 30px;
+			margin-bottom: 10px;
+		}
+	}
 
-  button{
-    text-decoration: none;
-    @include inter_font;
-    color:$main_color;
-    font-size: 14px;
-    line-height: 17px;
-    background: #F8F9FA;
-    border: 1px solid #C5C5C5;
-    border-radius: 200px;
-    padding: 12px 22px;
-    @include max-screen(569px){
-      font-size: 10px;
-      line-height: 13px;
-      padding: 6px 12px;
-    }
+	button {
+		text-decoration: none;
+		@include inter_font;
+		color: $main_color;
+		font-size: 14px;
+		line-height: 17px;
+		background: #f8f9fa;
+		border: 1px solid #c5c5c5;
+		border-radius: 200px;
+		padding: 12px 22px;
 
-    &:hover{
-      @include min-screen(767px){
-        color: white;
-        background-color: #151515;
-      }
-    }
-  }
-  .back{
-    button{
-      margin-bottom: 30px;    }
-
-  }
-
+		&:hover {
+			@include min-screen(767px) {
+				color: white;
+				background-color: #151515;
+			}
+		}
+	}
+	.back {
+		button {
+			margin-bottom: 30px;
+		}
+	}
 }
-
